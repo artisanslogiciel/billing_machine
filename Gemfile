@@ -32,6 +32,28 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :test do
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
+  gem 'faker', "~> 1.2.0" 
+  gem 'launchy'
+  gem 'simplecov'
+end
+
+group :development, :test do
+  gem 'sqlite3'
+  gem 'zeus'
+  gem 'rspec-rails', '~> 2.0'
+  gem 'guard-cucumber'
+  gem 'guard-rspec'
+  gem 'guard-rubocop'
+  gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
+  gem 'faker', "~> 1.2.0" 
+end
+
+
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
