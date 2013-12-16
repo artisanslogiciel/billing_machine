@@ -15,6 +15,7 @@ module Api
       end
 
       private
+
         def safe_params
           params.require(:project).permit(:name)
         end

@@ -1,0 +1,10 @@
+h1 Projects
+
+div ng-controller="ProjectCtrl"
+  form ng-submit="addProject()"
+    input id="new-project-name" type="text" ng-model="newProject.name"
+    input id="new-project" type="submit" value="Add"
+
+  ul id="projects"
+    li class="project" ng-repeat="project in projects"
+      '{{project.name}}
