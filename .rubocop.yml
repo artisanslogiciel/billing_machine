@@ -2,3 +2,7 @@ LineLength:
   Enabled: false
 Encoding:
   Enabled: false
+Documentation:
+  Enabled: false
+NumericLiterals:
+  Enabled: false

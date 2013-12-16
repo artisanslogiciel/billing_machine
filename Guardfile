@@ -30,7 +30,7 @@ guard 'cucumber',:all_on_start => false,  command_prefix: 'zeus', bundler: false
   watch(%r{^app/views/(.+)/.*\.(erb|haml)$})          { |m| Dir[File.join("features/#{m[1]}/*.feature")] }
 end
 
-guard :rubocop, all_on_start: false, cli: ['--rails'] do
+guard :rubocop, all_on_start: false, cli: ['-a --rails'] do
   watch(%r{.+\.rb$})
   watch(%r{(?:.+/)?\.rubocop\.yml$}) { |m| File.dirname(m[0]) }
 end
