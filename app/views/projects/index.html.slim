@@ -6,11 +6,12 @@ div ng-controller="ProjectCtrl"
     input id="new-project" type="submit" value="Add"
 
   ul id="projects"
-    li class="project" ng-repeat="project in projects"
-      .show
+    li class="project" ng-repeat="project in projects" bb-name-edit=""
+      .show 
         .name 
           '{{project.name}}
         a id="edit-{{project.id}}" href="" Edit
       .edit
-        input id="edit-project-name-{{project.id}}" ng-model="project.name"
-        input id="submit-project-name-{{project.id}}" type="submit" value="Update" ng-click="update(project)"
+        form
+          input id="edit-project-name-{{project.id}}" ng-model="project.name"
+          input id="submit-project-name-{{project.id}}" type="submit" value="Update" ng-click="update(project)"

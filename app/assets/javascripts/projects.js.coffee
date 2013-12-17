@@ -8,9 +8,20 @@ app.factory "Project", ["$resource", ($resource) ->
   $resource("/api/v1/projects/:id", {id: "@id"}, {update: {method: "PUT"}})
 ]
 
-@ProjectCtrl = ["$scope", "Project", ($scope, Project) ->
+app.directive 'bbNameEdit', ->
+  return (scope, element) ->
+    element.find('.edit').hide()
+    element.find('.show a').bind 'click', -> 
+      element.find('.show').hide()
+      element.find('.edit').show()
+    element.find('.edit :submit').bind 'click', -> 
+      element.find('.show').show()
+      element.find('.edit').hide()
+
+
+app.controller 'ProjectCtrl', ["$scope", "Project", ($scope, Project) ->
   $scope.projects = Project.query()
-  
+
   $scope.addProject = ->
     project = Project.save($scope.newProject)
     $scope.projects.push(project)
