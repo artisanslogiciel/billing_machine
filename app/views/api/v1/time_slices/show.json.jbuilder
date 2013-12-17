@@ -1,0 +1,1 @@
+json.(@time_slice, :id, :duration, :project_id, :activity_id)

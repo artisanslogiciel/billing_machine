@@ -39,4 +39,8 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
+
+  config.include Requests::JsonHelpers, type: :request
 end
+
+I18n.enforce_available_locales = false
