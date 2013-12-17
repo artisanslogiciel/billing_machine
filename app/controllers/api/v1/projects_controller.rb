@@ -14,6 +14,12 @@ module Api
         render :show
       end
 
+      def update
+        @project = Project.find(params[:id])
+        @project.update(safe_params)
+        render :show
+      end
+
       private
 
         def safe_params

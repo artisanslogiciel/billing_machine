@@ -7,4 +7,10 @@ div ng-controller="ProjectCtrl"
 
   ul id="projects"
     li class="project" ng-repeat="project in projects"
-      '{{project.name}}
+      .show
+        .name 
+          '{{project.name}}
+        a id="edit-{{project.id}}" href="" Edit
+      .edit
+        input id="edit-project-name-{{project.id}}" ng-model="project.name"
+        input id="submit-project-name-{{project.id}}" type="submit" value="Update" ng-click="update(project)"

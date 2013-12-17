@@ -15,4 +15,7 @@ app.factory "Project", ["$resource", ($resource) ->
     project = Project.save($scope.newProject)
     $scope.projects.push(project)
     $scope.newProject = {}
+
+  $scope.update = (project) ->
+    project.$update()
 ]
