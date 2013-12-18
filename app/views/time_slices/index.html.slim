@@ -1,1 +1,17 @@
 h1 Time Lapse
+
+div ng-controller="TimeSliceCtrl"
+  form ng-submit="addTimeSlice()"
+    input id='new-time-slice-duration' type="text" ng-model="newTimeSlice.duration"
+    input id='new-time-slice-submit' type="submit" value="Add"
+
+  ul id="time-slices"
+    li class="time-slice" ng-repeat="timeslice in timeslices"
+      .show 
+        .duration 
+          '{{timeslice.duration}}
+        a id="edit-{{timeslice.id}}" href="" Edit
+      .edit
+        form
+          input id="edit-time-slice-duration-{{timeslice.id}}" ng-model="timeslice.duration"
+          input id="submit-time-slice-{{timeslice.id}}" type="submit" value="Update" ng-click="update(timeslice)"

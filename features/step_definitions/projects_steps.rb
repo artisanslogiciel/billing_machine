@@ -33,9 +33,11 @@ end
 
 Then(/^the project is added to the project list$/) do
   page.should have_selector 'li.project .name', text: @project_name
+  reload_the_page
+  page.should have_selector 'li.project .name', text: @project_name
 end
 
 Then(/^the project's name is updated$/) do
-  visit('/projects')
+  reload_the_page
   page.should have_selector 'li.project .name', text: @new_name
 end
