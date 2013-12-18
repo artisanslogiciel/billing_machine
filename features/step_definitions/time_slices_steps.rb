@@ -12,13 +12,16 @@ end
 
 When(/^he creates a new time slice$/) do
   fill_in 'new-time-slice-duration', with: '4.23'
+  fill_in 'new-time-slice-comment', with: 'Hello World'
   click_button 'new-time-slice-submit'
 end
 
 Then(/^the time slice is added to the list$/) do
   expect(page).to have_selector 'li.time-slice .duration', text: '4.23'
+  expect(page).to have_selector 'li.time-slice .comment', text: 'Hello World'
   reload_the_page
   expect(page).to have_selector 'li.time-slice .duration', text: '4.23'
+  expect(page).to have_selector 'li.time-slice .comment', text: 'Hello World'
 end
 
 When(/^he edits the time slices' duration$/) do

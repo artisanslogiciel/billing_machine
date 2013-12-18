@@ -2,16 +2,29 @@ h1 Time Lapse
 
 div ng-controller="TimeSliceCtrl"
   form ng-submit="addTimeSlice()"
+    select ng-model="newTimeSlice.project_id" ng-options="project.id as project.name for project in projects"
+    select ng-model="newTimeSlice.activity_id" ng-options="activity.id as activity.label for activity in activities"
+
     input id='new-time-slice-duration' type="text" ng-model="newTimeSlice.duration"
+    input id='new-time-slice-comment' type="textarea" ng-model="newTimeSlice.comment"
     input id='new-time-slice-submit' type="submit" value="Add"
 
   ul id="time-slices"
     li class="time-slice" ng-repeat="timeslice in timeslices"
       .show 
+        .project 
+          '{{timeslice.project_id}}
+        .activity 
+          '{{timeslice.activity_id}}
         .duration 
           '{{timeslice.duration}}
+        .comment 
+          '{{timeslice.comment}}
         a id="edit-{{timeslice.id}}" href="" Edit
       .edit
         form
-          input id="edit-time-slice-duration-{{timeslice.id}}" ng-model="timeslice.duration"
+          select ng-model="timeslice.project_id" ng-options="project.id as project.name for project in projects"
+          select ng-model="timeslice.activity_id" ng-options="activity.id as activity.label for activity in activities"
+          input id="edit-time-slice-duration-{{timeslice.id}}" type="text" ng-model="timeslice.duration"
+          input id="edit-time-slice-comment-{{timeslice.id}}" type="textarea" ng-model="timeslice.comment"
           input id="submit-time-slice-{{timeslice.id}}" type="submit" value="Update" ng-click="update(timeslice)"

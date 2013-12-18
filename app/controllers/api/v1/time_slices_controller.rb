@@ -19,7 +19,7 @@ module Api
       private
 
         def safe_params
-          params.require(:time_slice).permit(:duration, :project_id, :activity_id)
+          params.require(:time_slice).permit(:duration, :project_id, :activity_id, :comment)
         end
     end
   end

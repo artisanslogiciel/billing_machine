@@ -12,10 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap
 //= require angular
 //= require angular-resource
 //= require turbolinks
 //= require_self
-//= require_tree .
+//= require_tree ./factories
+//= require_tree ./directives
+//= require_tree ./controllers
 
 app = angular.module("Backbone", ["ngResource"])
