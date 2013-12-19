@@ -17,11 +17,11 @@ When(/^he creates a new time slice$/) do
 end
 
 Then(/^the time slice is added to the list$/) do
-  expect(page).to have_selector 'li.time-slice .duration', text: '4.23'
-  expect(page).to have_selector 'li.time-slice .comment', text: 'Hello World'
+  expect(page).to have_selector '.time-slice .duration', text: '4.23'
+  expect(page).to have_selector '.time-slice .comment', text: 'Hello World'
   reload_the_page
-  expect(page).to have_selector 'li.time-slice .duration', text: '4.23'
-  expect(page).to have_selector 'li.time-slice .comment', text: 'Hello World'
+  expect(page).to have_selector '.time-slice .duration', text: '4.23'
+  expect(page).to have_selector '.time-slice .comment', text: 'Hello World'
 end
 
 When(/^he edits the time slices' duration$/) do
@@ -39,7 +39,7 @@ When(/^he validates the new duration$/) do
 end
 
 Then(/^the time slices' duration is updated$/) do
-  page.should have_selector 'li.time-slice .duration', text: @new_duration
+  page.should have_selector '.time-slice .duration', text: @new_duration
   reload_the_page
-  page.should have_selector 'li.time-slice .duration', text: @new_duration
+  page.should have_selector '.time-slice .duration', text: @new_duration
 end

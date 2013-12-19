@@ -1,30 +1,57 @@
 h1 Time Lapse
 
 div ng-controller="TimeSliceCtrl"
-  form ng-submit="addTimeSlice()"
-    select ng-model="newTimeSlice.project_id" ng-options="project.id as project.name for project in projects"
-    select ng-model="newTimeSlice.activity_id" ng-options="activity.id as activity.label for activity in activities"
+  table class="table table-striped table-hover" id="time-slices"
+    thead
+      tr
+        th Project
+        th Duration
+        th Activity
+        th Comment
+        th Action
+    tbody
 
-    input id='new-time-slice-duration' type="text" ng-model="newTimeSlice.duration"
-    input id='new-time-slice-comment' type="textarea" ng-model="newTimeSlice.comment"
-    input id='new-time-slice-submit' type="submit" value="Add"
+      tr 
+        form ng-submit="addTimeSlice()"
+          td 
+            select ng-model="newTimeSlice.project_id" ng-options="project.id as project.name for project in projects"
+          td 
+            input id='new-time-slice-duration' type="text" ng-model="newTimeSlice.duration" 
+          td
+            select ng-model="newTimeSlice.activity_id" ng-options="activity.id as activity.label for activity in activities"  
+          td
+            input id='new-time-slice-comment' type="textarea" ng-model="newTimeSlice.comment"
+          td
+            input id='new-time-slice-submit' type="submit" value="Add" class="btn btn-success btn-sm"
 
-  ul id="time-slices"
-    li class="time-slice" ng-repeat="timeslice in timeslices"
-      .show 
-        .project 
-          '{{timeslice.project_id}}
-        .activity 
-          '{{timeslice.activity_id}}
-        .duration 
-          '{{timeslice.duration}}
-        .comment 
-          '{{timeslice.comment}}
-        a id="edit-{{timeslice.id}}" href="" Edit
-      .edit
-        form
-          select ng-model="timeslice.project_id" ng-options="project.id as project.name for project in projects"
-          select ng-model="timeslice.activity_id" ng-options="activity.id as activity.label for activity in activities"
-          input id="edit-time-slice-duration-{{timeslice.id}}" type="text" ng-model="timeslice.duration"
-          input id="edit-time-slice-comment-{{timeslice.id}}" type="textarea" ng-model="timeslice.comment"
-          input id="submit-time-slice-{{timeslice.id}}" type="submit" value="Update" ng-click="update(timeslice)"
+      tr class="time-slice" ng-repeat="timeslice in timeslices" bb-item-edit=""
+        td 
+          .project.bb-show
+            '{{ projectName(timeslice.project_id) }}
+          .project.bb-edit
+            select ng-model="timeslice.project_id" ng-options="project.id as project.name for project in projects"
+        td 
+          .duration.bb-show
+            '{{timeslice.duration}}
+          .duration.bb-edit
+            input id="edit-time-slice-duration-{{timeslice.id}}" type="text" ng-model="timeslice.duration"
+        td 
+          .activity.bb-show
+            '{{ activityLabel(timeslice.activity_id)}}
+          .activity.bb-edit
+            select ng-model="timeslice.activity_id" ng-options="activity.id as activity.label for activity in activities"
+        td
+          .comment.bb-show
+            '{{timeslice.comment}}
+          .comment.bb-edit
+            input id="edit-time-slice-comment-{{timeslice.id}}" type="textarea" ng-model="timeslice.comment"
+        td
+          .action.bb-show
+            a id="edit-{{timeslice.id}}" href="" Edit
+          .action.bb-edit
+            input id="submit-time-slice-{{timeslice.id}}" type="submit" class="btn btn-success btn-sm" value="Update" ng-click="update(timeslice)"
+          
+          
+          
+          
+          
