@@ -1,4 +1,6 @@
 Backbone::Application.routes.draw do
+  devise_for :users
+  root to: 'static_pages#index'
   resources :projects, only: [:index]
   resources :time_slices, only: [:index]
 

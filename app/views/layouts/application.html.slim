@@ -1,0 +1,33 @@
+doctype html
+html ng-app='Backbone'
+head
+  title Backbone
+  = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true 
+  = javascript_include_tag "application", "data-turbolinks-track" => true 
+  = csrf_meta_tags 
+
+body
+
+  div class="container"
+    - if signed_in? 
+      div class="masthead"
+        h3 class="text-muted" Backbone
+        ul class="nav nav-justified"
+          li
+            a href="" Dashboard
+          li
+            = link_to 'Projects', projects_path 
+          li
+            = link_to 'Time Lapse', time_slices_path 
+          li
+            = link_to 'Logout', destroy_user_session_path, method: :delete
+    - else
+      = link_to 'Login', new_user_session_path 
+
+    p class="alert"
+      = alert 
+    p class="notice"
+      = notice
+
+    == yield 
+

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ProjectsController do
+describe TimeSlicesController do
   context 'when not authenticated' do
     describe '#index' do
       it 'should refuse access' do

@@ -1,6 +1,8 @@
 require 'securerandom'
 
 Given(/^a user on the projects page$/) do
+  @user = FactoryGirl.create(:user)
+  sign_in @user
   visit('/projects')
 end
 

@@ -6,3 +6,10 @@ Documentation:
   Enabled: false
 NumericLiterals:
   Enabled: false
+NumericLiterals:
+  Enabled: false  
+
+AllCops:
+  Excludes:
+    - db/**
+    - config/**

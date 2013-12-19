@@ -6,30 +6,44 @@ describe 'Time Slices management' do
     @time_slice = FactoryGirl.create(:time_slice)
   end
 
-  describe '#index' do
-    it 'returns all time slices' do
-      get '/api/v1/time_slices'
-
-      expect(json.size).to eq(1)
-      expect(json[0]['id']).to eq(@time_slice.id)
+  context 'when not authenticated' do
+    describe '#index' do
+      it 'refuses access' do
+        get '/api/v1/time_slices'
+        expect(response.status).to_not eq(200)
+      end
     end
   end
 
-  describe '#create' do
-    it 'returns the newly created item' do
-      post '/api/v1/time_slices', time_slice: FactoryGirl.attributes_for(:time_slice)
-
-      expect(json['id']).to eq(TimeSlice.last.id)
+  context 'when authenticated' do
+    before(:each) do
+      sign_in_as_a_valid_user
     end
-  end
+    describe '#index' do
+      it 'returns all time slices' do
+        get '/api/v1/time_slices'
 
-  describe '#create' do
-    it 'returns the newly created item' do
-      new_duration = @time_slice.duration + 2
+        expect(json.size).to eq(1)
+        expect(json[0]['id']).to eq(@time_slice.id)
+      end
+    end
 
-      put "/api/v1/time_slices/#{@time_slice.id}", time_slice: { duration: new_duration }
+    describe '#create' do
+      it 'returns the newly created item' do
+        post '/api/v1/time_slices', time_slice: FactoryGirl.attributes_for(:time_slice)
 
-      expect(json['duration'].to_d).to eq(new_duration)
+        expect(json['id']).to eq(TimeSlice.last.id)
+      end
+    end
+
+    describe '#create' do
+      it 'returns the newly created item' do
+        new_duration = @time_slice.duration + 2
+
+        put "/api/v1/time_slices/#{@time_slice.id}", time_slice: { duration: new_duration }
+
+        expect(json['duration'].to_d).to eq(new_duration)
+      end
     end
   end
 end
