@@ -41,6 +41,9 @@ group :development, :test do
   gem 'faker', "~> 1.2.0" 
 end
 
+group :production, :staging do
+  gem 'therubyracer'
+end
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
