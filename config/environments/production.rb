@@ -26,7 +26,7 @@ Backbone::Application.configure do
   # config.assets.js_compressor = :uglifier
 
   # Avoid angular issues
-  config.assets.js_compressor = Sprockets::LazyCompressor.new { Uglifier.new(mangle: false) }
+  config.assets.js_compressor = Uglifier.new(mangle: false)
 
   # config.assets.css_compressor = :sass
 
