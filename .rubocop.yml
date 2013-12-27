@@ -8,6 +8,8 @@ NumericLiterals:
   Enabled: false
 NumericLiterals:
   Enabled: false  
+Eval:
+  Enabled: false
 
 AllCops:
   Excludes:
