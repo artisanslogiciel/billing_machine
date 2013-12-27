@@ -5,7 +5,7 @@ app.controller "TimeSliceCtrl", ["$scope", "TimeSlice", "Project", "Activity", (
 
   $scope.addTimeSlice = ->
     timeslice = TimeSlice.save($scope.newTimeSlice)
-    $scope.timeslices.push(timeslice)
+    $scope.timeslices.splice(0,0,timeslice)
     $scope.newTimeSlice = {}
 
   $scope.update = (timeslice) ->

@@ -24,9 +24,9 @@ module Api
 
           safe_p[:duration].gsub!(',' , '.')
           if safe_p[:duration][0] == '='
+            require 'mathn'
             cleaned = safe_p[:duration].gsub(/[^0-9+-\/*]/, '')
-            safe_p[:duration] = eval(cleaned)
-            puts cleaned
+            safe_p[:duration] = eval(cleaned).to_f
           end
 
           safe_p.permit(:duration, :project_id, :activity_id, :comment, :day)
