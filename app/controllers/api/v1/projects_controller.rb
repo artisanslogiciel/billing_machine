@@ -2,7 +2,8 @@ module Api
   module V1
     class ProjectsController <  ApiController
       def index
-        respond_with Project.all
+        @projects = Project.all.order(:name)
+        respond_with @projects
       end
 
       def show
