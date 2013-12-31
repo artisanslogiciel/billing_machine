@@ -11,14 +11,21 @@ module Api
       end
 
       def create
-        @project = Project.create(safe_params)
-        render :show
+        @project = Project.new(safe_params)
+        if @project.save
+          render :show
+        else
+          render json: @project.errors.full_messages, status: 422
+        end
       end
 
       def update
         @project = Project.find(params[:id])
-        @project.update(safe_params)
-        render :show
+        if @project.update(safe_params)
+          render :show
+        else
+          render json: @project.errors.full_messages, status: 422
+        end
       end
 
       private

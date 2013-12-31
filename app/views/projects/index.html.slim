@@ -1,12 +1,12 @@
 h1 Projects
 
 div ng-controller="ProjectCtrl"
-  form ng-submit="addProject()"
-    input id="new-project-name" type="text" ng-model="newProject.name"
-    input id="new-project" type="submit" value="Add"
 
   ul id="projects"
-    li class="project" ng-repeat="project in projects" bb-item-edit=""
+    li class="project" ng-repeat="project in projects" bb-item-edit=""      
+      ul class='errors' ng-show='project.errors'
+        li class="error" ng-repeat="error in project.errors"
+          '{{error}}
       .bb-show 
         .name 
           '{{project.name}}
@@ -15,3 +15,10 @@ div ng-controller="ProjectCtrl"
         form
           input id="edit-project-name-{{project.id}}" ng-model="project.name"
           input id="submit-project-name-{{project.id}}" type="submit" value="Update" ng-click="update(project)"
+
+  form ng-submit="addProject()"
+    ul class='errors' ng-show='newProject.errors'
+      li class="error" ng-repeat="error in newProject.errors"
+        '{{error}}
+    input id="new-project-name" type="text" ng-model="newProject.name"
+    input id="new-project" type="submit" value="Add"
