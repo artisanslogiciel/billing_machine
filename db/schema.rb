@@ -11,9 +11,66 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131219151007) do
+ActiveRecord::Schema.define(version: 20140219122253) do
 
   create_table 'activities', force: true do |t|
+    t.string   'label'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+  end
+
+  create_table 'customers', force: true do |t|
+    t.string   'name'
+    t.string   'address1'
+    t.string   'address2'
+    t.integer  'zip'
+    t.string   'city'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+  end
+
+  create_table 'entities', force: true do |t|
+    t.string   'name'
+    t.string   'address1'
+    t.string   'address2'
+    t.integer  'zip'
+    t.string   'city'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+  end
+
+  create_table 'invoice_lines', force: true do |t|
+    t.string   'label'
+    t.decimal  'quantity'
+    t.string   'unit'
+    t.decimal  'unit_price'
+    t.decimal  'total'
+    t.integer  'invoice_id'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+  end
+
+  add_index 'invoice_lines', ['invoice_id'], name: 'index_invoice_lines_on_invoice_id'
+
+  create_table 'invoices', force: true do |t|
+    t.date     'date'
+    t.integer  'customer_id'
+    t.integer  'payment_term_id'
+    t.string   'label'
+    t.decimal  'total_duty'
+    t.decimal  'vat'
+    t.decimal  'total_all_taxes'
+    t.decimal  'advance'
+    t.decimal  'balance'
+    t.integer  'entity_id'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
+  end
+
+  add_index 'invoices', ['customer_id'], name: 'index_invoices_on_customer_id'
+  add_index 'invoices', ['entity_id'], name: 'index_invoices_on_entity_id'
+
+  create_table 'payment_terms', force: true do |t|
     t.string   'label'
     t.datetime 'created_at'
     t.datetime 'updated_at'
