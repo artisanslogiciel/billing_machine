@@ -3,12 +3,14 @@ Backbone::Application.routes.draw do
   root to: 'static_pages#index'
   resources :projects, only: [:index]
   resources :time_slices, only: [:index]
+  resources :invoices, only: [:index]
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
-      resources :projects, only: [:show, :index, :create, :update]
-      resources :activities, only: [:index]
+      resources :projects, only: [:index, :create, :update]
+      resources :invoices, only: [:index, :create, :update]
       resources :time_slices, only: [:index, :create, :update]
+      resources :activities, only: [:index]
     end
   end
 end

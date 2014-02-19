@@ -20,7 +20,7 @@ describe 'Time Slices management' do
       sign_in_as_a_valid_user
     end
     describe '#index' do
-      it 'returns all time slices' do
+      it 'returns all items' do
         get '/api/v1/time_slices'
 
         expect(json.size).to eq(1)
@@ -36,8 +36,8 @@ describe 'Time Slices management' do
       end
     end
 
-    describe '#create' do
-      it 'returns the newly created item' do
+    describe '#update' do
+      it 'returns the updated item' do
         new_duration = @time_slice.duration + 2
 
         put "/api/v1/time_slices/#{@time_slice.id}", time_slice: { duration: new_duration }
