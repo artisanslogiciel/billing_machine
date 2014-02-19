@@ -1,6 +1,5 @@
 Given(/^a user on the time slices' section$/) do
-  @user = FactoryGirl.create(:user)
-  sign_in @user
+  step('an existing user')
   visit('/time_slices')
 end
 
