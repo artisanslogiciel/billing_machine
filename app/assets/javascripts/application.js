@@ -15,11 +15,11 @@
 //= require bootstrap
 //= require underscore
 //= require angular
+//= require angular-route
 //= require angular-resource
 //= require turbolinks
-//= require_self
+//= require main
 //= require_tree ./factories
 //= require_tree ./directives
 //= require_tree ./controllers
 
-app = angular.module("Backbone", ["ngResource"])

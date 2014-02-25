@@ -1,0 +1,11 @@
+@app = angular.module("Backbone", ["ngResource", "ngRoute"])
+
+@app.config(($routeProvider) -> 
+  $routeProvider
+    .when('/invoices',
+      templateUrl: "/assets/invoices/index.html",
+      controller: "InvoicesCtrl")
+    .when('/invoices/new',
+      templateUrl: "/assets/invoices/new.html",
+      controller: "InvoiceCtrl")
+)

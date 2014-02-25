@@ -1,4 +1,4 @@
-app.controller 'ProjectCtrl', ["$scope", "Project", ($scope, Project) ->
+@app.controller 'ProjectCtrl', ["$scope", "Project", ($scope, Project) ->
   $scope.newProject = 
     name: ''
   $scope.projects = Project.query()

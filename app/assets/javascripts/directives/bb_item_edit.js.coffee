@@ -1,4 +1,4 @@
-app.directive 'bbItemEdit', ->
+@app.directive 'bbItemEdit', ->
   return (scope, element) ->
     element.find('.bb-edit').hide()
     element.find('.bb-show a').bind 'click', -> 
