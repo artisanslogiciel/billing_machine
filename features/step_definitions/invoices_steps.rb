@@ -1,6 +1,6 @@
 
 Given(/^an existing customer$/) do
-  pending # express the regexp above with the code you wish you had
+  @customer = FactoryGirl.create(:customer, entity: @user.entity)
 end
 
 When(/^the user goes to the invoices page$/) do

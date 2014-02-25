@@ -7,5 +7,6 @@ FactoryGirl.define do
     address2 'MyString'
     zip 1
     city 'MyString'
+    entity
   end
 end

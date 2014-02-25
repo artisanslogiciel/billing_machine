@@ -4,4 +4,5 @@ describe User do
   it 'should have a valid factory' do
     expect(FactoryGirl.build(:user)).to be_valid
   end
+  it {should belong_to :entity}
 end

@@ -10,5 +10,6 @@ FactoryGirl.define do
     last_name 'Doe'
     email
     password 'motdepasse'
+    entity
   end
 end
