@@ -1,25 +1,24 @@
-h1 Invoices
-
-div ng-controller="ProjectCtrl"
-
-  ul id="projects"
-    li class="project" ng-repeat="project in projects" bb-item-edit=""      
-      ul class='errors' ng-show='project.errors'
-        li class="error" ng-repeat="error in project.errors"
-          '{{error}}
-      .bb-show 
-        .name 
-          '{{project.name}}
-        a id="edit-{{project.id}}" href="" Edit
-      .bb-edit
-        form
-          input id="edit-project-name-{{project.id}}" ng-model="project.name"
-          input id="submit-project-name-{{project.id}}" type="submit" value="Update" ng-click="update(project)"
-
-  form ng-submit="addProject()"
-    ul class='errors' ng-show='newProject.errors'
-      li class="error" ng-repeat="error in newProject.errors"
-        '{{error}}
-    input id="new-project-name" type="text" ng-model="newProject.name"
-    input id="new-project" type="submit" value="Add"
-
+.head
+  h1 Factures
+  .actions
+    a.btn.btn-primary.btn-lg id='new-invoice' href='#' Nouvelle facture
+.row.header
+  .col-sm-2.col-xs-3.date Date
+  .col-sm-4.col-xs-6.customer Client
+  .col-sm-2.col-xs-3.total-duty Montant HT
+  .col-sm-4.col-xs-12.action Action 
+.row
+  .col-sm-2.col-xs-3.date 02/11/2014
+  .col-sm-4.col-xs-6.customer Azur Plongée
+  .col-sm-2.col-xs-3.total-duty 3.234,56€
+  .col-sm-4.col-xs-12.action Télécharger - Voir - Envoyer 
+.row
+  .col-sm-2.col-xs-3 02/11/2014
+  .col-sm-4.col-xs-6 Campus ID
+  .col-sm-2.col-xs-3 13.234,56€
+  .col-sm-4.col-xs-12 Télécharger - Voir - Envoyer 
+.row
+  .col-sm-2.col-xs-3 02/11/2014
+  .col-sm-4.col-xs-6 Webportage
+  .col-sm-2.col-xs-3 35.234,56€
+  .col-sm-4.col-xs-12 Télécharger - Voir - Envoyer 

@@ -1,0 +1,38 @@
+.row {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid #dddddd;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.row:nth-child(odd) {background: #FFF}
+.row:nth-child(even) {background: #f9f9f9}
+.row.header {
+  font-weight: bold;
+  border-bottom: 1px solid #dddddd;
+  border-top: 0px 
+}
+.head {
+  h1 {
+    float: left;
+  }
+  .actions {
+    float: right;
+    margin-top: 22px;
+    .btn {
+      margin-left: 10px;
+    }
+  }
+}
+.head:after {
+  clear: both;  
+  display: block;
+  height: 0;
+  content: '';
+}
+
+@media (max-width: 768px) { 
+  .row.header .action {
+    display: none;
+  }
+}

@@ -40,6 +40,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'faker', "~> 1.2.0" 
+  gem 'quiet_assets'
 end
 
 group :production, :staging do
