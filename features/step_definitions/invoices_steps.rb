@@ -4,15 +4,17 @@ Given(/^an existing customer$/) do
 end
 
 When(/^the user goes to the invoices page$/) do
-  pending # express the regexp above with the code you wish you had
+  visit(invoices_path)
 end
 
 When(/^he creates a new invoice$/) do
-  pending # express the regexp above with the code you wish you had
+  click_link 'new-invoice'
 end
 
 When(/^he fills the reference, the date and the payment terms$/) do
-  pending # express the regexp above with the code you wish you had
+  fill_in 'invoice-reference', with: 'My reference'
+  fill_in 'invoice-date', with: '2014-01-01'
+  select PaymentTerm.first.label
 end
 
 When(/^he adds a line "(.*?)", "(.*?)", "(.*?)", "(.*?)"$/) do |arg1, arg2, arg3, arg4|
