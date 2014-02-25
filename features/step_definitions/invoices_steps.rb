@@ -4,7 +4,8 @@ Given(/^an existing customer$/) do
 end
 
 When(/^the user goes to the invoices page$/) do
-  visit(invoices_path)
+  visit('/')
+  click_link 'invoices'
 end
 
 When(/^he creates a new invoice$/) do

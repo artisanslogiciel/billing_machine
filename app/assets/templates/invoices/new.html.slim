@@ -2,3 +2,8 @@
   h1 Nouvelle Facture
   .actions
     a.btn.btn-primary.btn-lg id='new-invoice' href='#/invoices/' Liste
+
+form ng-submit="addTimeSlice()"
+  input id='invoice-reference' type="text" ng-model="invoice.duration" 
+  input id='invoice-date' type="text" ng-model="invoice.date" 
+  select id='invoice-payment-term' ng-model="invoice.payment_term" ng-options="payment_term.id as payment_term.label for payment_term in payment_terms"

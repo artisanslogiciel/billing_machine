@@ -20,7 +20,7 @@ body
           li
             = link_to 'Time Lapse', time_slices_path 
           li
-            = link_to 'Billing Machine', invoices_path 
+            = link_to 'Billing Machine', '/invoices#/invoices', id: 'invoices'
           li
             = link_to 'Logout', destroy_user_session_path, method: :delete
     - else

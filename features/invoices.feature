@@ -3,6 +3,7 @@ Feature: Invoice Management
   I want to create invoices
   In order to get paid!
 
+  @javascript
   Scenario: New invoice for existing customer
     Given an existing user
     And an existing customer
