@@ -12,6 +12,6 @@ Feature: Invoice Management
     And he fills the reference, the date and the payment terms
     And he adds a line "Bidule", "4", "€", "10"
     And he adds a line "Machin truc", "8", "€", "20"
-    Then the total duty is "200.00"_
+    Then the total duty is "200.00"
     And the total all taxes included is "240.00"
     And the balance due is "240.00"

@@ -22,7 +22,7 @@ When(/^he adds a line "(.*?)", "(.*?)", "(.*?)", "(.*?)"$/) do |arg1, arg2, arg3
   pending # express the regexp above with the code you wish you had
 end
 
-Then(/^the total duty is "(.*?)"_$/) do |arg1|
+Then(/^the total duty is "(.*?)"$/) do |arg1|
   pending # express the regexp above with the code you wish you had
 end
 
