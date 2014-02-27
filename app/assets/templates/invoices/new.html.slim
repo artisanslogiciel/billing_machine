@@ -3,10 +3,96 @@
   .actions
     a.btn.btn-primary.btn-lg id='new-invoice' href='#/invoices/' Liste
 
-form ng-submit="addTimeSlice()" class="form invoice"
-  .infos
-    input id='invoice-reference' type="text" ng-model="invoice.duration" 
-    input id='invoice-date' type="text" ng-model="invoice.date" 
-    select id='invoice-payment-term' ng-model="invoice.payment_term" ng-options="payment_term.id as payment_term.label for payment_term in payment_terms"
-  .customer
-    select id='invoice-customer' ng-model="invoice.customer" ng-options="customer.id as customer.name for customer in customers"
+form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
+  .head
+    .infos
+      .form-group
+        label for='invoice-reference' class='col-sm-5 control-label' Référence
+        .col-sm-7
+          input.form-control id='invoice-reference' type="text" ng-model="invoice.reference" 
+      .form-group
+        label for='invoice-date' class='col-sm-5 control-label' Date
+        .col-sm-7
+          input.form-control id='invoice-date' type="text" ng-model="invoice.date" 
+      .form-group
+        label for='invoice-payment-term' class='col-sm-5 control-label' Paiement
+        .col-sm-7
+          select.form-control id='invoice-payment-term' ng-model="invoice.payment_term" ng-options="payment_term.id as payment_term.label for payment_term in payment_terms"
+    .customer
+      .form-group
+        label for='invoice-customer' class='col-sm-5 control-label' Client
+        .col-sm-7
+          select.form-control id='invoice-customer' ng-model="invoice.customer_id" ng-options="customer.id as customer.name for customer in customers"
+      .form-group
+        label class='col-sm-5 control-label' Addresse
+        .col-sm-7
+          .form-control-static.customer-address1 ng-bind="customer().address1"
+      .form-group
+        label.customer-address2 class='col-sm-5 control-label' &nbsp;
+        .col-sm-7
+          .form-control-static.customer-address2 ng-bind="customer().address2"
+      .form-group
+        label class='col-sm-5 control-label' Code postal
+        .col-sm-7
+          .form-control-static.customer-zip ng-bind="customer().zip"
+      .form-group
+        label class='col-sm-5 control-label' Ville
+        .col-sm-7
+          .form-control-static.customer-city ng-bind="customer().city"
+  .body
+    .row.header
+      .col-sm-4.col-xs-12.line-label Intitulé
+      .col-sm-1.col-xs-6.line-quantity Quantité
+      .col-sm-1.col-xs-6.line-unit Unité
+      .col-sm-2.col-xs-6.line-unit-price Prix unitaire
+      .col-sm-2.col-xs-6.line-total Total
+      .col-sm-2.col-xs-6.actions Actions
+    .row
+      .col-sm-4.col-xs-12.line-label Développement sur mesure
+      .col-sm-1.col-xs-6.line-quantity 12
+      .col-sm-1.col-xs-6.line-unit jour.homme
+      .col-sm-2.col-xs-6.line-unit-price 350€
+      .col-sm-2.col-xs-6.line-total 4.200€
+      .col-sm-2.col-xs-6.actions
+    .row
+      .col-sm-4.col-xs-12.line-label Développement sur mesure
+      .col-sm-1.col-xs-6.line-quantity 12
+      .col-sm-1.col-xs-6.line-unit jour.homme
+      .col-sm-2.col-xs-6.line-unit-price 350€
+      .col-sm-2.col-xs-6.line-total 4.200€
+      .col-sm-2.col-xs-6.actions
+    .row
+      .col-sm-4.col-xs-12.line-label Développement sur mesure
+      .col-sm-1.col-xs-6.line-quantity 12
+      .col-sm-1.col-xs-6.line-unit jour.homme
+      .col-sm-2.col-xs-6.line-unit-price 350€
+      .col-sm-2.col-xs-6.line-total 4.200€
+      .col-sm-2.col-xs-6.actions
+    .row.new-line
+      .col-sm-4.col-xs-12.line-label 
+          input.form-control id='new-line-label' type="text" ng-model="new_line.label" 
+      .col-sm-1.col-xs-6.line-quantity 
+          input.form-control id='new-line-quantity' type="text" ng-model="new_line.quantity" 
+      .col-sm-1.col-xs-6.line-unit 
+          input.form-control id='new-line-unit' type="text" ng-model="new_line.unit" 
+      .col-sm-2.col-xs-6.line-unit-price 
+          input.form-control id='new-line-unit-price' type="text" ng-model="new_line.unit_price" 
+      .col-sm-2.col-xs-6.line-total ng-bind="new_line_total()"
+      .col-sm-2.col-xs-6.actions
+          a.btn.btn-success.btn-sm#add-new-line ng-click="add_new_line()" href='' Ajouter
+
+
+
+  .total
+    .form-group
+      label class='col-sm-5 control-label' Montant HT
+      .col-sm-7
+        .form-control-static.invoice-total-duty ng-bind="invoice_total_duty()" 
+    .form-group
+      label class='col-sm-5 control-label' TVA (20.0%)
+      .col-sm-7
+        .form-control-static.invoice-vat ng-bind="invoice_vat()"  
+    .form-group
+      label class='col-sm-5 control-label' Montant TTC
+      .col-sm-7
+        .form-control-static.invoice-total-taxes ng-bind="invoice_total_taxes()"

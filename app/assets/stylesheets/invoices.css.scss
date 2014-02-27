@@ -13,6 +13,7 @@
   border-top: 0px 
 }
 .head {
+  margin-bottom: 30px;
   h1 {
     float: left;
   }
@@ -24,15 +25,51 @@
     }
   }
 }
-.head:after {
+.head:after, .customer:after {
   clear: both;  
   display: block;
   height: 0;
   content: '';
 }
 
+.invoice {
+  .infos {
+    float: left;
+    width: 50%;
+  }
+  .customer {
+    float: right;
+    width: 50%;
+  }
+  .total {
+    float: right;
+    width: 50%;
+    margin-top: 30px;
+  }
+  .body {
+    border-bottom: 1px solid #ddd;
+  }
+}
+
 @media (max-width: 768px) { 
-  .row.header .action {
-    display: none;
+  .row.header{
+    .action, .line-unit, .line-unit-price, .line-total, .line-quantity {
+      display: none;
+    }
+  }
+  .invoice {
+    .infos {
+      width: 100%;
+    }
+    .customer {
+      float: left;
+      width: 100%;
+    }
+    label.customer-address2 {
+      display: none;
+    }
+    .total {
+      width: 100%;
+    }
   }
 }
