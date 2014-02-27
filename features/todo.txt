@@ -1,0 +1,29 @@
+- un établissement (nom, adresse, RCS, SIRET, NAF, ... ... et tout le toutime)
+- des clients (Nom, ..., ..., MAIL !, ..., IBAN, SWIFT, ...)
+- des factures
+  => 2 natures : Facture ou Avoir
+  => 4 statuts : 
+    -> brouillon
+    -> envoyée (donc protégée)
+    -> payée
+    -> archivée (on peut toujours ''décocher'' pour débloquer et/ou modifier)
+  => Un numéro de document simple, type :
+    -> une lettre "F" pour Facture
+    -> "A" pour AVOIR 
+    -> la date à l'envers + un chrono (F 140217-1) (on ne se destine pas à 100 factures par jour !)
+  => Des modes de paiement (dont 1 par défaut) + échéance
+  => ''réglées'' ou relevé de compte des ''impayées'' avec relance possible par mail (?)
+  => des taux de TVA (dont 1 par défaut = 20% aujourd'hui, 19,6% hier)
+  => de(s) acompte(s) reçu(s) + date + mode de paiement
+  => solde à payer
+  => des lignes de factures (Q, U, PU, MONTANT) (Q, PU pouvant être négatif)
+  => des lignes de commentaires (blabla pourquoi, blablabla comment, ... ...)
+- Envoyée par mail = statut ''envoyée'' automatique
+- Imprimée = question sur le changement de statut pour ''envoyée''
+- impression en mode PDF personnalisé (pièce jointe par exemple) (Est-ce possible ?)
+- Archivage en mode PDF
+- Des requêtes :
+  -> Par client
+  -> Par période
+  -> par montant, numéro de facture, ..., ...
+  -> ... ...
