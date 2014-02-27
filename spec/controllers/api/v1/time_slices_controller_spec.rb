@@ -23,6 +23,7 @@ module Api
           sign_in FactoryGirl.create :user
         end
 
+        it 'should check access rights'
         describe '#index' do
 
           it 'should grant access' do

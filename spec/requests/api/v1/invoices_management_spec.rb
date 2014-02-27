@@ -4,6 +4,7 @@ require 'json'
 describe 'Invoices management' do
   before(:each) do
     @invoice = FactoryGirl.create(:invoice)
+    @invoice_line = FactoryGirl.create(:invoice_line, invoice: @invoice)
   end
 
   context 'when not authenticated' do
@@ -28,11 +29,7 @@ describe 'Invoices management' do
       end
     end
 
-    describe '#create' do
-      it 'returns the newly created item' do
-        post '/api/v1/invoices', invoice: FactoryGirl.attributes_for(:invoice)
-
-        invoice = Invoice.last
+    def check_show json, invoice
         expect(json['id']).to eq(invoice.id)
         expect(json['label']).to eq(invoice.label)
         expect(json['date']).to eq(invoice.date.to_s(:db))
@@ -41,6 +38,27 @@ describe 'Invoices management' do
         expect(json['total_all_taxes']).to eq(invoice.total_all_taxes.to_s)
         expect(json['advance']).to eq(invoice.advance.to_s)
         expect(json['balance']).to eq(invoice.balance.to_s)
+        
+        expect(json['lines_attributes'][0]['id']).to eq(invoice.lines[0].id)
+        expect(json['lines_attributes'][0]['label']).to eq(invoice.lines[0].label)
+        expect(json['lines_attributes'][0]['quantity']).to eq(invoice.lines[0].quantity.to_s)
+        expect(json['lines_attributes'][0]['unit']).to eq(invoice.lines[0].unit.to_s)
+        expect(json['lines_attributes'][0]['unit_price']).to eq(invoice.lines[0].unit_price.to_s)
+        expect(json['lines_attributes'][0]['total']).to eq(invoice.lines[0].total.to_s)
+     end
+
+    describe '#show' do
+      it 'returns the item' do
+        get "/api/v1/invoices/#{@invoice.id}"
+        check_show json, @invoice
+      end
+    end
+    
+    describe '#create' do
+      it 'returns the newly created item' do
+        post '/api/v1/invoices', invoice: FactoryGirl.attributes_for(:invoice).merge({ lines_attributes: [FactoryGirl.attributes_for(:invoice_line)]})
+        invoice = Invoice.last
+        check_show json, invoice   
       end
     end
 

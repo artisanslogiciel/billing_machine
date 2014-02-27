@@ -7,4 +7,5 @@ describe Invoice do
   it { should belong_to :customer }
   it { should belong_to :payment_term }
   it { should belong_to :entity }
+  it { should have_many :lines}
 end

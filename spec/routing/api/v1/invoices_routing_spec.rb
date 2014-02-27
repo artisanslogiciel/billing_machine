@@ -13,6 +13,9 @@ module Api
         it 'routes to #update' do
           put('/api/v1/invoices/1').should route_to(controller: 'api/v1/invoices', action: 'update', format: 'json', id: '1')
         end
+        it 'routes to #show' do
+          get('/api/v1/invoices/1').should route_to(controller: 'api/v1/invoices', action: 'show', format: 'json', id: '1')
+        end
       end
     end
   end

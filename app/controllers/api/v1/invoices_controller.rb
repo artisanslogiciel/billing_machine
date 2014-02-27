@@ -8,13 +8,19 @@ module Api
 
       def create
         @invoice = Invoice.create(safe_params)
-        render :show
+        status = @invoice.persisted? ? 200 : 422
+        render partial: 'invoice', status: status, :locals => { :invoice => @invoice }
       end
 
       def update
         @invoice = Invoice.find(params[:id])
-        @invoice.update(safe_params)
-        render :show
+        status = @invoice.update(safe_params) ? 200 : 422 
+        render partial: 'invoice', status: status, :locals => { :invoice => @invoice }
+      end
+
+      def show
+        @invoice = Invoice.find(params[:id])
+        render partial: 'invoice', status: 200, :locals => { :invoice => @invoice }
       end
 
       private
@@ -22,7 +28,8 @@ module Api
         def safe_params
           safe_p = params.require(:invoice)
           safe_p.permit(:label, :customer_id, :date, :payment_term_id, :total_duty,
-                        :vat, :total_all_taxes, :advance, :balance, :entity_id)
+                        :vat, :total_all_taxes, :advance, :balance, :entity_id, 
+                        lines_attributes: [:_destroy, :id, :label, :quantity, :unit, :unit_price, :total])
         end
     end
   end

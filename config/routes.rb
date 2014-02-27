@@ -8,7 +8,7 @@ Backbone::Application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
       resources :projects, only: [:index, :create, :update]
-      resources :invoices, only: [:index, :create, :update]
+      resources :invoices, only: [:index, :create, :update, :show]
       resources :time_slices, only: [:index, :create, :update]
       resources :activities, only: [:index]
       resources :payment_terms, only: [:index]
