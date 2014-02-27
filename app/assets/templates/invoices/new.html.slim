@@ -52,8 +52,8 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
       .col-sm-4.col-xs-12.line-label ng-bind="line.label"
       .col-sm-1.col-xs-6.line-quantity  ng-bind="line.quantity"
       .col-sm-1.col-xs-6.line-unit ng-bind="line.unit"
-      .col-sm-2.col-xs-6.line-unit-price ng-bind="line.unit_price"
-      .col-sm-2.col-xs-6.line-total ng-bind="line.total"
+      .col-sm-2.col-xs-6.line-unit-price ng-bind="line.unit_price | euros"
+      .col-sm-2.col-xs-6.line-total ng-bind="line.total | euros"
       .col-sm-2.col-xs-6.actions
 
     .row.new-line
@@ -65,7 +65,7 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
           input.form-control id='new-line-unit' type="text" ng-model="new_line.unit" 
       .col-sm-2.col-xs-6.line-unit-price 
           input.form-control id='new-line-unit-price' type="text" ng-model="new_line.unit_price" 
-      .col-sm-2.col-xs-6.line-total ng-bind="new_line_total()"
+      .col-sm-2.col-xs-6.line-total ng-bind="new_line_total() | euros"
       .col-sm-2.col-xs-6.actions
           a.btn.btn-success.btn-sm#add-new-line ng-click="add_new_line()" href='' Ajouter
 
@@ -75,12 +75,12 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
     .form-group
       label class='col-sm-5 control-label' Montant HT
       .col-sm-7
-        .form-control-static.invoice-total-duty ng-bind="invoice_total_duty()" 
+        .form-control-static.invoice-total-duty ng-bind="invoice_total_duty() | euros"
     .form-group
       label class='col-sm-5 control-label' TVA (20.0%)
       .col-sm-7
-        .form-control-static.invoice-vat ng-bind="invoice_vat()"  
+        .form-control-static.invoice-vat ng-bind="invoice_vat() | euros"  
     .form-group
       label class='col-sm-5 control-label' Montant TTC
       .col-sm-7
-        .form-control-static.invoice-total-taxes ng-bind="invoice_total_taxes()"
+        .form-control-static.invoice-total-taxes ng-bind="invoice_total_taxes() | euros"
