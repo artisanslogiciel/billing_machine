@@ -18,6 +18,10 @@ When(/^he fills the reference, the date and the payment terms$/) do
   select PaymentTerm.first.label
 end
 
+When(/^he chooses the customer$/) do
+  select @customer.name
+end
+
 When(/^he adds a line "(.*?)", "(.*?)", "(.*?)", "(.*?)"$/) do |arg1, arg2, arg3, arg4|
   pending # express the regexp above with the code you wish you had
 end

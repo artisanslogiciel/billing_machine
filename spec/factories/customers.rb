@@ -2,11 +2,10 @@
 
 FactoryGirl.define do
   factory :customer do
-    name 'MyString'
-    address1 'MyString'
-    address2 'MyString'
-    zip 1
-    city 'MyString'
+    name 'ACME'
+    address1 '69 Toon Street'
+    address2 ''
+    zip 77777
     entity
   end
 end

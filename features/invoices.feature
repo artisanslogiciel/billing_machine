@@ -10,6 +10,7 @@ Feature: Invoice Management
     When the user goes to the invoices page
     And he creates a new invoice
     And he fills the reference, the date and the payment terms
+    And he chooses the customer
     And he adds a line "Bidule", "4", "€", "10"
     And he adds a line "Machin truc", "8", "€", "20"
     Then the total duty is "200.00"
