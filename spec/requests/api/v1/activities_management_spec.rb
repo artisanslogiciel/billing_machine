@@ -19,11 +19,9 @@ describe 'Activities' do
     end
 
     describe '#index' do
-      it 'returns all acitivities' do
+      it 'returns status 200' do
         get '/api/v1/activities'
-
-        expect(json.size).to eq(1)
-        expect(json[0]['label']).to eq(@activity.label)
+        expect(response.status).to eq(200)
       end
     end
   end
