@@ -14,8 +14,8 @@ When(/^he creates a new invoice$/) do
 end
 
 When(/^he fills the reference, the date and the payment terms$/) do
-  fill_in 'invoice-reference', with: 'My reference'
-  fill_in 'invoice-date', with: '2014-01-01'
+  fill_in 'invoice-label', with: @label = 'My reference'
+  fill_in 'invoice-date', with: @date = '2014-01-01'
   select PaymentTerm.first.label
 end
 
@@ -54,3 +54,15 @@ end
 Then(/^the total all taxes included is "(.*?)"$/) do |arg1|
   page.should have_selector '.total .invoice-total-taxes', text: arg1
 end
+
+When(/^he validates the new invoice$/) do
+  click_link 'submit'
+end
+
+Then(/^it's added to the invoice list$/) do
+  step('the user goes to the invoices page')
+  page.should have_selector '.invoice .date', text: @date
+  page.should have_selector '.invoice .customer-name', text: @customer.name
+  page.should have_selector '.invoice .total-duty', text: '200.00€'
+end
+

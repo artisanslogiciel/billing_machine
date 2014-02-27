@@ -7,18 +7,11 @@
   .col-sm-4.col-xs-6.customer Client
   .col-sm-2.col-xs-3.total-duty Montant HT
   .col-sm-4.col-xs-12.action Action 
-.row
-  .col-sm-2.col-xs-3.date 02/11/2014
-  .col-sm-4.col-xs-6.customer Azur Plongée
-  .col-sm-2.col-xs-3.total-duty 3.234,56€
-  .col-sm-4.col-xs-12.action Télécharger - Voir - Envoyer 
-.row
-  .col-sm-2.col-xs-3 02/11/2014
-  .col-sm-4.col-xs-6 Campus ID
-  .col-sm-2.col-xs-3 13.234,56€
-  .col-sm-4.col-xs-12 Télécharger - Voir - Envoyer 
-.row
-  .col-sm-2.col-xs-3 02/11/2014
-  .col-sm-4.col-xs-6 Webportage
-  .col-sm-2.col-xs-3 35.234,56€
-  .col-sm-4.col-xs-12 Télécharger - Voir - Envoyer 
+.row.invoice ng-repeat="invoice in invoices"
+  .col-sm-2.col-xs-3.date ng-bind="invoice.date"
+  .col-sm-4.col-xs-6.customer-name ng-bind="customerName(invoice.customer_id)"
+  .col-sm-2.col-xs-3.total-duty ng-bind="invoice.total_duty | euros"
+  .col-sm-4.col-xs-12.actions 
+    a.btn.btn-sm.btn-success Télécharger
+    a.btn.btn-sm.btn-success Voir
+    a.btn.btn-sm.btn-success Envoyer 

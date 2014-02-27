@@ -7,9 +7,9 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
   .head
     .infos
       .form-group
-        label for='invoice-reference' class='col-sm-5 control-label' Référence
+        label for='invoice-label' class='col-sm-5 control-label' Référence
         .col-sm-7
-          input.form-control id='invoice-reference' type="text" ng-model="invoice.reference" 
+          input.form-control id='invoice-label' type="text" ng-model="invoice.label" 
       .form-group
         label for='invoice-date' class='col-sm-5 control-label' Date
         .col-sm-7
@@ -17,7 +17,7 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
       .form-group
         label for='invoice-payment-term' class='col-sm-5 control-label' Paiement
         .col-sm-7
-          select.form-control id='invoice-payment-term' ng-model="invoice.payment_term" ng-options="payment_term.id as payment_term.label for payment_term in payment_terms"
+          select.form-control id='invoice-payment-term' ng-model="invoice.payment_term_id" ng-options="payment_term.id as payment_term.label for payment_term in payment_terms"
     .customer
       .form-group
         label for='invoice-customer' class='col-sm-5 control-label' Client
@@ -75,12 +75,16 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
     .form-group
       label class='col-sm-5 control-label' Montant HT
       .col-sm-7
-        .form-control-static.invoice-total-duty ng-bind="invoice_total_duty() | euros"
+        .form-control-static.invoice-total-duty ng-bind="invoice.total_duty | euros"
     .form-group
       label class='col-sm-5 control-label' TVA (20.0%)
       .col-sm-7
-        .form-control-static.invoice-vat ng-bind="invoice_vat() | euros"  
+        .form-control-static.invoice-vat ng-bind="invoice.vat | euros"  
     .form-group
       label class='col-sm-5 control-label' Montant TTC
       .col-sm-7
-        .form-control-static.invoice-total-taxes ng-bind="invoice_total_taxes() | euros"
+        .form-control-static.invoice-total-taxes ng-bind="invoice.total_all_taxes | euros"
+    .form-group
+      label class='col-sm-5 control-label'
+      .col-sm-7
+        a.btn.btn-success#submit href="" ng-click="submit()" Sauvegarder

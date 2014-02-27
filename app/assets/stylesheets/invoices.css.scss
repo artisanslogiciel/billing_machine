@@ -49,6 +49,11 @@
   .body {
     border-bottom: 1px solid #ddd;
   }
+  .actions {
+    a.btn {
+      margin-right: 10px;
+    }
+  }
 }
 
 @media (max-width: 768px) { 

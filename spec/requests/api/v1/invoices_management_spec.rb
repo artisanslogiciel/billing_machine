@@ -33,18 +33,20 @@ describe 'Invoices management' do
         expect(json['id']).to eq(invoice.id)
         expect(json['label']).to eq(invoice.label)
         expect(json['date']).to eq(invoice.date.to_s(:db))
-        expect(json['total_duty']).to eq(invoice.total_duty.to_s)
-        expect(json['vat']).to eq(invoice.vat.to_s)
-        expect(json['total_all_taxes']).to eq(invoice.total_all_taxes.to_s)
-        expect(json['advance']).to eq(invoice.advance.to_s)
-        expect(json['balance']).to eq(invoice.balance.to_s)
+        expect(json['customer_id']).to eq(invoice.customer_id)
+        expect(json['total_duty']).to eq(invoice.total_duty)
+        expect(json['vat']).to eq(invoice.vat)
+        expect(json['total_all_taxes']).to eq(invoice.total_all_taxes)
+        expect(json['advance']).to eq(invoice.advance)
+        expect(json['balance']).to eq(invoice.balance)
+        expect(json['payment_term_id']).to eq(invoice.payment_term_id)
         
         expect(json['lines_attributes'][0]['id']).to eq(invoice.lines[0].id)
         expect(json['lines_attributes'][0]['label']).to eq(invoice.lines[0].label)
-        expect(json['lines_attributes'][0]['quantity']).to eq(invoice.lines[0].quantity.to_s)
+        expect(json['lines_attributes'][0]['quantity']).to eq(invoice.lines[0].quantity)
         expect(json['lines_attributes'][0]['unit']).to eq(invoice.lines[0].unit.to_s)
-        expect(json['lines_attributes'][0]['unit_price']).to eq(invoice.lines[0].unit_price.to_s)
-        expect(json['lines_attributes'][0]['total']).to eq(invoice.lines[0].total.to_s)
+        expect(json['lines_attributes'][0]['unit_price']).to eq(invoice.lines[0].unit_price)
+        expect(json['lines_attributes'][0]['total']).to eq(invoice.lines[0].total)
      end
 
     describe '#show' do

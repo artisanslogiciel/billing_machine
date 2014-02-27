@@ -47,6 +47,7 @@ module Api
             post :create, format: :json, invoice: { name: '' }
             response.status.should eq(422)
           end
+          it 'should calculate vat and total_all_taxes by itself'
         end
 
         describe '#update' do
@@ -62,6 +63,7 @@ module Api
             put :update, id: invoice.id, format: :json, invoice: { label: 'Updated' + invoice.label }
             response.status.should eq(422)
           end
+          it 'should calculate vat and total_all_taxes by itself'
         end
       end
     end

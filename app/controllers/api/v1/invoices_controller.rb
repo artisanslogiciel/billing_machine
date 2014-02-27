@@ -1,6 +1,8 @@
 module Api
   module V1
     class InvoicesController < ApiController
+      wrap_parameters include: [Invoice.attribute_names, :lines_attributes].flatten
+      
       def index
         @invoices = Invoice.all.order(date: :desc)
         respond_with @invoices
