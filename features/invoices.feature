@@ -14,6 +14,7 @@ Feature: Invoice Management
     And he fills a line with "Bidule", "4", "€", "10"
     Then the new line's total should be "40.00€"
     When he adds the new line
+    Then the total duty is "40.00€"
     And he fills a line with "Machin truc", "8", "€", "20"
     Then the new line's total should be "160.00€"
     When he adds the new line

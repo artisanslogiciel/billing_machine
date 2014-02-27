@@ -47,27 +47,15 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
       .col-sm-2.col-xs-6.line-unit-price Prix unitaire
       .col-sm-2.col-xs-6.line-total Total
       .col-sm-2.col-xs-6.actions Actions
-    .row
-      .col-sm-4.col-xs-12.line-label Développement sur mesure
-      .col-sm-1.col-xs-6.line-quantity 12
-      .col-sm-1.col-xs-6.line-unit jour.homme
-      .col-sm-2.col-xs-6.line-unit-price 350€
-      .col-sm-2.col-xs-6.line-total 4.200€
+
+    .row ng-repeat="line in invoice.lines_attributes"
+      .col-sm-4.col-xs-12.line-label ng-bind="line.label"
+      .col-sm-1.col-xs-6.line-quantity  ng-bind="line.quantity"
+      .col-sm-1.col-xs-6.line-unit ng-bind="line.unit"
+      .col-sm-2.col-xs-6.line-unit-price ng-bind="line.unit_price"
+      .col-sm-2.col-xs-6.line-total ng-bind="line.total"
       .col-sm-2.col-xs-6.actions
-    .row
-      .col-sm-4.col-xs-12.line-label Développement sur mesure
-      .col-sm-1.col-xs-6.line-quantity 12
-      .col-sm-1.col-xs-6.line-unit jour.homme
-      .col-sm-2.col-xs-6.line-unit-price 350€
-      .col-sm-2.col-xs-6.line-total 4.200€
-      .col-sm-2.col-xs-6.actions
-    .row
-      .col-sm-4.col-xs-12.line-label Développement sur mesure
-      .col-sm-1.col-xs-6.line-quantity 12
-      .col-sm-1.col-xs-6.line-unit jour.homme
-      .col-sm-2.col-xs-6.line-unit-price 350€
-      .col-sm-2.col-xs-6.line-total 4.200€
-      .col-sm-2.col-xs-6.actions
+
     .row.new-line
       .col-sm-4.col-xs-12.line-label 
           input.form-control id='new-line-label' type="text" ng-model="new_line.label" 
