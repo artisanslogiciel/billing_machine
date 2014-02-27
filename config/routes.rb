@@ -12,6 +12,7 @@ Backbone::Application.routes.draw do
       resources :time_slices, only: [:index, :create, :update]
       resources :activities, only: [:index]
       resources :payment_terms, only: [:index]
+      resources :customers, only: [:index]
     end
   end
 end
