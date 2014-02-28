@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.maskedinput
 //= require bootstrap
 //= require underscore
 //= require angular

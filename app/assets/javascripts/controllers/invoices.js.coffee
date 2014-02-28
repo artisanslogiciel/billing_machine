@@ -21,6 +21,8 @@
   $scope.payment_terms = PaymentTerm.query()
   $scope.customers = Customer.query()
 
+  $("input#invoice-date").mask("9999-99-99");
+  
   if $routeParams.id?
     $scope.invoice = Invoice.get({id: parseInt($routeParams.id)})
   else

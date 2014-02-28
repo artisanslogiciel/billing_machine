@@ -14,11 +14,12 @@ body
         h3 class="text-muted" Backbone
         ul class="nav nav-justified"
           li
-            a href="" Dashboard
-          li
-            = link_to 'Projects', projects_path 
-          li
-            = link_to 'Time Lapse', time_slices_path 
+            a href="" onclick="alert('Soon to come!')" Dashboard
+          - if current_user && (current_user.email == "benoit@agilidee.com")
+            li
+              = link_to 'Projects', projects_path 
+            li
+              = link_to 'Time Lapse', time_slices_path 
           li
             = link_to 'Billing Machine', '/invoices#/invoices', id: 'invoices'
           li
