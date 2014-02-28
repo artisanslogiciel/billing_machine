@@ -48,15 +48,31 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
       .col-sm-2.col-xs-6.line-total Total
       .col-sm-2.col-xs-6.actions Actions
 
-    .row ng-repeat="line in invoice.lines_attributes"
-      .col-sm-4.col-xs-12.line-label ng-bind="line.label"
+    .row ng-repeat="line in invoice.lines_attributes" bb-item-edit=""
+      .col-sm-4.col-xs-12
+        .line-label.bb-show ng-bind="line.label"
+        .line-label.bb-edit 
+          input.form-control type="text" ng-model="line.label" 
       .col-sm-1.col-xs-6.line-quantity  ng-bind="line.quantity"
       .col-sm-1.col-xs-6.line-unit ng-bind="line.unit"
       .col-sm-2.col-xs-6.line-unit-price ng-bind="line.unit_price | euros"
       .col-sm-2.col-xs-6.line-total ng-bind="line.total | euros"
       .col-sm-2.col-xs-6.actions
-        a.btn.btn-primary.btn-sm.edit-line ng-click="" href='' Editer
+        a.btn.btn-primary.btn-sm.bb-show.edit-line ng-click="" href='' Editer
+        a.btn.btn-success.btn-sm.bb-edit.save-line ng-click="update(timeslice)" href='' Sauver
         a.btn.btn-danger.btn-sm.delete-line ng-click="" href='' Supprimer
+
+      / tr class="time-slice" ng-repeat="timeslice in timeslices" bb-item-edit=""
+      /   td 
+      /     .day.bb-show
+      /       '{{timeslice.day}}
+      /     .day.bb-edit
+      /       input type="date" ng-model="timeslice.day" 
+      / td
+      /   .action.bb-show
+      /     a id="edit-{{timeslice.id}}" href="" Edit
+      /   .action.bb-edit
+      /     input id="submit-time-slice-{{timeslice.id}}" type="submit" class="btn btn-success btn-sm" value="Update" ng-click=""
 
     .row.new-line
       .col-sm-4.col-xs-12.line-label 
