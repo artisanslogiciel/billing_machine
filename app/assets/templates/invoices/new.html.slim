@@ -55,6 +55,8 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
       .col-sm-2.col-xs-6.line-unit-price ng-bind="line.unit_price | euros"
       .col-sm-2.col-xs-6.line-total ng-bind="line.total | euros"
       .col-sm-2.col-xs-6.actions
+        a.btn.btn-primary.btn-sm.edit-line ng-click="" href='' Editer
+        a.btn.btn-danger.btn-sm.delete-line ng-click="" href='' Supprimer
 
     .row.new-line
       .col-sm-4.col-xs-12.line-label 
