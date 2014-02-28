@@ -77,6 +77,7 @@
         (response) ->
         (error) ->
           invoice.errors = error.data
+          console.log "An error occured" 
           console.log error.data
       )
     else
@@ -85,8 +86,9 @@
         (response) ->
           $scope.invoice = response
         (error) ->
-          console.log error
           $scope.invoice.errors = error.data
+          console.log "An error occured" 
+          console.log error.data
       )
     $scope.sum()
 
