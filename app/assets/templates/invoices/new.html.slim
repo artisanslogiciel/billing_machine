@@ -7,7 +7,11 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
   .head
     .infos
       .form-group
-        label for='invoice-label' class='col-sm-5 control-label' Référence
+        label for='invoice-unique-index' class='col-sm-5 control-label' Index unique
+        .col-sm-7
+          .form-control-static.invoice-unique-index ng-bind="invoice.unique_index" 
+      .form-group
+        label for='invoice-label' class='col-sm-5 control-label' Label
         .col-sm-7
           input.form-control id='invoice-label' type="text" ng-model="invoice.label" 
       .form-group

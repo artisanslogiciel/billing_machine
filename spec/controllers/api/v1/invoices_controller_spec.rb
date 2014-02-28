@@ -20,7 +20,8 @@ module Api
 
       context 'when authenticated' do
         before(:each) do
-          sign_in FactoryGirl.create :user
+          @user = FactoryGirl.create :user
+          sign_in @user
         end
 
         it 'should check access rights'
@@ -41,6 +42,10 @@ module Api
           it 'should create an entry with valid params' do
             post :create, format: :json, invoice: FactoryGirl.attributes_for(:invoice)
             response.status.should eq(200)
+          end
+          it 'should assign entity_id' do
+            post :create, format: :json, invoice: FactoryGirl.attributes_for(:invoice)
+            assigns(:invoice).entity_id.should eq(@user.entity_id)
           end
           it 'should return an error code when it cannot save the entity' do
             Invoice.any_instance.stub(:save).and_return false

@@ -31,6 +31,7 @@ describe 'Invoices management' do
 
     def check_show json, invoice
         expect(json['id']).to eq(invoice.id)
+        expect(json['unique_index']).to be_an(Integer)
         expect(json['label']).to eq(invoice.label)
         expect(json['date']).to eq(invoice.date.to_s(:db))
         expect(json['customer_id']).to eq(invoice.customer_id)

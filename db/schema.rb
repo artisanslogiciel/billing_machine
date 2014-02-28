@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140225064029) do
+ActiveRecord::Schema.define(version: 20140228095701) do
 
   create_table "activities", force: true do |t|
     t.string   "label"
@@ -40,7 +40,10 @@ ActiveRecord::Schema.define(version: 20140225064029) do
     t.string   "city"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "unique_index", default: 0
   end
+
+  add_index "entities", ["id", "unique_index"], name: "index_entities_on_id_and_unique_index", unique: true
 
   create_table "invoice_lines", force: true do |t|
     t.string   "label"
@@ -68,6 +71,7 @@ ActiveRecord::Schema.define(version: 20140225064029) do
     t.integer  "entity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "unique_index"
   end
 
   add_index "invoices", ["customer_id"], name: "index_invoices_on_customer_id"

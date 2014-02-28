@@ -4,4 +4,12 @@ class Invoice < ActiveRecord::Base
   belongs_to :entity
   has_many :lines,  inverse_of: :invoice, dependent: :destroy, class_name: 'InvoiceLine'
   accepts_nested_attributes_for :lines, allow_destroy: true
+  validates_presence_of :entity
+  before_create :assign_unique_index
+
+  def assign_unique_index
+    entity.unique_index += 1
+    entity.save
+    self.unique_index = entity.unique_index
+  end
 end

@@ -4,13 +4,14 @@ module Api
       wrap_parameters include: [Invoice.attribute_names, :lines_attributes].flatten
       
       def index
-        @invoices = Invoice.all.order(date: :desc)
+        @invoices = Invoice.all.order(unique_index: :desc)
         respond_with @invoices
       end
 
       def create
-        @invoice = Invoice.create(safe_params)
-        status = @invoice.persisted? ? 200 : 422
+        @invoice = Invoice.new(safe_params)
+        @invoice.entity_id = current_user.entity_id
+        status = @invoice.save ? 200 : 422
         render partial: 'invoice', status: status, :locals => { :invoice => @invoice }
       end
 
@@ -30,7 +31,7 @@ module Api
         def safe_params
           safe_p = params.require(:invoice)
           safe_p.permit(:label, :customer_id, :date, :payment_term_id, :total_duty,
-                        :vat, :total_all_taxes, :advance, :balance, :entity_id, 
+                        :vat, :total_all_taxes, :advance, :balance, 
                         lines_attributes: [:_destroy, :id, :label, :quantity, :unit, :unit_price, :total])
         end
     end
