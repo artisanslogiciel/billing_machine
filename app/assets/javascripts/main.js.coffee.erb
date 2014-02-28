@@ -3,12 +3,12 @@
 @app.config(($routeProvider) -> 
   $routeProvider
     .when('/invoices',
-      templateUrl: "/assets/invoices/index.html",
+      templateUrl: "<%= asset_path 'invoices/index.html'%>",
       controller: "InvoicesCtrl")
     .when('/invoices/new',
-      templateUrl: "/assets/invoices/new.html",
+      templateUrl: "<%= asset_path 'invoices/new.html'%>",
       controller: "InvoiceCtrl")
     .when('/invoices/:id',
-      templateUrl: "/assets/invoices/new.html",
+      templateUrl: "<%= asset_path 'invoices/new.html'%>",
       controller: "InvoiceCtrl")
 )
