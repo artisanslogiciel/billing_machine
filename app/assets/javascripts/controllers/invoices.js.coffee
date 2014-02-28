@@ -36,7 +36,6 @@
     $scope.new_line.total = amount
  
   $scope.sum = ->
-    console.log $scope.invoice.lines_attributes
     sum = (arr) -> _.reduce arr, ((memo, num) -> memo + num), 0
     $scope.invoice.total_duty = sum _.pluck($scope.invoice.lines_attributes, 'total')
     $scope.invoice.vat = $scope.invoice.total_duty * 0.2
@@ -54,7 +53,6 @@
     if $scope.invoice.id?
       $scope.invoice.$update(
         (response) ->
-          console.log 'Invoice updated'
         (error) ->
           invoice.errors = error.data
           console.log error.data

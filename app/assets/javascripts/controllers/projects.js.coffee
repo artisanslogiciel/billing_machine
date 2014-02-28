@@ -17,7 +17,6 @@
   $scope.update = (project) ->
     project.$update(
       (response) ->
-        console.log 'Project updated'
       (error) ->
         project.errors = error.data
         console.log error.data
