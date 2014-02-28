@@ -1,7 +1,7 @@
 .head
   h1 Factures
   .actions
-    a.btn.btn-primary.btn-lg id='new-invoice' href='#/invoices/new' Nouvelle facture
+    a.btn.btn-primary.btn-lg id='new-invoice' href='' ng-click='navNewInvoice()' Nouvelle facture
 .row.header
   .col-sm-2.col-xs-3.date Date
   .col-sm-4.col-xs-6.customer Client
@@ -13,5 +13,4 @@
   .col-sm-2.col-xs-3.total-duty ng-bind="invoice.total_duty | euros"
   .col-sm-4.col-xs-12.actions 
     a.btn.btn-sm.btn-success Télécharger
-    a.btn.btn-sm.btn-success Voir
-    a.btn.btn-sm.btn-success Envoyer 
+    a.btn.btn-sm.btn-success.edit-invoice data-id='{{invoice.id}}' ng-click='navEditInvoice(invoice)' Editer

@@ -1,6 +1,12 @@
-@app.controller 'InvoicesCtrl', ["$scope", "Customer", "Invoice", ($scope, Customer, Invoice) ->
+@app.controller 'InvoicesCtrl', ["$scope", "Customer", "Invoice", "$location", ($scope, Customer, Invoice, $location) ->
   $scope.customers = Customer.query()
   $scope.invoices = Invoice.query()
+
+  $scope.navNewInvoice = ->
+    $location.url('/invoices/new')
+
+  $scope.navEditInvoice = (invoice)->
+    $location.url('/invoices/'+invoice.id)
 
   $scope.customerName = (id) ->
     customer = _.findWhere $scope.customers, {id: id}
@@ -11,10 +17,15 @@
 
 ]
 
-@app.controller 'InvoiceCtrl', ["$scope", "Customer", "PaymentTerm", "Invoice", ($scope, Customer, PaymentTerm, Invoice) ->
+@app.controller 'InvoiceCtrl', ["$scope", "$routeParams", "Customer", "PaymentTerm", "Invoice", ($scope, $routeParams, Customer, PaymentTerm, Invoice) ->
   $scope.payment_terms = PaymentTerm.query()
   $scope.customers = Customer.query()
-  $scope.invoice = { label: '', lines_attributes: [] }
+
+  if $routeParams.id?
+    $scope.invoice = Invoice.get({id: parseInt($routeParams.id)})
+  else
+    $scope.invoice = { label: '', lines_attributes: [] }
+
   $scope.new_line = {} 
 
   $scope.customer = ->

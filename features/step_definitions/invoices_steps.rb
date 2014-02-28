@@ -55,7 +55,7 @@ Then(/^the total all taxes included is "(.*?)"$/) do |arg1|
   page.should have_selector '.total .invoice-total-taxes', text: arg1
 end
 
-When(/^he validates the new invoice$/) do
+When(/^he saves the invoice$/) do
   click_link 'submit'
 end
 
@@ -64,5 +64,23 @@ Then(/^it's added to the invoice list$/) do
   page.should have_selector '.invoice .date', text: @date
   page.should have_selector '.invoice .customer-name', text: @customer.name
   page.should have_selector '.invoice .total-duty', text: '200.00€'
+end
+
+Given(/^an existing invoice$/) do
+  @invoice = FactoryGirl.create(:invoice)
+end
+
+When(/^he edits the invoice$/) do
+  find(:xpath, "//a[@data-id='#{@invoice.id}']").click
+end
+
+When(/^changes the label$/) do
+  @new_label=  @invoice.label + " Edited"
+  fill_in 'invoice-label', with: @new_label
+end
+
+Then(/^the invoices's label has changed$/) do
+  # A changer quand la vue :show est disponible
+  @invoice.reload.label.should eq(@new_label)
 end
 

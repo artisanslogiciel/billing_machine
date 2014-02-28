@@ -21,5 +21,15 @@ Feature: Invoice Management
     Then the total duty is "200.00€"
     And the vat due is "40.00€"
     And the total all taxes included is "240.00€"
-    When he validates the new invoice
+    When he saves the invoice
     Then it's added to the invoice list
+
+  @javascript
+  Scenario: Edit invoice
+    Given an existing user
+    And an existing invoice
+    When the user goes to the invoices page
+    And he edits the invoice
+    And changes the label
+    When he saves the invoice
+    Then the invoices's label has changed
