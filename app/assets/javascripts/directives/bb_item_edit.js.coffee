@@ -14,3 +14,5 @@
     element.find('a.bb-edit').bind 'click', -> 
       element.find('.bb-show').show()
       element.find('.bb-edit').hide()
+    element.find('a.bb-remove').bind 'click', -> 
+      element.closest('.invoice-line').hide()

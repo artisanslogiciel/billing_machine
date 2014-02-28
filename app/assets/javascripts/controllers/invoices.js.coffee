@@ -17,7 +17,7 @@
 
 ]
 
-@app.controller 'InvoiceCtrl', ["$scope", "$routeParams", "Customer", "PaymentTerm", "Invoice", ($scope, $routeParams, Customer, PaymentTerm, Invoice) ->
+@app.controller 'InvoiceCtrl', ["$scope", "$location", "$routeParams", "Customer", "PaymentTerm", "Invoice", ($scope, $location, $routeParams, Customer, PaymentTerm, Invoice) ->
   $scope.payment_terms = PaymentTerm.query()
   $scope.customers = Customer.query()
 
@@ -31,15 +31,36 @@
   $scope.customer = ->
     _.findWhere $scope.customers, {id: $scope.invoice.customer_id} if $scope.invoice?
 
-  $scope.new_line_total = ->
-    amount = parseFloat($scope.new_line.quantity) * parseFloat($scope.new_line.unit_price)
-    $scope.new_line.total = amount
+  $scope.navToList = ->
+    $location.url('/invoices')
+
+  $scope.line_total = (invoice_line) ->
+    amount = parseFloat(invoice_line.quantity) * parseFloat(invoice_line.unit_price)
+    if isNaN(amount)
+      invoice_line.total = 0
+    else
+      invoice_line.total = amount
  
   $scope.sum = ->
     sum = (arr) -> _.reduce arr, ((memo, num) -> memo + num), 0
-    $scope.invoice.total_duty = sum _.pluck($scope.invoice.lines_attributes, 'total')
+    values = _.map($scope.invoice.lines_attributes, (line) -> 
+      if line._destroy? 
+        0 
+      else
+        line.total
+    )
+    $scope.invoice.total_duty = sum values
     $scope.invoice.vat = $scope.invoice.total_duty * 0.2
     $scope.invoice.total_all_taxes = $scope.invoice.total_duty * 1.2
+  
+  $scope.edit_line = (invoice_line) ->
+    invoice_line.quantity = parseFloat(invoice_line.quantity)
+    invoice_line.unit_price = parseFloat(invoice_line.unit_price)
+    $scope.sum()
+
+  $scope.delete_line = (invoice_line) ->
+    invoice_line._destroy = 1
+    $scope.sum()
 
   $scope.add_new_line = ->
     $scope.new_line.quantity = parseFloat($scope.new_line.quantity)
@@ -48,6 +69,7 @@
     $scope.new_line = {}
     $scope.sum()
   
+
   $scope.submit = ->
     delete $scope.invoice.errors
     if $scope.invoice.id?
