@@ -6,6 +6,8 @@ class Invoice < ActiveRecord::Base
   accepts_nested_attributes_for :lines, allow_destroy: true
   validates_presence_of :entity
   before_create :assign_unique_index
+  
+  before_save :update_balance
 
   def assign_unique_index
     entity.unique_index += 1
@@ -21,4 +23,7 @@ class Invoice < ActiveRecord::Base
     end
   end
 
+  def update_balance
+    self.balance = self.total_all_taxes - self.advance
+  end
 end
