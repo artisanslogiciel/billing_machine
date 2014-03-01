@@ -112,7 +112,7 @@ class SudDeveloppementInvoice < Prawn::Document
     bounding_box [90, 540], :width => 445, :height => 60 do
       font_size 10
       draw_bounds_debug
-      table [ ['FACTURE N°', @invoice.tracking_id, 'Date', @invoice.date.strftime("%m/%d/%Y") ]], 
+      table [ ['FACTURE N°', @invoice.tracking_id, 'Date', @invoice.date.strftime("%d/%m/%Y") ]], 
             :column_widths => [210, 103, 66, 66],
             :cell_style => { background_color: BLUE, :text_color => WHITE, :align => :center}
       move_down 10
