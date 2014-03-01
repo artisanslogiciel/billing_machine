@@ -12,5 +12,5 @@
   .col-sm-4.col-xs-6.customer-name ng-bind="customerName(invoice.customer_id)"
   .col-sm-2.col-xs-3.total-duty ng-bind="invoice.total_duty | euros"
   .col-sm-4.col-xs-12.actions 
-    a.btn.btn-sm.btn-success onclick="alert('Soon to come!')" Télécharger
+    a.btn.btn-sm.btn-success href="/invoices/{{invoice.id}}.pdf" target="_blank" Télécharger
     a.btn.btn-sm.btn-success.edit-invoice data-id='{{invoice.id}}' ng-click='navEditInvoice(invoice)' Editer

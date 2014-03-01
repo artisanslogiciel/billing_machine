@@ -11,4 +11,7 @@
     .when('/invoices/:id',
       templateUrl: "<%= asset_path 'invoices/new.html'%>",
       controller: "InvoiceCtrl")
+    .otherwise('/invoices',
+      templateUrl: "<%= asset_path 'invoices/index.html'%>",
+      controller: "InvoicesCtrl")
 )
