@@ -117,7 +117,7 @@ class SudDeveloppementInvoice < Prawn::Document
             :cell_style => { background_color: BLUE, :text_color => WHITE, :align => :center}
       move_down 10
       table [ ['LIBELLES','Q', 'U', 'PU' , 'MONTANT']], 
-            :column_widths => [210, 66, 37,66,66],
+            :column_widths => [210, 50, 53,66,66],
             :cell_style => { background_color: BLUE, :text_color => WHITE, :align => :center}
     end
 
@@ -127,7 +127,7 @@ class SudDeveloppementInvoice < Prawn::Document
       draw_bounds_debug
       float do 
         table [ ['','', '', '' , '']], 
-            :column_widths => [210, 66, 37,66,66],
+            :column_widths => [210, 50, 53,66,66],
             :cell_style => {:height => 280}
       end
 
@@ -137,7 +137,7 @@ class SudDeveloppementInvoice < Prawn::Document
           datas.push [line.label,french_number(line.quantity), line.unit, euros(line.unit_price) , euros(line.total)]
         end
         table datas, 
-            :column_widths => [210, 66, 37,66,66],
+            :column_widths => [210, 50, 53,66,66],
             :cell_style => {:borders => []} do 
           column(0).style :align => :left 
           column(1).style :align => :right 
