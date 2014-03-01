@@ -141,7 +141,7 @@ class SudDeveloppementInvoice < Prawn::Document
             :cell_style => {:borders => []} do 
           column(0).style :align => :left 
           column(1).style :align => :right 
-          column(2).style :align => :right 
+          column(2).style :align => :center 
           column(3).style :align => :right 
           column(4).style :align => :right 
         end
