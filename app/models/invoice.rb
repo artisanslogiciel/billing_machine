@@ -24,6 +24,8 @@ class Invoice < ActiveRecord::Base
   end
 
   def update_balance
+    self.advance ||= total_all_taxes
+    self.advance ||= 0
     self.balance = self.total_all_taxes - self.advance
   end
 end

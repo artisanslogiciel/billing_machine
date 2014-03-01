@@ -131,18 +131,20 @@ class SudDeveloppementInvoice < Prawn::Document
             :cell_style => {:height => 280}
       end
 
-      datas = []
-      @invoice.lines.each do |line|
-        datas.push [line.label,french_number(line.quantity), line.unit, euros(line.unit_price) , euros(line.total)]
-      end
-      table datas, 
-          :column_widths => [210, 66, 37,66,66],
-          :cell_style => {:borders => []} do 
-        column(0).style :align => :left 
-        column(1).style :align => :right 
-        column(2).style :align => :right 
-        column(3).style :align => :right 
-        column(4).style :align => :right 
+      if @invoice.lines.size > 0
+        datas = []
+        @invoice.lines.each do |line|
+          datas.push [line.label,french_number(line.quantity), line.unit, euros(line.unit_price) , euros(line.total)]
+        end
+        table datas, 
+            :column_widths => [210, 66, 37,66,66],
+            :cell_style => {:borders => []} do 
+          column(0).style :align => :left 
+          column(1).style :align => :right 
+          column(2).style :align => :right 
+          column(3).style :align => :right 
+          column(4).style :align => :right 
+        end
       end
 
     end
