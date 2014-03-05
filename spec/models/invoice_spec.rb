@@ -33,5 +33,9 @@ describe Invoice do
       invoice = FactoryGirl.create(:invoice, total_all_taxes: 100, advance: 40, balance: 10)
       invoice.balance.should eq(60.0)
     end
+    it 'should be calculated upon saving' do
+      invoice = FactoryGirl.create(:invoice, total_all_taxes: 100, advance: nil, balance: nil)
+      invoice.balance.should eq(100.0)
+    end
   end
 end
