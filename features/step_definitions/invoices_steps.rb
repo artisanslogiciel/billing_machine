@@ -57,6 +57,7 @@ end
 
 When(/^he saves the invoice$/) do
   click_link 'submit'
+  sleep(1.second)
 end
 
 Then(/^it's added to the invoice list$/) do
