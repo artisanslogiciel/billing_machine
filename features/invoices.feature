@@ -33,3 +33,4 @@ Feature: Invoice Management
     And changes the label
     When he saves the invoice
     Then the invoices's label has changed
+    
