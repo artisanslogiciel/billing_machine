@@ -42,6 +42,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'faker', "~> 1.2.0" 
   gem 'quiet_assets'
+  gem 'capybara-angular'
 end
 
 group :production, :staging do

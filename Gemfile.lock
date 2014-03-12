@@ -39,6 +39,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-angular (0.0.3)
+      capybara
     celluloid (0.15.2)
       timers (~> 1.1.0)
     cliver (0.3.2)
@@ -255,6 +257,7 @@ PLATFORMS
 DEPENDENCIES
   angularjs-rails
   awesome_print
+  capybara-angular
   coffee-rails (~> 4.0.0)
   cucumber-rails
   database_cleaner
