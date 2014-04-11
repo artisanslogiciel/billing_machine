@@ -18,7 +18,6 @@
 //= require angular
 //= require angular-route
 //= require angular-resource
-//= require turbolinks
 //= require main
 //= require_tree ./filters
 //= require_tree ./factories
