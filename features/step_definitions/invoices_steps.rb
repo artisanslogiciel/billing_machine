@@ -81,6 +81,6 @@ end
 
 Then(/^the invoices's label has changed$/) do
   reload_the_page
-  find_field('invoice-label').value.should eq @new_label
+  page.should have_field('invoice-label', with: @new_label)
 end
 
