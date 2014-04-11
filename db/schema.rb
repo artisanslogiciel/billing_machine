@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140411122521) do
+ActiveRecord::Schema.define(version: 20140411160231) do
 
   create_table "activities", force: true do |t|
     t.string   "label"
@@ -41,7 +41,9 @@ ActiveRecord::Schema.define(version: 20140411122521) do
     t.string   "city"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "unique_index", default: 0
+    t.integer  "unique_index",    default: 0
+    t.boolean  "billing_machine", default: false
+    t.boolean  "time_machine",    default: false
   end
 
   add_index "entities", ["id", "unique_index"], name: "index_entities_on_id_and_unique_index", unique: true
@@ -104,10 +106,10 @@ ActiveRecord::Schema.define(version: 20140411122521) do
   add_index "time_slices", ["user_id"], name: "index_time_slices_on_user_id"
 
   create_table "users", force: true do |t|
-    t.string   "first_name",             default: "", null: false
-    t.string   "last_name",              default: "", null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "first_name",             default: "",    null: false
+    t.string   "last_name",              default: "",    null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -121,6 +123,8 @@ ActiveRecord::Schema.define(version: 20140411122521) do
     t.datetime "updated_at"
     t.integer  "entity_id"
     t.integer  "manager_id"
+    t.boolean  "billing_machine",        default: false
+    t.boolean  "time_machine",           default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

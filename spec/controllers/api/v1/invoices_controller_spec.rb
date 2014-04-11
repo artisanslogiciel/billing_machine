@@ -34,6 +34,13 @@ module Api
             response.status.should eq(200)
           end
 
+          it 'should check access rights' do
+            user.update(billing_machine: false)
+            expect {
+              get :index, format: :json
+              }.to raise_exception CanCan::AccessDenied       
+          end
+
           it 'should return invoices' do
             invoice = FactoryGirl.create(:invoice, entity: user.entity)
             another_invoice = FactoryGirl.create(:invoice)
@@ -56,7 +63,14 @@ module Api
             post :create, format: :json, invoice: { name: '' }
             response.status.should eq(422)
           end
-        end
+          it 'should check access rights' do
+            user.update(billing_machine: false)
+            expect {
+              post :create, format: :json, invoice: FactoryGirl.attributes_for(:invoice)
+              }.to raise_exception CanCan::AccessDenied       
+          end
+
+         end
 
         describe '#update' do
 

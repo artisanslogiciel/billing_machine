@@ -11,5 +11,7 @@ FactoryGirl.define do
     email
     password 'motdepasse'
     entity
+    billing_machine true
+    time_machine true
   end
 end

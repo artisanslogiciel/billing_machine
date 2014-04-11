@@ -60,6 +60,14 @@ module Api
             get :index, format: :json
             assigns(:time_slices).should eq([mine])
           end
+
+          it 'should check access rights' do
+            user.update(time_machine: false)
+            expect {
+              get :index, format: :json
+              }.to raise_exception CanCan::AccessDenied       
+          end
+
         end
 
         describe '#create' do
@@ -84,6 +92,12 @@ module Api
             post :create, format: :json, time_slice: FactoryGirl.attributes_for(:time_slice, duration: '=8/10')
             response.status.should eq(200)
             assigns(:time_slice).duration.should eq(0.8)
+          end
+           it 'should check access rights' do
+              user.update(time_machine: false)
+              expect {
+                post :create, format: :json, time_slice: FactoryGirl.attributes_for(:time_slice)
+                }.to raise_exception CanCan::AccessDenied       
           end
         end
       end

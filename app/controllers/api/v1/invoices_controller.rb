@@ -4,11 +4,13 @@ module Api
       wrap_parameters include: [Invoice.attribute_names, :lines_attributes].flatten
       
       def index
+        authorize! :read, Invoice
         @invoices = current_user.entity.invoices.order(unique_index: :desc)
         respond_with @invoices
       end
 
       def create
+        authorize! :write, Invoice
         @invoice = Invoice.new(safe_params)
         @invoice.entity_id = current_user.entity_id
         status = @invoice.save ? 200 : 422

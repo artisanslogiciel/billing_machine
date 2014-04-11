@@ -2,12 +2,14 @@ module Api
   module V1
     class TimeSlicesController <  ApiController
       def index
+        authorize! :read, TimeSlice
         user = current_user
         @time_slices = user.time_slices.order(day: :desc)
         respond_with @time_slices
       end
 
       def create
+        authorize! :write, TimeSlice
         @time_slice = TimeSlice.create(safe_params.merge({user: current_user}))
         render :show
       end

@@ -1,4 +1,7 @@
 class InvoicesController < ApplicationController
+  def index
+    authorize! :read, Invoice
+  end
   def show
     @invoice = Invoice.find(params[:id])
     authorize! :read, @invoice

@@ -15,13 +15,14 @@ body
         ul class="nav nav-justified"
           li
             a href="" onclick="alert('Soon to come!')" Dashboard
-          - if current_user && (current_user.email.include? "agilidee.com")
+          - if can? :read, TimeSlice
             li
               = link_to 'Projects', projects_path 
             li
               = link_to 'Time Lapse', time_slices_path 
-          li
-            = link_to 'Billing Machine', '/invoices#/invoices', id: 'invoices'
+          - if can? :read, Invoice
+            li
+              = link_to 'Billing Machine', '/invoices#/invoices', id: 'invoices'
           li
             = link_to 'Logout', destroy_user_session_path, method: :delete
     - else

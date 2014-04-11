@@ -7,5 +7,8 @@ FactoryGirl.define do
     address2 ''
     zip 77777
     city 'Donald City'
+    
+    billing_machine true
+    time_machine true
   end
 end
