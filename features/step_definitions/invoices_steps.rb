@@ -80,7 +80,7 @@ When(/^changes the label$/) do
 end
 
 Then(/^the invoices's label has changed$/) do
-  # A changer quand la vue :show est disponible
-  @invoice.reload.label.should eq(@new_label)
+  reload_the_page
+  find_field('invoice-label').value.should eq @new_label
 end
 
