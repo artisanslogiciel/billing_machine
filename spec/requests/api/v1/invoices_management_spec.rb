@@ -2,8 +2,9 @@ require 'spec_helper'
 require 'json'
 
 describe 'Invoices management' do
+  let(:user) {FactoryGirl.create(:user)}
   before(:each) do
-    @invoice = FactoryGirl.create(:invoice)
+    @invoice = FactoryGirl.create(:invoice, entity: user.entity)
     @invoice_line = FactoryGirl.create(:invoice_line, invoice: @invoice)
   end
 
@@ -18,7 +19,7 @@ describe 'Invoices management' do
 
   context 'when authenticated' do
     before(:each) do
-      sign_in_as_a_valid_user
+      sign_in_as_a_valid_user user
     end
     describe '#index' do
       it 'returns all items' do

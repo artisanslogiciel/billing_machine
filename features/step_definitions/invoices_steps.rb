@@ -67,7 +67,7 @@ Then(/^it's added to the invoice list$/) do
 end
 
 Given(/^an existing invoice$/) do
-  @invoice = FactoryGirl.create(:invoice)
+  @invoice = FactoryGirl.create(:invoice, entity: @user.entity)
 end
 
 When(/^he edits the invoice$/) do

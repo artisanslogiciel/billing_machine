@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe InvoicesController do
-  let(:invoice) {FactoryGirl.create(:invoice)}
+  let(:user) {FactoryGirl.create :user }
+  let(:invoice) { FactoryGirl.create(:invoice, entity: user.entity) }
+  let(:another_invoice) { FactoryGirl.create(:invoice) }
+   
   context 'when not authenticated' do
     describe '#index' do
       it 'should refuse access' do
@@ -19,7 +22,7 @@ describe InvoicesController do
 
   context 'when authenticated' do
     before(:each) do
-      sign_in FactoryGirl.create :user, entity: invoice.entity
+      sign_in user
     end
 
     describe '#index' do
@@ -37,7 +40,10 @@ describe InvoicesController do
         get :show, id: invoice.id, format: :pdf
         assigns(:invoice).should eq(invoice)
       end
-      it 'should ensure that user is authorized to access it'
+      it 'should ensure that user is authorized to access it' do
+        get :show, id: another_invoice.id, format: :pdf
+        response.should redirect_to root_url
+      end
     end
   end
 end

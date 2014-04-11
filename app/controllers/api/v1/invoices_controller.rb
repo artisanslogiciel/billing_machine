@@ -4,7 +4,7 @@ module Api
       wrap_parameters include: [Invoice.attribute_names, :lines_attributes].flatten
       
       def index
-        @invoices = Invoice.all.order(unique_index: :desc)
+        @invoices = current_user.entity.invoices.order(unique_index: :desc)
         respond_with @invoices
       end
 
@@ -17,12 +17,14 @@ module Api
 
       def update
         @invoice = Invoice.find(params[:id])
+        authorize! :write, @invoice
         status = @invoice.update(safe_params) ? 200 : 422 
         render partial: 'invoice', status: status, :locals => { :invoice => @invoice }
       end
 
       def show
         @invoice = Invoice.find(params[:id])
+        authorize! :read, @invoice
         render partial: 'invoice', status: 200, :locals => { :invoice => @invoice }
       end
 

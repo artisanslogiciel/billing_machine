@@ -19,12 +19,15 @@ module Api
       end
 
       context 'when authenticated' do
+        let(:user) {FactoryGirl.create :user }
+        let(:invoice) { FactoryGirl.create(:invoice, entity: user.entity) }
+        let(:another_invoice) { FactoryGirl.create(:invoice) }
+
         before(:each) do
-          @user = FactoryGirl.create :user
-          sign_in @user
+          sign_in user
         end
 
-        it 'should check access rights'
+        
         describe '#index' do
           it 'should grant access' do
             get :index, format: :json
@@ -32,7 +35,8 @@ module Api
           end
 
           it 'should return invoices' do
-            invoice = FactoryGirl.create(:invoice)
+            invoice = FactoryGirl.create(:invoice, entity: user.entity)
+            another_invoice = FactoryGirl.create(:invoice)
             get :index, format: :json
             assigns(:invoices).should eq([invoice])
           end
@@ -45,18 +49,22 @@ module Api
           end
           it 'should assign entity_id' do
             post :create, format: :json, invoice: FactoryGirl.attributes_for(:invoice)
-            assigns(:invoice).entity_id.should eq(@user.entity_id)
+            assigns(:invoice).entity_id.should eq(user.entity_id)
           end
           it 'should return an error code when it cannot save the entity' do
             Invoice.any_instance.stub(:save).and_return false
             post :create, format: :json, invoice: { name: '' }
             response.status.should eq(422)
           end
-          it 'should calculate vat and total_all_taxes by itself'
         end
 
         describe '#update' do
-          let(:invoice) { FactoryGirl.create(:invoice) }
+
+          it 'should check access rights' do
+            expect {
+              put :update, id: another_invoice.id, format: :json, invoice: { label: 'Updated' }
+              }.to raise_exception CanCan::AccessDenied       
+          end
 
           it 'should update an entry with valid params' do
             put :update, id: invoice.id, format: :json, invoice: { label: 'Updated' + invoice.label }
@@ -68,7 +76,20 @@ module Api
             put :update, id: invoice.id, format: :json, invoice: { label: 'Updated' + invoice.label }
             response.status.should eq(422)
           end
-          it 'should calculate vat and total_all_taxes by itself'
+        end
+        
+        describe '#show' do
+          it 'should check access rights' do
+            expect {
+              get :show, id: another_invoice.id, format: :json
+              }.to raise_exception CanCan::AccessDenied       
+          end
+
+          it 'should check access rights' do
+            get :show, id: invoice.id, format: :json
+            response.status.should eq(200)     
+          end
+
         end
       end
     end
