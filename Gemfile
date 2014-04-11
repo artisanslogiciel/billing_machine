@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 
 gem 'awesome_print'
+gem 'cancan'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'devise'
 gem 'jbuilder', '~> 1.2'

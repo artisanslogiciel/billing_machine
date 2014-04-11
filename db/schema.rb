@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140301062755) do
+ActiveRecord::Schema.define(version: 20140411122521) do
 
   create_table "activities", force: true do |t|
     t.string   "label"
@@ -98,7 +98,10 @@ ActiveRecord::Schema.define(version: 20140301062755) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "comment"
+    t.integer  "user_id"
   end
+
+  add_index "time_slices", ["user_id"], name: "index_time_slices_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "first_name",             default: "", null: false
@@ -117,6 +120,7 @@ ActiveRecord::Schema.define(version: 20140301062755) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "entity_id"
+    t.integer  "manager_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -3,7 +3,8 @@ require 'json'
 
 describe 'Time Slices management' do
   before(:each) do
-    @time_slice = FactoryGirl.create(:time_slice)
+    @user = FactoryGirl.create :user
+    @time_slice = FactoryGirl.create(:time_slice, user: @user)
   end
 
   context 'when not authenticated' do

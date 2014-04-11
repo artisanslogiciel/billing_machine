@@ -1,5 +1,4 @@
-Given(/^a user on the time slices' section$/) do
-  step('an existing user')
+When(/^the user goes in the time slices section$/) do
   visit('/time_slices')
 end
 
@@ -8,7 +7,7 @@ Given(/^an existing activity$/) do
 end
 
 Given(/^an existing time slice$/) do
-  @time_slice = FactoryGirl.create(:time_slice)
+  @time_slice = FactoryGirl.create(:time_slice, user: @user)
 end
 
 When(/^he creates a new time slice$/) do

@@ -4,4 +4,5 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
   belongs_to :entity
+  has_many :time_slices, inverse_of: :user
 end

@@ -4,19 +4,20 @@ Feature: Time slices
   In order to monitor the time spent on projects
 
   Background:
+    Given an existing user
     Given an existing project
     Given an existing activity
 
   @javascript
   Scenario: Add a time slice
-    Given a user on the time slices' section
-    When he creates a new time slice
+    When the user goes in the time slices section
+    And he creates a new time slice
     Then the time slice is added to the list   
 
   @javascript
   Scenario: Update a time slice
     Given an existing time slice
-    And a user on the time slices' section
+    When the user goes in the time slices section
     When he edits the time slices' duration
     Then the current time slices' duration should be pre-filled
     When he validates the new duration
