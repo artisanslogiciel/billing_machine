@@ -9,7 +9,6 @@ gem 'jbuilder', '~> 1.2'
 gem 'jquery-rails'
 gem 'prawn'
 gem 'sass-rails', '~> 4.0.0'
-gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 
 #group :assets do
@@ -25,7 +24,6 @@ end
 group :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
-  gem 'faker', "~> 1.2.0" 
   gem 'launchy'
   gem 'simplecov'
   gem 'poltergeist'
