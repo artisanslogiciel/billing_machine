@@ -1,5 +1,8 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
+# All values in factories used for invoice should be different because invoice
+# generation tests check for text inclusion in final result so equal values
+# will make pass tests that shouln't !
 FactoryGirl.define do
   factory :invoice do
     date '2014-02-19'

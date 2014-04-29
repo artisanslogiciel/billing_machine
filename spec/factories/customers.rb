@@ -4,8 +4,9 @@ FactoryGirl.define do
   factory :customer do
     name 'ACME'
     address1 '69 Toon Street'
-    address2 ''
-    zip 77777
+    address2 'address2 value'
+    zip 66666
+    city 'Mickey City'
     entity
   end
 end

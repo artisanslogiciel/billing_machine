@@ -28,6 +28,7 @@ group :test do
   gem 'launchy'
   gem 'simplecov'
   gem 'poltergeist'
+  gem 'pdf-inspector'
 end
 
 group :development, :test do
