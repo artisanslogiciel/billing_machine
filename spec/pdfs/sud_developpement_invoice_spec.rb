@@ -2,10 +2,33 @@
 require 'spec_helper'
 
 describe SudDeveloppementInvoice, pdfs: true do
-  let(:invoice) { FactoryGirl.create(:invoice) }
-  let(:invoice_line) { FactoryGirl.create(:invoice_line) }
-  let(:invoice_line_2) { FactoryGirl.create(:invoice_line_2) }
-  let(:pdf) { SudDeveloppementInvoice.new(invoice) }
+
+  def self.it_should_write(string, failure_message = nil)
+    it "should write '#{string}'  " do
+      text.strings.should include(string), failure_message
+    end
+  end
+  
+  let(:customer) { FactoryGirl.create(:customer, city: 'Mickey City', address2: 'address2 value') }
+  let(:invoice) { FactoryGirl.create(:invoice, total_duty: 54.36, vat: 34.99,
+    total_all_taxes: 54.39, advance: 1.34, customer: customer) }
+  
+  let(:invoice_line) { FactoryGirl.create(:invoice_line,
+    invoice_id: invoice.id,
+    quantity: 3.14,
+    unit: 'heures',
+    unit_price: 2.54,
+    total: 10.99) }
+    
+  let(:invoice_line_2) { FactoryGirl.create(:invoice_line,
+    invoice_id: invoice.id,
+    label: 'Truc',
+    quantity: 42.42,
+    unit: 'nuts',
+    unit_price: 42.54,
+    total: 561.99) }
+  
+  let(:pdf) { FactoryGirl.build(:sud_developpement_invoice, invoice: invoice) }
 
   describe "#initialize" do
     it 'inherits from Prawn::Document' do
@@ -124,22 +147,7 @@ describe SudDeveloppementInvoice, pdfs: true do
         end
       end
       
-      context 'with floating values in french syntax' do
-        before do
-          invoice_line.quantity = 3.14
-          invoice_line_2.quantity = 42.42
-          invoice_line.unit_price = 2.54
-          invoice_line_2.unit_price = 42.54
-          invoice_line.total = 10.99
-          invoice_line_2.total = 561.99
-          invoice.total_duty = 54.36
-          invoice.vat = 34.99
-          invoice.total_all_taxes = 54.39
-          invoice.advance = 1.34
-          invoice.balance = 11.59
-          pdf.build
-        end
-      
+      context 'with floating values in french syntax' do      
         it 'should write invoice line quantity of each line' do
           text.strings.should include '3,14'
           text.strings.should include '42,42'
@@ -151,25 +159,32 @@ describe SudDeveloppementInvoice, pdfs: true do
         end
        
         it 'should write invoice line total of each line' do
-          text.strings.should include('10,99 €'), 'see factory for input value'
-          text.strings.should include('561,99 €'), 'see factory for input value'
+          text.strings.should include '10,99 €'
+          text.strings.should include '561,99 €'
         end
   
         it_should_write 'TOTAL HT'
-        it_should_write '54,36 €', 'see factory for input value'
+        it_should_write '54,36 €'
         
         it_should_write 'TVA (20,00%)'
-        it_should_write '34,99 €', 'see factory for input value'
+        it_should_write '34,99 €'
   
         it_should_write 'TOTAL TTC'
-        it_should_write '54,39 €', 'see factory for input value'
+        it_should_write '54,39 €'
   
         it_should_write 'Acompte reçu sur commande'
-        it_should_write '1,34 €', 'see factory for input value'
+        it_should_write '1,34 €'
   
-        it_should_write 'Solde à payer'
-        it_should_write '11,59 €', 'see factory for input value'
+        it_should_write 'Solde à payer'          
+        it 'should write balance calculated using total_all_taxes - advance' do
+          text.strings.should include '53,05 €'
+        end
+
       end # context with floating values in french syntax
+      
+      it 'should write invoice payment term' do
+        text.strings.should include invoice.payment_term.label
+      end
       
       it_should_write 'Banque : BNP PARIBAS'
       it_should_write 'Agence de : SAINT CYR SUR MER (83270)'
@@ -178,9 +193,13 @@ describe SudDeveloppementInvoice, pdfs: true do
     end # context in Lignes de facturation and Synthèse
     
     context 'in Pied de page' do
-      it_should_write 'FACTURE'
+      it 'should write invoice FACTURE + invoice tracking_id + customer name' do
+        text.strings.should include 'FACTURE' + ' ' + invoice.tracking_id +
+          '  ' + invoice.customer.name
+      end
+      
       it_should_write 'Page 1 / 1'
     end
       
-  end # describe #build  
+  end # describe #build
 end

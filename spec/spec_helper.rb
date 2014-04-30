@@ -44,9 +44,3 @@ RSpec.configure do |config|
 end
 
 I18n.enforce_available_locales = false
-
-def it_should_write(string, message = nil)
-  it "should write '#{string}'  " do
-    text.strings.should include(string), message
-  end
-end
