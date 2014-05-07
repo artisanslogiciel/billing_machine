@@ -11,7 +11,7 @@ class SudDeveloppementInvoice < Prawn::Document
   DEBUG = false
 
   def initialize(invoice)
-    super()
+    super(:page_size => 'A4')
     @invoice = invoice
   end
 
