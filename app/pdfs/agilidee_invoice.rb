@@ -72,7 +72,6 @@ class AgilideeInvoice < Prawn::Document
     # Informations client
     bounding_box [50, 530], :width => 450, :height => 75 do
       font_size 11.5
-      transparent(0.5) {stroke_bounds} 
       text 'A l’attention de :', :style => :bold
       text @invoice.customer.name
       text @invoice.customer.address1
