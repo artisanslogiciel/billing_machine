@@ -38,4 +38,17 @@ describe Invoice do
       invoice.balance.should eq(100.0)
     end
   end
+
+  describe 'pdf' do
+    it 'should return the entities\'s customization type' do
+      entity = FactoryGirl.create(:entity, customization_prefix: 'sud_developpement')
+      invoice = FactoryGirl.create(:invoice, entity: entity)
+      invoice.pdf.should be_a SudDeveloppementInvoice
+    end
+    it 'should return the entities\'s customization type' do
+      entity = FactoryGirl.create(:entity, customization_prefix: 'agilidee')
+      invoice = FactoryGirl.create(:invoice, entity: entity)
+      invoice.pdf.should be_a AgilideeInvoice
+    end
+  end
 end

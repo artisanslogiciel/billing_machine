@@ -28,4 +28,11 @@ class Invoice < ActiveRecord::Base
     self.advance ||= 0
     self.balance = self.total_all_taxes - self.advance
   end
+
+  def pdf 
+    klass = (self.entity.customization_prefix + "_invoice").camelize.constantize
+    pdf = klass.new(self)
+    pdf.build
+    return pdf
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140411160231) do
+ActiveRecord::Schema.define(version: 20140509082929) do
 
   create_table "activities", force: true do |t|
     t.string   "label"
@@ -41,9 +41,10 @@ ActiveRecord::Schema.define(version: 20140411160231) do
     t.string   "city"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "unique_index",    default: 0
-    t.boolean  "billing_machine", default: false
-    t.boolean  "time_machine",    default: false
+    t.integer  "unique_index",         default: 0
+    t.boolean  "billing_machine",      default: false
+    t.boolean  "time_machine",         default: false
+    t.string   "customization_prefix"
   end
 
   add_index "entities", ["id", "unique_index"], name: "index_entities_on_id_and_unique_index", unique: true

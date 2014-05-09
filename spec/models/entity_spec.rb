@@ -5,4 +5,6 @@ describe Entity do
     FactoryGirl.build(:entity).should be_valid
   end
   it {should have_many :invoices}
+  it {should respond_to :customization_prefix}
+  it {should validate_presence_of :customization_prefix }
 end

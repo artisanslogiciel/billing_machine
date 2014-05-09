@@ -10,5 +10,6 @@ FactoryGirl.define do
     
     billing_machine true
     time_machine true
+    customization_prefix 'agilidee'
   end
 end
