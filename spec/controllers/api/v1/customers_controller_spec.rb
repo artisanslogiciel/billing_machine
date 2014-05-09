@@ -13,9 +13,9 @@ module Api
       end
             
       context 'when authenticated' do
-
+        let(:user) {FactoryGirl.create :user}
         before(:each) do
-          sign_in FactoryGirl.create :user
+          sign_in user
         end
 
         describe '#index' do
@@ -23,7 +23,13 @@ module Api
             get :index, format: :json
             response.status.should eq(200)
           end
-          it 'should only return currents user customers'
+          it 'should only return currents user customers' do
+            customer_mine = FactoryGirl.create(:customer, entity: user.entity)
+            customer_not_mine = FactoryGirl.create(:customer)
+            get :index, format: :json
+            assigns(:customers).should eq([customer_mine])
+          end
+
         end
       end
     end
