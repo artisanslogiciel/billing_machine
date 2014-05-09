@@ -10,7 +10,7 @@ class Invoice < ActiveRecord::Base
   before_save :update_balance
 
   def assign_unique_index
-    entity.unique_index += 1
+    entity.unique_index ? entity.unique_index += 1 : entity.unique_index = 1
     entity.save
     self.unique_index = entity.unique_index
   end
