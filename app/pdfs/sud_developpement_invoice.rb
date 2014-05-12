@@ -31,23 +31,23 @@ class SudDeveloppementInvoice < Prawn::Document
     # if invoice.logo.exists?
     #   image @invoice.logo.path(:medium), at: [300, 730]
     # end
-    image Rails.root+'app/pdfs/sud_developpement_logo.png', at: [0, 720], :width => 80
+    image Rails.root+'app/pdfs/sud_developpement_logo.png', at: [0, 770], :width => 80
 
-    line [85, 720], [85, 0]
+    line [85, 770], [85, 0]
     stroke
     
-    line [90, 650], [535, 650]
+    line [90, 700], [535, 700]
     stroke
 
     # Entête
-    bounding_box [300, 670], :width => 235, :height => 20 do
+    bounding_box [300, 720], :width => 235, :height => 20 do
       draw_bounds_debug
       font_size 20
       text 'FACTURE', :align => :right, :style => :italic
     end 
 
     # Mentions légales - Colonne de gauche
-    bounding_box [0, 600], :width => 80, :height => 620 do
+    bounding_box [0, 650], :width => 80, :height => 620 do
       draw_bounds_debug
       font_size 8
       write_legal_line 'Téléphone'
@@ -87,7 +87,7 @@ class SudDeveloppementInvoice < Prawn::Document
     end
 
     # Déclaration
-    bounding_box [90, 600], :width => 200, :height => 45 do
+    bounding_box [90, 650], :width => 200, :height => 45 do
       draw_bounds_debug
       font_size 11
       text "La société SUD-DÉVELOPPEMENT", :style => :italic, :align => :center, :color => GREY
@@ -96,9 +96,9 @@ class SudDeveloppementInvoice < Prawn::Document
     end
 
     # Informations client
-    bounding_box [300, 625], :width => 235, :height => 70 do
+    bounding_box [300, 680], :width => 235, :height => 75 do
       stroke_bounds
-      bounding_box [10, 60], :width => 225, :height => 60 do
+      bounding_box [10, 65], :width => 225 do
         draw_bounds_debug
         font_size 11
         text @invoice.customer.name
@@ -109,7 +109,7 @@ class SudDeveloppementInvoice < Prawn::Document
     end
 
     # Entete de facturation
-    bounding_box [90, 540], :width => 445, :height => 60 do
+    bounding_box [90, 590], :width => 445, :height => 60 do
       font_size 10
       draw_bounds_debug
       table [ ['FACTURE N°', @invoice.tracking_id, 'Date', @invoice.date.strftime("%d/%m/%Y") ]], 
@@ -122,7 +122,7 @@ class SudDeveloppementInvoice < Prawn::Document
     end
 
     # Lignes de facturation
-    bounding_box [90, 475], :width => 445, :height => 280 do
+    bounding_box [90, 525], :width => 445, :height => 280 do
       font_size 9
       draw_bounds_debug
       float do 
@@ -151,7 +151,7 @@ class SudDeveloppementInvoice < Prawn::Document
     
 
     # Synthèse    
-    bounding_box [300, 185], :width => 235, :height => 180 do
+    bounding_box [300, 235], :width => 235, :height => 190 do
       draw_bounds_debug
       font_size 9
       
