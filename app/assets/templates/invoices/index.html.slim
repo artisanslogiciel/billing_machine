@@ -3,14 +3,16 @@
   .actions
     a.btn.btn-primary.btn-lg id='new-invoice' href='' ng-click='navNewInvoice()' Nouvelle facture
 .row.header
-  .col-sm-2.col-xs-3.date Date
+  .col-sm-1.col-xs-3.date Date
+  .col-sm-1.col-xs-3.date Numéro
   .col-sm-4.col-xs-6.customer Client
   .col-sm-2.col-xs-3.total-duty Montant HT
-  .col-sm-4.col-xs-12.action Action 
+  .col-sm-3.col-xs-12.action Action
 .row.invoice ng-repeat="invoice in invoices"
-  .col-sm-2.col-xs-3.date ng-bind="invoice.date"
+  .col-sm-1.col-xs-3.date ng-bind="invoice.date"
+  .col-sm-1.col-xs-3.date TODO
   .col-sm-4.col-xs-6.customer-name ng-bind="customerName(invoice.customer_id)"
   .col-sm-2.col-xs-3.total-duty ng-bind="invoice.total_duty | euros"
-  .col-sm-4.col-xs-12.actions 
+  .col-sm-3.col-xs-12.actions
     a.btn.btn-sm.btn-success href="/invoices/{{invoice.id}}.pdf" target="_blank" Télécharger
     a.btn.btn-sm.btn-success.edit-invoice data-id='{{invoice.id}}' ng-click='navEditInvoice(invoice)' Editer
