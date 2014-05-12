@@ -13,7 +13,7 @@ class AgilideeInvoice < Prawn::Document
     'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
   
   def initialize(invoice)
-    super(:page_size => 'A4')#, :bottom_margin => 35)
+    super(:page_size => 'A4')
     @invoice = invoice
   end
   
@@ -50,7 +50,8 @@ class AgilideeInvoice < Prawn::Document
     end
     
     # Entete de facturation
-    bounding_box [340, 585], :width => 130, :height => 75 do
+    bounding_box [300, 585], :width => 170, :height => 50 do
+      draw_bounds_debug
       font_size 10
       text "<font size='16'><b>Facture</b></font> N°" + @invoice.tracking_id,
         :inline_format => true,
