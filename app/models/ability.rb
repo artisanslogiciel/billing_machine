@@ -11,8 +11,13 @@ class Ability
 
     if user.billing_machine && user.entity.billing_machine
       can [:write, :read], Invoice do |i|
-        i.entity_id == user.entity_id 
+        i.entity_id == user.entity_id
       end
     end
+
+    if user.manager?
+      can [:write, :read], PaymentTerm
+    end
+
   end
 end
