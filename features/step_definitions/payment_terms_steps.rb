@@ -17,5 +17,6 @@ When(/^he goes to the new invoice page$/) do
 end
 
 Then(/^the payment term is added to the list$/) do
-  select @new_payment_term, from: 'invoice-payment-term'
+  # TODO: find why it doesn't work with RSpec syntax
+  assert page.has_select?('invoice-payment-term', :with_options => [@new_payment_term])
 end
