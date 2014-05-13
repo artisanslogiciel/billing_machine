@@ -12,8 +12,8 @@ describe User do
     user.should_not be_manager
   end
 
-  it 'should be manager when having a manager_id' do
-    user = FactoryGirl.build(:user, manager_id: 1)
+  it 'should be manager when bulding an admin user' do
+    user = FactoryGirl.build(:admin_user)
     user.should be_manager
   end
 
