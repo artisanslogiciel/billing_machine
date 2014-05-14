@@ -11,7 +11,7 @@ module Api
           end
         end
       end
-            
+
       context 'when authenticated' do
         let(:user) {FactoryGirl.create :user}
         before(:each) do

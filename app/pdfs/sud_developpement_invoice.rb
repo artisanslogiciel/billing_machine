@@ -26,7 +26,7 @@ class SudDeveloppementInvoice < Prawn::Document
 
   def build
     stroke_axis :step_length => 50, :color => GREY if DEBUG
-    
+
 
     # if invoice.logo.exists?
     #   image @invoice.logo.path(:medium), at: [300, 730]
@@ -35,7 +35,7 @@ class SudDeveloppementInvoice < Prawn::Document
 
     line [85, 770], [85, 0]
     stroke
-    
+
     line [90, 700], [535, 700]
     stroke
 
@@ -44,7 +44,7 @@ class SudDeveloppementInvoice < Prawn::Document
       draw_bounds_debug
       font_size 20
       text 'FACTURE', :align => :right, :style => :italic
-    end 
+    end
 
     # Mentions légales - Colonne de gauche
     bounding_box [0, 650], :width => 80, :height => 620 do
@@ -112,11 +112,11 @@ class SudDeveloppementInvoice < Prawn::Document
     bounding_box [90, 590], :width => 445, :height => 60 do
       font_size 10
       draw_bounds_debug
-      table [ ['FACTURE N°', @invoice.tracking_id, 'Date', @invoice.date.strftime("%d/%m/%Y") ]], 
+      table [ ['FACTURE N°', @invoice.tracking_id, 'Date', @invoice.date.strftime("%d/%m/%Y") ]],
             :column_widths => [210, 103, 66, 66],
             :cell_style => { background_color: BLUE, :text_color => WHITE, :align => :center}
       move_down 10
-      table [ ['LIBELLES','Q', 'U', 'PU' , 'MONTANT']], 
+      table [ ['LIBELLES','Q', 'U', 'PU' , 'MONTANT']],
             :column_widths => [210, 50, 53,66,66],
             :cell_style => { background_color: BLUE, :text_color => WHITE, :align => :center}
     end
@@ -125,8 +125,8 @@ class SudDeveloppementInvoice < Prawn::Document
     bounding_box [90, 525], :width => 445, :height => 280 do
       font_size 9
       draw_bounds_debug
-      float do 
-        table [ ['','', '', '' , '']], 
+      float do
+        table [ ['','', '', '' , '']],
             :column_widths => [210, 50, 53,66,66],
             :cell_style => {:height => 280}
       end
@@ -136,25 +136,25 @@ class SudDeveloppementInvoice < Prawn::Document
         @invoice.lines.each do |line|
           datas.push [line.label,french_number(line.quantity), line.unit, euros(line.unit_price) , euros(line.total)]
         end
-        table datas, 
+        table datas,
             :column_widths => [210, 50, 53,66,66],
-            :cell_style => {:borders => []} do 
-          column(0).style :align => :left 
-          column(1).style :align => :right 
-          column(2).style :align => :center 
-          column(3).style :align => :right 
-          column(4).style :align => :right 
+            :cell_style => {:borders => []} do
+          column(0).style :align => :left
+          column(1).style :align => :right
+          column(2).style :align => :center
+          column(3).style :align => :right
+          column(4).style :align => :right
         end
       end
 
     end
-    
 
-    # Synthèse    
+
+    # Synthèse
     bounding_box [300, 235], :width => 235, :height => 190 do
       draw_bounds_debug
       font_size 9
-      
+
       summary_table([['TOTAL HT', euros(@invoice.total_duty)],
                ['TVA (20,00%)', euros(@invoice.vat)],
                ['TOTAL TTC', euros(@invoice.total_all_taxes)]])
@@ -164,19 +164,19 @@ class SudDeveloppementInvoice < Prawn::Document
       summary_table([['Solde à payer', euros(@invoice.balance)]])
       move_down 8
 
-      table([[@invoice.payment_term.try(:label)]], 
-            :column_widths => [235], 
-            :cell_style => {:align => :center, :font_style => :italic, :padding => [2, 2, 2, 2]}) 
-      
+      table([[@invoice.payment_term.try(:label)]],
+            :column_widths => [235],
+            :cell_style => {:align => :center, :font_style => :italic, :padding => [2, 2, 2, 2]})
+
       move_down 8
       datas = [['Banque : BNP PARIBAS'],
             ['Agence de : SAINT CYR SUR MER (83270)'],
             ['IBAN : ***REMOVED***'],
             ['BIC : ***REMOVED***']]
-      
-      table(datas, 
-            :column_widths => [235], 
-            :cell_style => {:padding => [2, 2, 2, 2],:border_color => GREY,  text_color: GREY}) 
+
+      table(datas,
+            :column_widths => [235],
+            :cell_style => {:padding => [2, 2, 2, 2],:border_color => GREY,  text_color: GREY})
 
    end
 
@@ -197,14 +197,14 @@ class SudDeveloppementInvoice < Prawn::Document
   def summary_table datas
     table(datas,
           :column_widths => [169,66],
-          :cell_style => {:padding => [2, 2, 2, 2], font_style: :bold}) do 
-      column(0).style :align => :left 
-      column(1).style :align => :right 
+          :cell_style => {:padding => [2, 2, 2, 2], font_style: :bold}) do
+      column(0).style :align => :left
+      column(1).style :align => :right
     end
   end
 
   def euros amount
-    amount ||= 0 
+    amount ||= 0
     french_number(amount, 2).to_s + " €"
   end
 
