@@ -6,9 +6,9 @@ Feature: Project Management
   @javascript
   Scenario: New project
     Given a user on the projects page
-    When he fills the project's name 
+    When he fills the project's name
     And creates a new project
-    Then the project is added to the project list   
+    Then the project is added to the project list
 
   @javascript
   Scenario: Update project name

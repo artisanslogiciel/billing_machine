@@ -2,14 +2,14 @@
 - des clients (Nom, ..., ..., MAIL !, ..., IBAN, SWIFT, ...)
 - des factures
   => 2 natures : Facture ou Avoir
-  => 4 statuts : 
+  => 4 statuts :
     -> brouillon
     -> envoyée (donc protégée)
     -> payée
     -> archivée (on peut toujours ''décocher'' pour débloquer et/ou modifier)
   => Un numéro de document simple, type :
     -> une lettre "F" pour Facture
-    -> "A" pour AVOIR 
+    -> "A" pour AVOIR
     -> la date à l'envers + un chrono (F 140217-1) (on ne se destine pas à 100 factures par jour !)
   => Des modes de paiement (dont 1 par défaut) + échéance
   => ''réglées'' ou relevé de compte des ''impayées'' avec relance possible par mail (?)

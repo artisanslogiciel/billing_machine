@@ -9,15 +9,15 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
       .form-group
         label for='invoice-unique-index' class='col-sm-5 control-label' Index unique
         .col-sm-7
-          .form-control-static.invoice-unique-index ng-bind="invoice.unique_index" 
+          .form-control-static.invoice-unique-index ng-bind="invoice.unique_index"
       .form-group
         label for='invoice-label' class='col-sm-5 control-label' Label
         .col-sm-7
-          input.form-control id='invoice-label' type="text" ng-model="invoice.label" 
+          input.form-control id='invoice-label' type="text" ng-model="invoice.label"
       .form-group
         label for='invoice-date' class='col-sm-5 control-label' Date
         .col-sm-7
-          input.form-control id='invoice-date' type="text" ng-model="invoice.date" 
+          input.form-control id='invoice-date' type="text" ng-model="invoice.date"
       .form-group
         label for='invoice-payment-term' class='col-sm-5 control-label' Paiement
         .col-sm-7
@@ -55,22 +55,22 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
     .row.invoice-line ng-repeat="line in invoice.lines_attributes" bb-item-edit=""
       .col-sm-3.col-xs-12
         .line-label.bb-show ng-bind="line.label"
-        .line-label.bb-edit 
-          input.form-control type="text" ng-model="line.label" 
+        .line-label.bb-edit
+          input.form-control type="text" ng-model="line.label"
       .col-sm-2.col-xs-6
         .line-quantity.bb-show  ng-bind="line.quantity"
-        .line-label.bb-edit 
-          input.form-control type="text" ng-model="line.quantity" 
-      
+        .line-label.bb-edit
+          input.form-control type="text" ng-model="line.quantity"
+
       .col-sm-1.col-xs-6
         .line-unit.bb-show ng-bind="line.unit"
-        .line-label.bb-edit 
-          input.form-control type="text" ng-model="line.unit" 
-      
+        .line-label.bb-edit
+          input.form-control type="text" ng-model="line.unit"
+
       .col-sm-2.col-xs-6
         .line-unit-price.bb-show ng-bind="line.unit_price | euros"
-        .line-label.bb-edit 
-          input.form-control type="text" ng-model="line.unit_price" 
+        .line-label.bb-edit
+          input.form-control type="text" ng-model="line.unit_price"
 
       .col-sm-2.col-xs-6
         .line-total ng-bind="line_total(line) | euros"
@@ -81,14 +81,14 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
         a.btn.btn-danger.btn-sm.bb-remove.delete-line ng-click="delete_line(line)" href='' Supprimer
 
     .row.new-line
-      .col-sm-3.col-xs-12.line-label 
-          input.form-control id='new-line-label' type="text" ng-model="new_line.label" 
-      .col-sm-2.col-xs-6.line-quantity 
-          input.form-control id='new-line-quantity' type="text" ng-model="new_line.quantity" 
-      .col-sm-1.col-xs-6.line-unit 
-          input.form-control id='new-line-unit' type="text" ng-model="new_line.unit" 
-      .col-sm-2.col-xs-6.line-unit-price 
-          input.form-control id='new-line-unit-price' type="text" ng-model="new_line.unit_price" 
+      .col-sm-3.col-xs-12.line-label
+          input.form-control id='new-line-label' type="text" ng-model="new_line.label"
+      .col-sm-2.col-xs-6.line-quantity
+          input.form-control id='new-line-quantity' type="text" ng-model="new_line.quantity"
+      .col-sm-1.col-xs-6.line-unit
+          input.form-control id='new-line-unit' type="text" ng-model="new_line.unit"
+      .col-sm-2.col-xs-6.line-unit-price
+          input.form-control id='new-line-unit-price' type="text" ng-model="new_line.unit_price"
       .col-sm-2.col-xs-6.line-total ng-bind="line_total(new_line) | euros"
       .col-sm-2.col-xs-6.actions
           a.btn.btn-success.btn-sm#add-new-line ng-click="add_new_line()" href='' Ajouter
@@ -103,7 +103,7 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
     .form-group
       label class='col-sm-5 control-label' TVA (20.0%)
       .col-sm-7
-        .form-control-static.invoice-vat ng-bind="invoice.vat | euros"  
+        .form-control-static.invoice-vat ng-bind="invoice.vat | euros"
     .form-group
       label class='col-sm-5 control-label' Montant TTC
       .col-sm-7

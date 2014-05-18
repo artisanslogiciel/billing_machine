@@ -12,7 +12,7 @@ Feature: Time slices
   Scenario: Add a time slice
     When the user goes in the time slices section
     And he creates a new time slice
-    Then the time slice is added to the list   
+    Then the time slice is added to the list
 
   @javascript
   Scenario: Update a time slice
