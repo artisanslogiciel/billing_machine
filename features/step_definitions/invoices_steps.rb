@@ -62,6 +62,9 @@ end
 Then(/^it's added to the invoice list$/) do
   step('the user goes to the invoices page')
   page.should have_selector '.invoice .date', text: @date
+  # There are no other invoices for this test so we should get the right number
+  tracking_id = Invoice.first.tracking_id
+  page.should have_selector '.invoice .tracking-id', text: tracking_id
   page.should have_selector '.invoice .customer-name', text: @customer.name
   page.should have_selector '.invoice .total-duty', text: '200.00€'
 end
