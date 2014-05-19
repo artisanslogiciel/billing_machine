@@ -4,13 +4,13 @@
     a.btn.btn-primary.btn-lg id='new-invoice' href='' ng-click='navNewInvoice()' Nouvelle facture
 .row.header
   .col-sm-1.col-xs-2.date Date
-  .col-sm-1.col-xs-2.date Numéro
+  .col-sm-1.col-xs-2.tracking_id Numéro
   .col-sm-4.col-xs-6.customer Client
   .col-sm-2.col-xs-2.total-duty Montant HT
   .col-sm-3.col-xs-12.action Action
 .row.invoice ng-repeat="invoice in invoices"
   .col-sm-1.col-xs-2.date ng-bind="invoice.date"
-  .col-sm-1.col-xs-2.date ng-bind="invoice.tracking_id"
+  .col-sm-1.col-xs-2.tracking_id ng-bind="invoice.tracking_id"
   .col-sm-4.col-xs-6.customer-name ng-bind="customerName(invoice.customer_id)"
   .col-sm-2.col-xs-2.total-duty ng-bind="invoice.total_duty | euros"
   .col-sm-3.col-xs-12.actions
