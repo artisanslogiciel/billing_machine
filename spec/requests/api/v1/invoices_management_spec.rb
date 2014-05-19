@@ -42,6 +42,7 @@ describe 'Invoices management' do
         expect(json['advance']).to eq(invoice.advance)
         expect(json['balance']).to eq(invoice.balance)
         expect(json['payment_term_id']).to eq(invoice.payment_term_id)
+        expect(json['tracking_id']).to eq(invoice.tracking_id)
         
         expect(json['lines_attributes'][0]['id']).to eq(invoice.lines[0].id)
         expect(json['lines_attributes'][0]['label']).to eq(invoice.lines[0].label)
