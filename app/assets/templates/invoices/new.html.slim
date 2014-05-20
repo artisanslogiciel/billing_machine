@@ -28,7 +28,7 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
         .col-sm-7
           select.form-control id='invoice-customer' ng-model="invoice.customer_id" ng-options="customer.id as customer.name for customer in customers"
       .form-group
-        label class='col-sm-5 control-label' Addresse
+        label class='col-sm-5 control-label' Adresse
         .col-sm-7
           .form-control-static.customer-address1 ng-bind="customer().address1"
       .form-group
