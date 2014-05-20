@@ -27,7 +27,7 @@ module Api
           sign_in user
         end
 
-        
+
         describe '#index' do
           it 'should grant access' do
             get :index, format: :json
@@ -38,7 +38,7 @@ module Api
             user.update(billing_machine: false)
             expect {
               get :index, format: :json
-              }.to raise_exception CanCan::AccessDenied       
+              }.to raise_exception CanCan::AccessDenied
           end
 
           it 'should return invoices' do
@@ -67,7 +67,7 @@ module Api
             user.update(billing_machine: false)
             expect {
               post :create, format: :json, invoice: FactoryGirl.attributes_for(:invoice)
-              }.to raise_exception CanCan::AccessDenied       
+              }.to raise_exception CanCan::AccessDenied
           end
 
          end
@@ -77,7 +77,7 @@ module Api
           it 'should check access rights' do
             expect {
               put :update, id: another_invoice.id, format: :json, invoice: { label: 'Updated' }
-              }.to raise_exception CanCan::AccessDenied       
+              }.to raise_exception CanCan::AccessDenied
           end
 
           it 'should update an entry with valid params' do
@@ -91,17 +91,17 @@ module Api
             response.status.should eq(422)
           end
         end
-        
+
         describe '#show' do
           it 'should check access rights' do
             expect {
               get :show, id: another_invoice.id, format: :json
-              }.to raise_exception CanCan::AccessDenied       
+              }.to raise_exception CanCan::AccessDenied
           end
 
           it 'should check access rights' do
             get :show, id: invoice.id, format: :json
-            response.status.should eq(200)     
+            response.status.should eq(200)
           end
 
         end

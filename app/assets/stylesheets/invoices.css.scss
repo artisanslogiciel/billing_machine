@@ -10,7 +10,7 @@
 .row.header {
   font-weight: bold;
   border-bottom: 1px solid #dddddd;
-  border-top: 0px 
+  border-top: 0px
 }
 .head {
   margin-bottom: 30px;
@@ -26,7 +26,7 @@
   }
 }
 .head:after, .customer:after {
-  clear: both;  
+  clear: both;
   display: block;
   height: 0;
   content: '';
@@ -57,7 +57,7 @@
   }
 }
 
-@media (max-width: 768px) { 
+@media (max-width: 768px) {
   .row.header{
     .action, .line-unit, .line-unit-price, .line-total, .line-quantity {
       display: none;
