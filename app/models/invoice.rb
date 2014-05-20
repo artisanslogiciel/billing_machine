@@ -16,11 +16,10 @@ class Invoice < ActiveRecord::Base
   end
 
   def tracking_id
-    if self.date
-      "#{self.date.strftime("%Y%m%d")}-#{self.unique_index}"
-    else
-      self.unique_index
-    end
+    id_generator_class_name = (self.entity.customization_prefix + "_tracking_id").camelize
+    id_generator_class = id_generator_class_name.constantize
+    tracking_id = id_generator_class.get_tracking_id(self.date, self.unique_index)
+    return tracking_id
   end
 
   def update_balance
