@@ -1,9 +1,5 @@
 #encoding: utf-8
 
-Given(/^an existing customer$/) do
-  @customer = FactoryGirl.create(:customer, entity: @user.entity)
-end
-
 When(/^the user goes to the invoices page$/) do
   visit('/')
   click_link 'invoices'
