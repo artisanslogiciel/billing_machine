@@ -8,9 +8,12 @@ Feature: Customer Management
     Given an existing user
     When the user goes to the customers page
     And he creates a new customer
-    And he fills the name, short name, full address, country and CEDEX
-    When he saves the customer
+    And he fills the name, short name, full address, country, CEDEX, IBAN and BIC/SWIFT
+    And he saves the customer
     Then it's added to the customers list
+
+    When he edits the customer
+    Then all the fields are filled with the right values
 
     When the user goes to the invoices page
     And he creates a new invoice
@@ -23,6 +26,5 @@ Feature: Customer Management
     When the user goes to the customers page
     And he edits the customer
     And changes his name
-    When he saves the customer
+    And he saves the customer
     Then the customer's name has changed
-

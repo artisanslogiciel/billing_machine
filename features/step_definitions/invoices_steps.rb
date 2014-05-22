@@ -82,4 +82,3 @@ Then(/^the invoices's label has changed$/) do
   reload_the_page
   page.should have_field('invoice-label', with: @new_label)
 end
-
