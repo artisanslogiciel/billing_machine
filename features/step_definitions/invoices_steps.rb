@@ -1,9 +1,5 @@
 #encoding: utf-8
 
-Given(/^an existing customer$/) do
-  @customer = FactoryGirl.create(:customer, entity: @user.entity)
-end
-
 When(/^the user goes to the invoices page$/) do
   visit('/')
   click_link 'invoices'
@@ -86,4 +82,3 @@ Then(/^the invoices's label has changed$/) do
   reload_the_page
   page.should have_field('invoice-label', with: @new_label)
 end
-
