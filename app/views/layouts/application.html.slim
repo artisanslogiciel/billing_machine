@@ -2,14 +2,14 @@ doctype html
 html ng-app='Backbone'
 head
   title Backbone
-  = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true 
-  = javascript_include_tag "application", "data-turbolinks-track" => true 
-  = csrf_meta_tags 
+  = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+  = javascript_include_tag "application", "data-turbolinks-track" => true
+  = csrf_meta_tags
 
 body
 
   div class="container"
-    - if signed_in? 
+    - if signed_in?
       div class="masthead"
         h3 class="text-muted" Backbone
         ul class="nav nav-justified"
@@ -17,21 +17,21 @@ body
             a href="" onclick="alert('Soon to come!')" Dashboard
           - if can? :read, TimeSlice
             li
-              = link_to 'Projects', projects_path 
+              = link_to 'Projects', projects_path
             li
-              = link_to 'Time Lapse', time_slices_path 
+              = link_to 'Time Lapse', time_slices_path
           - if can? :read, Invoice
             li
               = link_to 'Billing Machine', '/invoices#/invoices', id: 'invoices'
           li
             = link_to 'Logout', destroy_user_session_path, method: :delete
     - else
-      = link_to 'Login', new_user_session_path 
+      = link_to 'Login', new_user_session_path
 
     p class="alert"
-      = alert 
+      = alert
     p class="notice"
       = notice
 
-    == yield 
+    == yield
 

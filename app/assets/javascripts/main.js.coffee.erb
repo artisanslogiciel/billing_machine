@@ -1,6 +1,6 @@
 @app = angular.module("Backbone", ["ngResource", "ngRoute"])
 
-@app.config(($routeProvider) -> 
+@app.config(($routeProvider) ->
   $routeProvider
     .when('/invoices',
       templateUrl: "<%= asset_path 'invoices/index.html'%>",

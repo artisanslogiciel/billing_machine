@@ -58,12 +58,12 @@ describe 'Invoices management' do
         check_show json, @invoice
       end
     end
-    
+
     describe '#create' do
       it 'returns the newly created item' do
         post '/api/v1/invoices', invoice: FactoryGirl.attributes_for(:invoice).merge({ lines_attributes: [FactoryGirl.attributes_for(:invoice_line)]})
         invoice = Invoice.last
-        check_show json, invoice   
+        check_show json, invoice
       end
     end
 

@@ -4,7 +4,7 @@ describe InvoicesController do
   let(:user) {FactoryGirl.create :user }
   let(:invoice) { FactoryGirl.create(:invoice, entity: user.entity) }
   let(:another_invoice) { FactoryGirl.create(:invoice) }
-   
+
   context 'when not authenticated' do
     describe '#index' do
       it 'should refuse access' do
