@@ -8,7 +8,7 @@ Feature: Customer Management
     Given an existing user
     When the user goes to the customers page
     And he creates a new customer
-    And he fills the name, short name, full address, country, CEDEX, IBAN and BIC/SWIFT
+    And he fills the name, short name, full address, country, IBAN and BIC/SWIFT
     And he saves the customer
     Then it's added to the customers list
 

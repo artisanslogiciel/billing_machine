@@ -10,7 +10,7 @@ When(/^he creates a new customer$/) do
   click_link 'new-customer'
 end
 
-When(/^he fills the name, short name, full address, country, CEDEX, IBAN and BIC\/SWIFT$/) do
+When(/^he fills the name, short name, full address, country, IBAN and BIC\/SWIFT$/) do
   fill_in 'customer-name', with: @customer_name = 'Awesome SARL'
 
   fill_in 'customer-address1', with: @address1 = '1er étage Tour Address1'
@@ -19,7 +19,6 @@ When(/^he fills the name, short name, full address, country, CEDEX, IBAN and BIC
   fill_in 'customer-city', with: @city = 'Marseille'
 
   fill_in 'customer-country', with: @country = 'France'
-  fill_in 'customer-cedex', with: @cedex = 'CEDEX 5'
   fill_in 'customer-iban', with: @iban = 'FR19 2004 1100 2000 0000 0000 T15'
   fill_in 'customer-bic-swift', with: @bic_swift = 'PSSTFRPPREN'
 end
@@ -40,7 +39,6 @@ Then(/^all the fields are filled with the right values$/) do
   page.should have_field('customer-zip', with: @zip)
   page.should have_field('customer-city', with: @city)
   page.should have_field('customer-country', with: @country)
-  page.should have_field('customer-cedex', with: @cedex)
   page.should have_field('customer-iban', with: @iban)
   page.should have_field('customer-bic-swift', with: @bic_swift)
 end
