@@ -1,4 +1,5 @@
-json.(invoice, :id, :unique_index, :label, :date, :created_at, :updated_at, :customer_id, :payment_term_id)
+json.(invoice, :id, :unique_index, :label, :date, :created_at, :updated_at, :customer_id,
+:payment_term_id, :tracking_id)
 json.lines_attributes invoice.lines do |line|
   json.(line, :id, :label, :unit)
   json.quantity line.quantity.to_f

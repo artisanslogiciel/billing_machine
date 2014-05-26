@@ -1,5 +1,5 @@
 @app.controller 'ProjectCtrl', ["$scope", "Project", ($scope, Project) ->
-  $scope.newProject = 
+  $scope.newProject =
     name: ''
   $scope.projects = Project.query()
 

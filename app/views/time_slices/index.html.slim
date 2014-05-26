@@ -12,38 +12,38 @@ div ng-controller="TimeSliceCtrl"
         th Action
     tbody
 
-      tr 
+      tr
         form ng-submit="addTimeSlice()"
-          td 
-            input type="date" ng-model="newTimeSlice.day" 
-          td 
-            select ng-model="newTimeSlice.project_id" ng-options="project.id as project.name for project in projects"
-          td 
-            input id='new-time-slice-duration' type="text" ng-model="newTimeSlice.duration" 
           td
-            select ng-model="newTimeSlice.activity_id" ng-options="activity.id as activity.label for activity in activities"  
+            input type="date" ng-model="newTimeSlice.day"
+          td
+            select ng-model="newTimeSlice.project_id" ng-options="project.id as project.name for project in projects"
+          td
+            input id='new-time-slice-duration' type="text" ng-model="newTimeSlice.duration"
+          td
+            select ng-model="newTimeSlice.activity_id" ng-options="activity.id as activity.label for activity in activities"
           td
             input id='new-time-slice-comment' type="textarea" ng-model="newTimeSlice.comment"
           td
             input id='new-time-slice-submit' type="submit" value="Add" class="btn btn-success btn-sm"
 
       tr class="time-slice" ng-repeat="timeslice in timeslices" bb-item-edit=""
-        td 
+        td
           .day.bb-show
             '{{timeslice.day}}
           .day.bb-edit
-            input type="date" ng-model="timeslice.day" 
-        td 
+            input type="date" ng-model="timeslice.day"
+        td
           .project.bb-show
             '{{ projectName(timeslice.project_id) }}
           .project.bb-edit
             select ng-model="timeslice.project_id" ng-options="project.id as project.name for project in projects"
-        td 
+        td
           .duration.bb-show
             '{{timeslice.duration}}
           .duration.bb-edit
             input id="edit-time-slice-duration-{{timeslice.id}}" type="text" ng-model="timeslice.duration"
-        td 
+        td
           .activity.bb-show
             '{{ activityLabel(timeslice.activity_id)}}
           .activity.bb-edit
@@ -58,8 +58,8 @@ div ng-controller="TimeSliceCtrl"
             a id="edit-{{timeslice.id}}" href="" Edit
           .action.bb-edit
             input id="submit-time-slice-{{timeslice.id}}" type="submit" class="btn btn-success btn-sm" value="Update" ng-click="update(timeslice)"
-          
-          
-          
-          
-          
+
+
+
+
+

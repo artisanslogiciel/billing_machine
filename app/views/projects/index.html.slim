@@ -3,12 +3,12 @@ h1 Projects
 div ng-controller="ProjectCtrl"
 
   ul id="projects"
-    li class="project" ng-repeat="project in projects" bb-item-edit=""      
+    li class="project" ng-repeat="project in projects" bb-item-edit=""
       ul class='errors' ng-show='project.errors'
         li class="error" ng-repeat="error in project.errors"
           '{{error}}
-      .bb-show 
-        .name 
+      .bb-show
+        .name
           '{{project.name}}
         a id="edit-{{project.id}}" href="" Edit
       .bb-edit

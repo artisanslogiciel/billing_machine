@@ -10,7 +10,7 @@
 .row.header {
   font-weight: bold;
   border-bottom: 1px solid #dddddd;
-  border-top: 0px 
+  border-top: 0px
 }
 .head {
   margin-bottom: 30px;
@@ -26,13 +26,16 @@
   }
 }
 .head:after, .customer:after {
-  clear: both;  
+  clear: both;
   display: block;
   height: 0;
   content: '';
 }
 
 .invoice {
+  .date {
+    font-size: 12px
+  }
   .infos {
     float: left;
     width: 50%;
@@ -57,8 +60,16 @@
   }
 }
 
-@media (max-width: 768px) { 
-  .row.header{
+
+// hide action when not in large mode
+@media (max-width: 1200px) {
+  .row.header .action {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .row.header {
     .action, .line-unit, .line-unit-price, .line-total, .line-quantity {
       display: none;
     }

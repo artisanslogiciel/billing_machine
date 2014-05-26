@@ -35,7 +35,7 @@ module Api
           it 'should not grant access if not mine' do
             expect {
               put :update, format: :json, id: another_time_slice.id, time_slice: {id: time_slice.id}
-              }.to raise_exception CanCan::AccessDenied            
+              }.to raise_exception CanCan::AccessDenied
           end
         end
 
@@ -65,7 +65,7 @@ module Api
             user.update(time_machine: false)
             expect {
               get :index, format: :json
-              }.to raise_exception CanCan::AccessDenied       
+              }.to raise_exception CanCan::AccessDenied
           end
 
         end
@@ -97,7 +97,7 @@ module Api
               user.update(time_machine: false)
               expect {
                 post :create, format: :json, time_slice: FactoryGirl.attributes_for(:time_slice)
-                }.to raise_exception CanCan::AccessDenied       
+                }.to raise_exception CanCan::AccessDenied
           end
         end
       end
