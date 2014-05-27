@@ -19,9 +19,9 @@ Feature: Invoice Management
     Then the new line's total should be "160.00€"
     When he adds the new line
     Then the total duty is "200.00€"
-    And the vat due is "40.00€"
+    And the VAT due is "40.00€"
     And the total all taxes included is "240.00€"
-    When he saves the invoice
+    When he saves the new invoice
     Then it's added to the invoice list
 
   @javascript
@@ -33,3 +33,22 @@ Feature: Invoice Management
     And changes the label
     When he saves the invoice
     Then the invoices's label has changed
+
+  @javascript
+  Scenario: New invoice default VAT rate
+    Given an existing user
+    When the user goes to the invoices page
+    And he creates a new invoice
+    # we check the default value
+    Then the VAT rate is "20"
+    When he saves the new invoice
+    # we check the AJAX returned value
+    Then the VAT rate is "20"
+
+  @javascript
+  Scenario: Edit invoice with non default VAT rate
+    Given an existing user
+    And an existing invoice with a "19.6"% VAT rate
+    When the user goes to the invoices page
+    And he edits the invoice
+    Then the VAT rate is "19.6"

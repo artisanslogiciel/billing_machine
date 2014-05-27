@@ -11,3 +11,4 @@ json.vat invoice.vat.to_f
 json.total_all_taxes invoice.total_all_taxes.to_f
 json.balance invoice.balance.to_f
 json.advance invoice.advance.to_f
+json.vat_rate invoice.vat_rate.to_f

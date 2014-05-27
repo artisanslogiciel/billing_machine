@@ -100,10 +100,10 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
       label class='col-sm-5 control-label' Montant HT
       .col-sm-7
         .form-control-static.invoice-total-duty ng-bind="invoice.total_duty | euros"
-    .form-group
+    .form-group ng-controller="VatController"
       label class='col-sm-3 control-label' TVA(%):
       .col-sm-2
-          input.form-control id="vat-rate" type="number" step="0.1" min="0" max="100" ng-model="invoice.vat_rate"
+          input.form-control id="invoice-vat-rate" type="number" step="0.1" min="0" max="100" ng-model="invoice.vat_rate"
       .col-sm-7
         .form-control-static.invoice-vat ng-bind="invoice.vat | euros"
     .form-group

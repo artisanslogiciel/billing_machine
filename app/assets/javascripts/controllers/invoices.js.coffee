@@ -14,7 +14,6 @@
       customer.name
     else
       ''
-
 ]
 
 @app.controller 'InvoiceCtrl', ["$scope", "$location", "$routeParams", "Customer", "PaymentTerm", "Invoice", ($scope, $location, $routeParams, Customer, PaymentTerm, Invoice) ->
@@ -71,7 +70,6 @@
     $scope.new_line = {}
     $scope.sum()
 
-
   $scope.submit = ->
     delete $scope.invoice.errors
     if $scope.invoice.id?
@@ -94,4 +92,7 @@
       )
     $scope.sum()
 
+  $scope.VatController = ($scope) ->
+    VAT_RATE_DEFAUT_VALUE = 20
+    $scope.invoice.vat_rate = VAT_RATE_DEFAUT_VALUE
 ]

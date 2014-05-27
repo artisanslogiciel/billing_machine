@@ -34,7 +34,6 @@ Then(/^the new line's total should be "(.*?)"$/) do |arg1|
   page.should have_selector '.new-line .line-total', text: arg1
 end
 
-
 When(/^he adds the new line$/) do
   click_link 'add-new-line'
 end
@@ -43,7 +42,8 @@ Then(/^the total duty is "(.*?)"$/) do |arg1|
   page.should have_selector '.total .invoice-total-duty', text: arg1
 end
 
-Then(/^the vat due is "(.*?)"$/) do |arg1|
+
+Then(/^the VAT due is "(.*?)"$/) do |arg1|
   page.should have_selector '.total .invoice-vat', text: arg1
 end
 
@@ -53,6 +53,12 @@ end
 
 When(/^he saves the invoice$/) do
   click_link 'submit'
+end
+
+When(/^he saves the new invoice$/) do
+  step "he saves the invoice"
+  # Now we are going to wait for index number to show up which means AJAX returned
+  expect(find('.invoice-unique-index')).to have_content('1')
 end
 
 Then(/^it's added to the invoice list$/) do
@@ -69,6 +75,10 @@ Given(/^an existing invoice$/) do
   @invoice = FactoryGirl.create(:invoice, entity: @user.entity)
 end
 
+Given(/^an existing invoice with a "(.*?)"% VAT rate$/) do |rate|
+  @invoice = FactoryGirl.create(:invoice, entity: @user.entity, vat_rate: rate)
+end
+
 When(/^he edits the invoice$/) do
   find(:xpath, "//a[@data-id='#{@invoice.id}']").click
 end
@@ -81,4 +91,8 @@ end
 Then(/^the invoices's label has changed$/) do
   reload_the_page
   page.should have_field('invoice-label', with: @new_label)
+end
+
+Then(/^the VAT rate is "(.*?)"$/) do |rate|
+  page.should have_field('invoice-vat-rate', with: rate)
 end
