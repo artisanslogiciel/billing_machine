@@ -17,11 +17,16 @@ end
 
 When(/^he chooses the customer$/) do
   select @customer.name
+end
+
+Then(/^he sees the customer's infos$/) do
   page.should have_selector '.customer-address1', text: @customer.address1
   page.should have_selector '.customer-address2', text: @customer.address2
   page.should have_selector '.customer-zip', text: @customer.zip
   page.should have_selector '.customer-city', text: @customer.city
+  page.should have_selector '.customer-country', text: @customer.country
 end
+
 
 When(/^he fills a line with "(.*?)", "(.*?)", "(.*?)", "(.*?)"$/) do |arg1, arg2, arg3, arg4|
   fill_in 'new-line-label', with: arg1

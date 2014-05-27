@@ -9,9 +9,11 @@ describe AgilideeInvoice, pdfs: true do
     end
   end
 
-  let(:customer) { FactoryGirl.create(:customer, city: 'Mickey City', address2: 'address2 value') }
+  let(:customer) { FactoryGirl.create(:customer, city: 'Mickey City',
+    address2: 'address2 value', country: 'Hong Kong') }
   let(:invoice) { FactoryGirl.create(:invoice, total_duty: 1600, vat: 320,
-    total_all_taxes: 1920, advance: 50, balance: 1870 , customer: customer, date: '2014-04-16') }
+    total_all_taxes: 1920, advance: 50, balance: 1870 , customer: customer,
+    date: '2014-04-16') }
 
   let(:invoice_line) { FactoryGirl.create(:invoice_line,
     invoice_id: invoice.id,
@@ -91,6 +93,10 @@ describe AgilideeInvoice, pdfs: true do
         it "should write customer zip and city" do
           text.strings.should include invoice.customer.zip.to_s +
            ' ' + invoice.customer.city.to_s
+        end
+
+        it "should write customer country" do
+          text.strings.should include invoice.customer.country
         end
       end # context in Informations client
     end # context in Entete de facturation

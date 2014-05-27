@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140509082929) do
+ActiveRecord::Schema.define(version: 20140526074502) do
 
   create_table "activities", force: true do |t|
     t.string   "label"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20140509082929) do
     t.datetime "updated_at"
     t.integer  "entity_id"
     t.string   "short_name"
+    t.string   "country"
   end
 
   add_index "customers", ["entity_id"], name: "index_customers_on_entity_id"
