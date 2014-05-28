@@ -79,7 +79,7 @@ Given(/^an existing invoice with a "(.*?)"% VAT rate$/) do |rate|
   @invoice = FactoryGirl.create(:invoice, entity: @user.entity, vat_rate: rate)
 end
 
-When(/^he edits the invoice$/) do
+When(/^he goes on the edit page of the invoice$/) do
   find(:xpath, "//a[@data-id='#{@invoice.id}']").click
 end
 
@@ -95,4 +95,8 @@ end
 
 Then(/^the VAT rate is "(.*?)"$/) do |rate|
   page.should have_field('invoice-vat-rate', with: rate)
+end
+
+When(/^he changes the VAT rate to "(.*?)"$/) do |new_rate|
+  fill_in 'invoice-vat-rate', with: new_rate
 end
