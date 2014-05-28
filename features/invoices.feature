@@ -59,7 +59,7 @@ Feature: Invoice Management
     Given an existing user
     When the user goes to the invoices page
     And he creates a new invoice
-    And he fills a line with "Bidule", "1", "€", "100"
+    And he fills a new line with "Bidule", "1", "€", "100"
     And he adds the new line
     And he changes the VAT rate to "19.6"
     And he saves the invoice
@@ -73,10 +73,27 @@ Feature: Invoice Management
     And an existing invoice
     When the user goes to the invoices page
     And he goes on the edit page of the invoice
-    And he fills a line with "Bidule", "1", "€", "100"
+    And he fills a new line with "Bidule", "1", "€", "100"
     And he adds the new line
     And he changes the VAT rate to "19.6"
     And he saves the invoice
     Then the VAT rate is "19.6"
     And the VAT due is "19.60€"
     And the total all taxes included is "119.60€"
+
+  @javascript
+  Scenario: Change values without saving(test live preview)
+    Given an existing user
+    When the user goes to the invoices page
+    And he creates a new invoice
+    And he fills a new line with "Bidule", "2", "€", "50"
+    Then the new line total is "100.00€"
+    When he adds the new line
+    And he edits the line
+    And he fills the existing line with "Bidule", "10", "€", "100"
+    Then the existing line total is "1000.00€"
+    And the VAT due is "200.00€"
+    And the total all taxes included is "1200.00€"
+    And he changes the VAT rate to "19.6"
+    And the VAT due is "196.00€"
+    And the total all taxes included is "1196.00€"
