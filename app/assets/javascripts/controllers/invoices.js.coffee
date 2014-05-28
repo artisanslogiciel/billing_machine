@@ -51,8 +51,8 @@
         line.total
     )
     $scope.invoice.total_duty = sum values
-    $scope.invoice.vat = $scope.invoice.total_duty * 0.2
-    $scope.invoice.total_all_taxes = $scope.invoice.total_duty * 1.2
+    $scope.invoice.vat = $scope.invoice.total_duty * ($scope.invoice.vat_rate/100)
+    $scope.invoice.total_all_taxes = $scope.invoice.total_duty + $scope.invoice.vat
 
   $scope.edit_line = (invoice_line) ->
     invoice_line.quantity = parseFloat(invoice_line.quantity)
