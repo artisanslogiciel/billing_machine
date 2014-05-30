@@ -11,6 +11,7 @@ FactoryGirl.define do
     total_all_taxes '12.086901'
     advance '1.00'
     balance '11.086901'
+    vat_rate '20.0'
     entity
   end
 end

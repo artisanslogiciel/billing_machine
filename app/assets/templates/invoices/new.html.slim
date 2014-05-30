@@ -60,25 +60,21 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
       .col-sm-3.col-xs-12
         .line-label.bb-show ng-bind="line.label"
         .line-label.bb-edit
-          input.form-control type="text" ng-model="line.label"
+          input.form-control id='existing-line-label' type="text" ng-model="line.label"
       .col-sm-2.col-xs-6
         .line-quantity.bb-show  ng-bind="line.quantity"
-        .line-label.bb-edit
-          input.form-control type="text" ng-model="line.quantity"
-
+        .line-quantity.bb-edit
+          input.form-control id='existing-line-quantity' type="text" ng-model="line.quantity"
       .col-sm-1.col-xs-6
         .line-unit.bb-show ng-bind="line.unit"
-        .line-label.bb-edit
-          input.form-control type="text" ng-model="line.unit"
-
+        .line-unit.bb-edit
+          input.form-control id='existing-line-unit' type="text" ng-model="line.unit"
       .col-sm-2.col-xs-6
         .line-unit-price.bb-show ng-bind="line.unit_price | euros"
-        .line-label.bb-edit
-          input.form-control type="text" ng-model="line.unit_price"
-
+        .line-unit-price.bb-edit
+          input.form-control id='existing-line-unit-price' type="text" ng-model="line.unit_price"
       .col-sm-2.col-xs-6
         .line-total ng-bind="line_total(line) | euros"
-
       .col-sm-2.col-xs-6.actions
         a.btn.btn-primary.btn-sm.bb-show.edit-line ng-click="" href='' Editer
         a.btn.btn-success.btn-sm.bb-edit.save-line ng-click="edit_line(line)" href='' Sauver
@@ -97,17 +93,17 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
       .col-sm-2.col-xs-6.actions
           a.btn.btn-success.btn-sm#add-new-line ng-click="add_new_line()" href='' Ajouter
 
-
-
   .total
     .form-group
       label class='col-sm-5 control-label' Montant HT
       .col-sm-7
         .form-control-static.invoice-total-duty ng-bind="invoice.total_duty | euros"
     .form-group
-      label class='col-sm-5 control-label' TVA (20.0%)
+      label class='col-sm-3 control-label' TVA(%):
+      .col-sm-2
+          input.form-control id="invoice-vat-rate" type="number" step="0.1" min="0" max="100" ng-model="invoice.vat_rate"
       .col-sm-7
-        .form-control-static.invoice-vat ng-bind="invoice.vat | euros"
+        .form-control-static.invoice-vat ng-bind="calculate_vat() | euros"
     .form-group
       label class='col-sm-5 control-label' Montant TTC
       .col-sm-7

@@ -14,22 +14,33 @@
       customer.name
     else
       ''
-
 ]
 
 @app.controller 'InvoiceCtrl', ["$scope", "$location", "$routeParams", "Customer", "PaymentTerm", "Invoice", ($scope, $location, $routeParams, Customer, PaymentTerm, Invoice) ->
+  # begin of functions definition used by controller
+  $scope.set_vat_rate_default_value = ->
+    VAT_RATE_DEFAUT_VALUE = 20
+    $scope.invoice.vat_rate = VAT_RATE_DEFAUT_VALUE
+
+  $scope.set_invoice = ->
+    if $routeParams.id?
+      $scope.invoice = Invoice.get({id: parseInt($routeParams.id)})
+    else
+      $scope.invoice = { label: '', lines_attributes: [] }
+  # end of functions definition used by controller
+
   $scope.payment_terms = PaymentTerm.query()
   $scope.customers = Customer.query()
 
   $("input#invoice-date").mask("9999-99-99");
 
-  if $routeParams.id?
-    $scope.invoice = Invoice.get({id: parseInt($routeParams.id)})
-  else
-    $scope.invoice = { label: '', lines_attributes: [] }
+  $scope.set_invoice()
+
+  $scope.set_vat_rate_default_value()
 
   $scope.new_line = {}
 
+  # begin of functions definition used in view
   $scope.customer = ->
     _.findWhere $scope.customers, {id: $scope.invoice.customer_id} if $scope.invoice?
 
@@ -42,6 +53,8 @@
       invoice_line.total = 0
     else
       invoice_line.total = amount
+    $scope.sum()
+    return invoice_line.total
 
   $scope.sum = ->
     sum = (arr) -> _.reduce arr, ((memo, num) -> memo + num), 0
@@ -52,8 +65,12 @@
         line.total
     )
     $scope.invoice.total_duty = sum values
-    $scope.invoice.vat = $scope.invoice.total_duty * 0.2
-    $scope.invoice.total_all_taxes = $scope.invoice.total_duty * 1.2
+    return $scope.invoice.total_all_taxes
+
+  $scope.calculate_vat = ->
+    $scope.invoice.vat = $scope.invoice.total_duty * ($scope.invoice.vat_rate/100)
+    $scope.invoice.total_all_taxes = $scope.invoice.total_duty + $scope.invoice.vat
+    return $scope.invoice.vat
 
   $scope.edit_line = (invoice_line) ->
     invoice_line.quantity = parseFloat(invoice_line.quantity)
@@ -70,7 +87,6 @@
     $scope.invoice.lines_attributes.push $scope.new_line
     $scope.new_line = {}
     $scope.sum()
-
 
   $scope.submit = ->
     delete $scope.invoice.errors
@@ -93,5 +109,4 @@
           console.log error.data
       )
     $scope.sum()
-
 ]
