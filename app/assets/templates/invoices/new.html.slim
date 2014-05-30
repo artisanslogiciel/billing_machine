@@ -43,6 +43,10 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
         label class='col-sm-5 control-label' Ville
         .col-sm-7
           .form-control-static.customer-city ng-bind="customer().city"
+      .form-group ng-show="customer().country"
+        label class='col-sm-5 control-label' Pays
+        .col-sm-7
+          .form-control-static.customer-country ng-bind="customer().country"
   .body
     .row.header
       .col-sm-4.col-xs-12.line-label Intitulé

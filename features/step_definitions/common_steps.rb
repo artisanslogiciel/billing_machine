@@ -4,5 +4,5 @@ Given(/^an existing user$/) do
 end
 
 Given(/^an existing customer$/) do
-  @customer = FactoryGirl.create(:customer, entity: @user.entity)
+  @customer = FactoryGirl.create(:customer, entity: @user.entity, country: "Hong kong")
 end

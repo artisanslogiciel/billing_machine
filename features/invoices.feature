@@ -11,6 +11,7 @@ Feature: Invoice Management
     And he creates a new invoice
     And he fills the reference, the date and the payment terms
     And he chooses the customer
+    Then he sees the customer's infos
     And he fills a line with "Bidule", "4", "€", "10"
     Then the new line's total should be "40.00€"
     When he adds the new line
