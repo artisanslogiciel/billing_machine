@@ -1,7 +1,3 @@
-When(/^the administrator is on the home page$/) do
-  visit '/'
-end
-
 Then(/^the link to the admin section should be visible$/) do
   page.should have_link('Admin')
   find_link("admin-section").should be_visible
@@ -29,4 +25,8 @@ end
 
 Then(/^he should be on application home page$/) do
   current_path.should be == '/'
+end
+
+Then(/^he doesn't see the admin section tab$/) do
+  page.should have_no_selector '#admin-section'
 end

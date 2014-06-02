@@ -11,3 +11,7 @@ end
 Given(/^an existing customer$/) do
   @customer = FactoryGirl.create(:customer, entity: @user.entity)
 end
+
+When(/^the (user|administrator) is on the home page$/) do |arg1|
+  visit '/'
+end

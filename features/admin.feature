@@ -18,3 +18,9 @@ Feature: Administrator Interface
     Then the link to the application home page should be visible
     When he clicks on the application link
     Then he should be on application home page
+
+  @javascript
+  Scenario: Don't show admin section tab to non-admin user
+    Given an existing user
+    When the user is on the home page
+    Then he doesn't see the admin section tab
