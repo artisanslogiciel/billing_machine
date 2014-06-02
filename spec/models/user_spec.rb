@@ -9,12 +9,17 @@ describe User do
 
   it 'should not be manager by default' do
     user = FactoryGirl.build(:user)
-    user.should_not be_manager
+    user.manager_id.should be nil
   end
 
-  it 'should be manager when bulding an admin user' do
+  it 'should not be administrator by default' do
+    user = FactoryGirl.build(:user)
+    user.should_not be_administrator
+  end
+
+  it 'should be administrator when bulding an admin user' do
     user = FactoryGirl.build(:admin_user)
-    user.should be_manager
+    user.should be_administrator
   end
 
 end

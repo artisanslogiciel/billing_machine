@@ -15,9 +15,5 @@ class Ability
       end
     end
 
-    if user.manager?
-      can [:write, :read], PaymentTerm
-    end
-
   end
 end

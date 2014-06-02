@@ -11,7 +11,7 @@ Feature: Administrator Interface
     When he clicks on the admin link
     Then he should be on the admin section
 
-      @javascript
+  @javascript
   Scenario: Access application home page from admin section
     Given an existing administrator
     When the administrator is on the admin section home page

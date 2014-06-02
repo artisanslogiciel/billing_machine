@@ -23,7 +23,7 @@ body
           - if can? :read, Invoice
             li
               = link_to 'Billing Machine', '/invoices#/invoices', id: 'invoices'
-          - if can? :read, PaymentTerm
+          - if current_user.administrator?
             li
               = link_to 'Admin', '/admin', id: 'admin-section'
           li

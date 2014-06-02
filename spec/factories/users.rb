@@ -15,7 +15,7 @@ FactoryGirl.define do
     time_machine true
 
     factory :admin_user do
-      manager_id 1
+      administrator true
     end
 
   end
