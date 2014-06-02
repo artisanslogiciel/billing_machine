@@ -4,8 +4,8 @@ Given(/^an existing user$/) do
 end
 
 Given(/^an existing administrator$/) do
-  @user = FactoryGirl.create(:admin_user)
-  sign_in @user
+  @admin_user = FactoryGirl.create(:admin_user)
+  sign_in @admin_user
 end
 
 Given(/^an existing customer$/) do
