@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140527110136) do
+ActiveRecord::Schema.define(version: 20140602104306) do
 
   create_table "activities", force: true do |t|
     t.string   "label"
@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(version: 20140527110136) do
     t.integer  "manager_id"
     t.boolean  "billing_machine",        default: false
     t.boolean  "time_machine",           default: false
+    t.boolean  "administrator",          default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
