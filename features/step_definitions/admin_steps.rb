@@ -40,11 +40,6 @@ Given(/^an existing administrator from this entity$/) do
   sign_in @admin_user
 end
 
-Given(/^an existing payment term from the same entity$/) do
-  @payment_term_same_entity = FactoryGirl.create(:payment_term,
-      label: 'My payment term', entity: @entity)
-end
-
 Given(/^another existing entity$/) do
   @other_entity = FactoryGirl.create(:entity, name: "Other entity")
 end

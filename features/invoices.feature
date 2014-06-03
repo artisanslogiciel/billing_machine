@@ -7,6 +7,7 @@ Feature: Invoice Management
   Scenario: New invoice for existing customer
     Given an existing user
     And an existing customer
+    And an existing payment term
     When the user goes to the invoices page
     And he creates a new invoice
     And he fills the reference, the date and the payment terms
