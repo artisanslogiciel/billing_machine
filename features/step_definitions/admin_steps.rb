@@ -40,7 +40,7 @@ Given(/^an existing administrator from this entity$/) do
   sign_in @admin_user
 end
 
-Given(/^an existing payment from the same entity$/) do
+Given(/^an existing payment term from the same entity$/) do
   @payment_term_same_entity = FactoryGirl.create(:payment_term,
       label: 'My payment term', entity: @entity)
 end
@@ -49,7 +49,7 @@ Given(/^another existing entity$/) do
   @other_entity = FactoryGirl.create(:entity, name: "Other entity")
 end
 
-Given(/^an existing payment from this other entity$/) do
+Given(/^an existing payment term from this other entity$/) do
   @payment_term_other_entity = FactoryGirl.create(:payment_term,
       label: 'Other payment term', entity: @other_entity)
 end
@@ -67,6 +67,5 @@ Then(/^he should see the payment term from his entity$/) do
 end
 
 Then(/^he should not see the payment term from another entity$/) do
-  pending 'Filter not yet implemented'
   page.should have_no_content('Other payment term')
 end

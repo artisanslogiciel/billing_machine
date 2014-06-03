@@ -29,9 +29,9 @@ Feature: Administrator Interface
   Scenario: Show only payment terms from same entity
     Given an existing entity
     And an existing administrator from this entity
-    And an existing payment from the same entity
+    And an existing payment term from the same entity
     And another existing entity
-    And an existing payment from this other entity
+    And an existing payment term from this other entity
 
     When the administrator is in the admin section
     And goes to the payment terms page

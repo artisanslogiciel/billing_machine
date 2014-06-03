@@ -11,6 +11,5 @@ ActiveAdmin.register PaymentTerm do
   #  permitted << :other if resource.something?
   #  permitted
   # end
-
   permit_params :label
 end
