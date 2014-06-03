@@ -5,6 +5,8 @@ ActiveAdmin.register PaymentTerm do
 
   scope_to :current_user
 
+  config.clear_sidebar_sections!
+
   controller do
     def create
       @payment_term = PaymentTerm.new(permitted_params['payment_term'])
