@@ -13,11 +13,10 @@ module Api
           response.status.should eq(200)
         end
         it 'should only show payment terms from the same entity as the user' do
-          # create 3 terms(with same entity, other entity, nil)
+          # create 2 terms(with same entity and other entity)
           other_entity = FactoryGirl.create :entity
           FactoryGirl.create :payment_term, entity: @user.entity
           FactoryGirl.create :payment_term, entity: other_entity
-          FactoryGirl.create :payment_term, entity: nil
 
           get :index, format: :json
           payment_terms = JSON.parse(response.body, symbolize_names: true)
