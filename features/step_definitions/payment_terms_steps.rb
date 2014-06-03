@@ -1,6 +1,9 @@
 When(/^the administrator goes to the payment terms administration page$/) do
   visit '/admin'
   click_link 'Payment Terms'
+end
+
+When(/^he goes to the new payment term page$/) do
   click_link 'New Payment Term'
 end
 
