@@ -8,6 +8,6 @@ Feature: Payment Terms Management
     Given an existing administrator
     When the administrator goes to the payment terms administration page
     And he adds a payment term
-    And he goes to the new invoice page
+    And he goes to the invoices page
     And he creates a new invoice
     Then the payment term is added to the list
