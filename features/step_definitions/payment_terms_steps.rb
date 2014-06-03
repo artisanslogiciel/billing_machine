@@ -5,7 +5,6 @@ When(/^the administrator goes to the payment terms administration page$/) do
 end
 
 When(/^he adds a payment term$/) do
-  pending 'Implement entity set by default to be the same as the user(and add test to check that otherwise is not possible)'
   @new_payment_term = "My new payment term"
   fill_in "payment_term_label", with: @new_payment_term
   click_button 'Create Payment term'

@@ -6,6 +6,3 @@ ActiveAdmin.register_page "Application" do
      end
    end
  end
-ActiveAdmin.register PaymentTerm do
-  scope_to :current_user
-end

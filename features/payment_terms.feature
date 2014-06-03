@@ -4,7 +4,7 @@ Feature: Payment Terms Management
   In order to use them in the invoices module
 
   @javascript
-  Scenario: Edit Payment Term
+  Scenario: Add Payment Term
     Given an existing administrator
     When the administrator goes to the payment terms administration page
     And he adds a payment term
