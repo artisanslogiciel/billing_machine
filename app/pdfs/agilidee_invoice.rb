@@ -103,7 +103,8 @@ class AgilideeInvoice < Prawn::Document
       # Synthèse
       font_size 10
       table_matrix.push ['Net HT', '', '', euros(@invoice.total_duty)]
-      table_matrix.push ['TVA 20,0 %', '', '', euros(@invoice.vat)]
+      vat_rate = french_number(@invoice.vat_rate)
+      table_matrix.push ["TVA #{vat_rate} %", '', '', euros(@invoice.vat)]
       table_matrix.push ['Total TTC', '', '', euros(@invoice.total_all_taxes)]
       table_matrix.push ['Acompte reçu sur commande', '', '', euros(@invoice.advance)]
       table_matrix.push ['Solde à payer', '', '', euros(@invoice.balance)]
