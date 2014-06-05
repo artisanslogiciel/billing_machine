@@ -4,7 +4,13 @@
   $scope.activities = Activity.query()
 
   $scope.addTimeSlice = ->
-    timeslice = TimeSlice.save($scope.newTimeSlice)
+    timeslice = TimeSlice.save(
+      $scope.newTimeSlice
+      (response) ->
+        console.log "SUCCESS"
+      (error) ->
+        console.log "FAIL"
+      )
     $scope.timeslices.splice(0,0,timeslice)
     $scope.newTimeSlice = {}
 
