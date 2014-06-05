@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140527110136) do
+ActiveRecord::Schema.define(version: 20140602143351) do
 
   create_table "activities", force: true do |t|
     t.string   "label"
@@ -87,7 +87,10 @@ ActiveRecord::Schema.define(version: 20140527110136) do
     t.string   "label"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "entity_id"
   end
+
+  add_index "payment_terms", ["entity_id"], name: "index_payment_terms_on_entity_id"
 
   create_table "projects", force: true do |t|
     t.string   "name"
@@ -128,6 +131,7 @@ ActiveRecord::Schema.define(version: 20140527110136) do
     t.integer  "manager_id"
     t.boolean  "billing_machine",        default: false
     t.boolean  "time_machine",           default: false
+    t.boolean  "administrator",          default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

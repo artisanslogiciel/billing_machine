@@ -5,4 +5,5 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
   belongs_to :entity
   has_many :time_slices, inverse_of: :user
+  has_many :payment_terms, through: :entity
 end

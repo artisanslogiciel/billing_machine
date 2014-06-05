@@ -4,6 +4,7 @@ Backbone::Application.routes.draw do
   resources :projects, only: [:index]
   resources :time_slices, only: [:index]
   resources :invoices, only: [:index, :show]
+  ActiveAdmin.routes(self)
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do

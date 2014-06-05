@@ -13,5 +13,10 @@ FactoryGirl.define do
     entity
     billing_machine true
     time_machine true
+
+    factory :admin_user do
+      administrator true
+    end
+
   end
 end

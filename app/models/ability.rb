@@ -14,5 +14,6 @@ class Ability
         i.entity_id == user.entity_id
       end
     end
+
   end
 end

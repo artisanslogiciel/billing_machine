@@ -1,6 +1,6 @@
 #encoding: utf-8
 
-When(/^the user goes to the invoices page$/) do
+When(/^(the user|he) goes to the invoices page$/) do |arg1|
   visit('/')
   click_link 'invoices'
 end
@@ -12,7 +12,7 @@ end
 When(/^he fills the reference, the date and the payment terms$/) do
   fill_in 'invoice-label', with: @label = 'My reference'
   fill_in 'invoice-date', with: @date = '2014-01-01'
-  select PaymentTerm.first.label
+  select @payment_term.label
 end
 
 When(/^he chooses the customer$/) do
