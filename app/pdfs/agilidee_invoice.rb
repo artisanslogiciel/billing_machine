@@ -58,11 +58,11 @@ class AgilideeInvoice < Prawn::Document
         :align => :right
       font_size 11.5
       text 'Marseille le ' + invoice_french_date, :align => :right
-
     end
 
-    # Informations client
-    bounding_box [50, 585], :width => 235, :height => 75 do
+    # Informations de contact
+    bounding_box [50, 585], :width => 235, :height => 50 do
+      draw_bounds_debug
       font_size 10
       text '<b>Contact :</b> Benoit Gantaume', :inline_format => true
       text '<b>Tél :</b> +33.6.76.31.22.91', :inline_format => true
@@ -71,13 +71,15 @@ class AgilideeInvoice < Prawn::Document
     end
 
     # Informations client
-    bounding_box [50, 530], :width => 450, :height => 75 do
+    bounding_box [50, 530], :width => 420, :height => 105 do
+      draw_bounds_debug
       font_size 11.5
       text 'A l’attention de :', :style => :bold
       text @invoice.customer.name
       text @invoice.customer.address1
       text @invoice.customer.address2
       text @invoice.customer.zip.to_s + ' ' + @invoice.customer.city.to_s
+      text @invoice.customer.country
     end
 
     # Objet
@@ -101,7 +103,8 @@ class AgilideeInvoice < Prawn::Document
       # Synthèse
       font_size 10
       table_matrix.push ['Net HT', '', '', euros(@invoice.total_duty)]
-      table_matrix.push ['TVA 20,0 %', '', '', euros(@invoice.vat)]
+      vat_rate = french_number(@invoice.vat_rate)
+      table_matrix.push ["TVA #{vat_rate} %", '', '', euros(@invoice.vat)]
       table_matrix.push ['Total TTC', '', '', euros(@invoice.total_all_taxes)]
       table_matrix.push ['Acompte reçu sur commande', '', '', euros(@invoice.advance)]
       table_matrix.push ['Solde à payer', '', '', euros(@invoice.balance)]

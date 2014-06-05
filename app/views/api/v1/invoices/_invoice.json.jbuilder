@@ -1,5 +1,5 @@
 json.(invoice, :id, :unique_index, :label, :date, :created_at, :updated_at, :customer_id,
-:payment_term_id, :tracking_id)
+:payment_term_id, :tracking_id, :vat_rate)
 json.lines_attributes invoice.lines do |line|
   json.(line, :id, :label, :unit)
   json.quantity line.quantity.to_f
@@ -11,3 +11,4 @@ json.vat invoice.vat.to_f
 json.total_all_taxes invoice.total_all_taxes.to_f
 json.balance invoice.balance.to_f
 json.advance invoice.advance.to_f
+json.vat_rate invoice.vat_rate.to_f

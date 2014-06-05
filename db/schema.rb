@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20140602143351) do
     t.datetime "updated_at"
     t.integer  "entity_id"
     t.string   "short_name"
+    t.string   "country"
   end
 
   add_index "customers", ["entity_id"], name: "index_customers_on_entity_id"
@@ -76,6 +77,7 @@ ActiveRecord::Schema.define(version: 20140602143351) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "unique_index"
+    t.decimal  "vat_rate"
   end
 
   add_index "invoices", ["customer_id"], name: "index_invoices_on_customer_id"

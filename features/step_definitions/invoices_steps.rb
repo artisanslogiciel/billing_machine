@@ -17,11 +17,16 @@ end
 
 When(/^he chooses the customer$/) do
   select @customer.name
+end
+
+Then(/^he sees the customer's infos$/) do
   page.should have_selector '.customer-address1', text: @customer.address1
   page.should have_selector '.customer-address2', text: @customer.address2
   page.should have_selector '.customer-zip', text: @customer.zip
   page.should have_selector '.customer-city', text: @customer.city
+  page.should have_selector '.customer-country', text: @customer.country
 end
+
 
 When(/^he fills a line with "(.*?)", "(.*?)", "(.*?)", "(.*?)"$/) do |arg1, arg2, arg3, arg4|
   fill_in 'new-line-label', with: arg1
@@ -29,11 +34,24 @@ When(/^he fills a line with "(.*?)", "(.*?)", "(.*?)", "(.*?)"$/) do |arg1, arg2
   fill_in 'new-line-unit', with: arg3
   fill_in 'new-line-unit-price', with: arg4
 end
+When(/^he fills the line with "(.*?)", "(.*?)", "(.*?)", "(.*?)"$/) do |arg1, arg2, arg3, arg4|
+  fill_in 'existing-line-label', with: arg1
+  fill_in 'existing-line-quantity', with: arg2
+  fill_in 'existing-line-unit', with: arg3
+  fill_in 'existing-line-unit-price', with: arg4
+end
+
+When(/^he fills (a|the) (new|existing) line with "(.*?)", "(.*?)", "(.*?)", "(.*?)"$/) do
+      |arg0, id_prefix, label, quantity, unit, unit_price|
+  fill_in "#{id_prefix}-line-label", with: label
+  fill_in "#{id_prefix}-line-quantity", with: quantity
+  fill_in "#{id_prefix}-line-unit", with: unit
+  fill_in "#{id_prefix}-line-unit-price", with: unit_price
+end
 
 Then(/^the new line's total should be "(.*?)"$/) do |arg1|
   page.should have_selector '.new-line .line-total', text: arg1
 end
-
 
 When(/^he adds the new line$/) do
   click_link 'add-new-line'
@@ -43,7 +61,7 @@ Then(/^the total duty is "(.*?)"$/) do |arg1|
   page.should have_selector '.total .invoice-total-duty', text: arg1
 end
 
-Then(/^the vat due is "(.*?)"$/) do |arg1|
+Then(/^the VAT due is "(.*?)"$/) do |arg1|
   page.should have_selector '.total .invoice-vat', text: arg1
 end
 
@@ -53,6 +71,12 @@ end
 
 When(/^he saves the invoice$/) do
   click_link 'submit'
+end
+
+When(/^he saves the new invoice$/) do
+  step "he saves the invoice"
+  # Now we are going to wait for index number to show up which means AJAX returned
+  expect(find('.invoice-unique-index')).to have_content('1')
 end
 
 Then(/^it's added to the invoice list$/) do
@@ -69,7 +93,11 @@ Given(/^an existing invoice$/) do
   @invoice = FactoryGirl.create(:invoice, entity: @user.entity)
 end
 
-When(/^he edits the invoice$/) do
+Given(/^an existing invoice with a "(.*?)"% VAT rate$/) do |rate|
+  @invoice = FactoryGirl.create(:invoice, entity: @user.entity, vat_rate: rate)
+end
+
+When(/^he goes on the edit page of the invoice$/) do
   find(:xpath, "//a[@data-id='#{@invoice.id}']").click
 end
 
@@ -81,4 +109,24 @@ end
 Then(/^the invoices's label has changed$/) do
   reload_the_page
   page.should have_field('invoice-label', with: @new_label)
+end
+
+Then(/^the VAT rate is "(.*?)"$/) do |rate|
+  page.should have_field('invoice-vat-rate', with: rate)
+end
+
+When(/^he changes the VAT rate to "(.*?)"$/) do |new_rate|
+  fill_in 'invoice-vat-rate', with: new_rate
+end
+
+Then(/^the new line total is "(.*?)"$/) do |value|
+  page.should have_selector '.new-line .line-total', text: value
+end
+
+Then(/^the existing line total is "(.*?)"$/) do |value|
+  page.should have_selector '.invoice-line .line-total', text: value
+end
+
+When(/^he edits the line$/) do
+  click_link 'Editer'
 end

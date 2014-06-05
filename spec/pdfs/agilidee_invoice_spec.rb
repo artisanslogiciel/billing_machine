@@ -9,9 +9,11 @@ describe AgilideeInvoice, pdfs: true do
     end
   end
 
-  let(:customer) { FactoryGirl.create(:customer, city: 'Mickey City', address2: 'address2 value') }
-  let(:invoice) { FactoryGirl.create(:invoice, total_duty: 1600, vat: 320,
-    total_all_taxes: 1920, advance: 50, balance: 1870 , customer: customer, date: '2014-04-16') }
+  let(:customer) { FactoryGirl.create(:customer, city: 'Mickey City',
+    address2: 'address2 value', country: 'Hong Kong') }
+  let(:invoice) { FactoryGirl.create(:invoice, total_duty: 1000, vat: 196,
+    total_all_taxes: 1196, advance: 50, balance: 1146 , customer: customer,
+    date: '2014-04-16', vat_rate: 19.6)}
 
   let(:invoice_line) { FactoryGirl.create(:invoice_line,
     invoice_id: invoice.id,
@@ -92,6 +94,10 @@ describe AgilideeInvoice, pdfs: true do
           text.strings.should include invoice.customer.zip.to_s +
            ' ' + invoice.customer.city.to_s
         end
+
+        it "should write customer country" do
+          text.strings.should include invoice.customer.country
+        end
       end # context in Informations client
     end # context in Entete de facturation
 
@@ -133,19 +139,19 @@ describe AgilideeInvoice, pdfs: true do
 
       context 'in Synthèse' do
         it_should_write 'Net HT'
-        it_should_write '1600,00 €'
+        it_should_write '1000,00 €'
 
-        it_should_write 'TVA 20,0 %'
-        it_should_write '320,00 €'
+        it_should_write 'TVA 19,6 %'
+        it_should_write '196,00 €'
 
         it_should_write 'Total TTC'
-        it_should_write '1920,00 €'
+        it_should_write '1196,00 €'
 
         it_should_write 'Acompte reçu sur commande'
         it_should_write '50,00 €'
 
         it_should_write 'Solde à payer'
-        it_should_write '1870,00 €'
+        it_should_write '1146,00 €'
       end
     end # context in Tableau
     it_should_write 'Conditions de paiement :'

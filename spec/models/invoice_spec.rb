@@ -31,31 +31,26 @@ describe Invoice do
   end
 
   describe 'tracking_id' do
+    it 'should return correct tracking_id for sud_developpement for first invoice' do
+      entity = FactoryGirl.create(:entity, unique_index: nil, customization_prefix: 'sud_developpement')
+      invoice = FactoryGirl.create(:invoice, entity: entity, date:'2014-02-01')
+      invoice.tracking_id.should eq('20140201-1')
+    end
     it 'should return correct tracking_id for sud_developpement' do
       entity = FactoryGirl.create(:entity, unique_index: 69, customization_prefix: 'sud_developpement')
       invoice = FactoryGirl.create(:invoice, entity: entity, date:'2014-02-01')
       invoice.tracking_id.should eq('20140201-70')
     end
-    it 'should return correct tracking_id for sud_developpement when no date for invoice' do
-      entity = FactoryGirl.create(:entity, unique_index: 45, customization_prefix: 'sud_developpement')
-      invoice = FactoryGirl.create(:invoice, entity: entity, date: nil)
-      invoice.tracking_id.should eq('46')
-    end
 
+    it 'should return correct tracking_id for agilidee for first invoice' do
+      entity = FactoryGirl.create(:entity, unique_index: nil, customization_prefix: 'agilidee')
+      invoice = FactoryGirl.create(:invoice, entity: entity, date:'2010-05-20')
+      invoice.tracking_id.should eq('1001')
+    end
     it 'should return correct tracking_id for agilidee' do
       entity = FactoryGirl.create(:entity, unique_index: 36, customization_prefix: 'agilidee')
       invoice = FactoryGirl.create(:invoice, entity: entity, date:'2013-05-20')
       invoice.tracking_id.should eq('1337')
-    end
-    it 'should return correct tracking_id for agilidee' do
-      entity = FactoryGirl.create(:entity, unique_index: 141, customization_prefix: 'agilidee')
-      invoice = FactoryGirl.create(:invoice, entity: entity, date:'2014-05-20')
-      invoice.tracking_id.should eq('14142')
-    end
-    it 'should return correct tracking_id for agilidee when no date for invoice' do
-      entity = FactoryGirl.create(:entity, unique_index: 666, customization_prefix: 'agilidee')
-      invoice = FactoryGirl.create(:invoice, entity: entity, date: nil)
-      invoice.tracking_id.should eq('667')
     end
   end
 
