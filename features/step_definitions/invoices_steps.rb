@@ -2,11 +2,11 @@
 
 When(/^(the user|he) goes to the invoices page$/) do |arg1|
   visit('/')
-  click_link 'Billing Machine'
+  click_link 'invoices'
 end
 
 When(/^he creates a new invoice$/) do
-  click_link 'Nouvelle facture'
+  click_link 'new-invoice'
 end
 
 When(/^he fills the reference, the date and the payment terms$/) do
