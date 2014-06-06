@@ -7,6 +7,7 @@
 # (each User have similar attributes to manage individual permissions).
 class Entity < ActiveRecord::Base
   has_many :invoices, inverse_of: :entity, dependent: :destroy
+  has_many :payment_terms, inverse_of: :entity, dependent: :destroy
   has_many :customers, inverse_of: :entity, dependent: :destroy
   validates_presence_of :customization_prefix
 end

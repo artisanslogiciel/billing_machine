@@ -155,8 +155,9 @@ class SudDeveloppementInvoice < Prawn::Document
       draw_bounds_debug
       font_size 9
 
+      vat_rate = french_number(@invoice.vat_rate)
       summary_table([['TOTAL HT', euros(@invoice.total_duty)],
-               ['TVA (20,00%)', euros(@invoice.vat)],
+               ["TVA (#{vat_rate}%)", euros(@invoice.vat)],
                ['TOTAL TTC', euros(@invoice.total_all_taxes)]])
       move_down 8
       summary_table([['Acompte reçu sur commande', euros(@invoice.advance)]])

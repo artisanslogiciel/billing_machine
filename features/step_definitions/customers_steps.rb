@@ -2,8 +2,8 @@
 
 When(/^the user goes to the customers page$/) do
   visit('/')
-  pending # TODO
-  click_link 'Customer Vault'
+  pending 'Not yet implemented'
+  click_link 'customers'
 end
 
 When(/^he creates a new customer$/) do
