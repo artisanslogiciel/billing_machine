@@ -2,7 +2,10 @@ ActiveAdmin.register Customer do
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   permit_params :name, :short_name, :address1, :address2, :zip, :city, :country
-  # permit_params :list, :of, :attributes, :on, :model
+
+  #scope_to :current_user
+
+  config.clear_sidebar_sections!
 
   controller do
     def create
