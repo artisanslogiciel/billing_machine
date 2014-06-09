@@ -6,6 +6,7 @@ describe User do
   end
   it {should belong_to :entity}
   it {should have_many :time_slices}
+  it {should have_many :customers}
 
   it 'should not be manager by default' do
     user = FactoryGirl.build(:user)

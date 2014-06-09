@@ -3,7 +3,7 @@ ActiveAdmin.register Customer do
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   permit_params :name, :short_name, :address1, :address2, :zip, :city, :country
 
-  #scope_to :current_user
+  scope_to :current_user
 
   config.clear_sidebar_sections!
 
