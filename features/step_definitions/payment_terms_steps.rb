@@ -18,6 +18,15 @@ Then(/^the payment term is added to the list$/) do
   assert page.has_select?('invoice-payment-term', :with_options => [@new_payment_term])
 end
 
+Given(/^an existing payment term from the same entity$/) do
+  @payment_term_same_entity = FactoryGirl.create(:payment_term,
+      label: 'My payment term', entity: @entity)
+end
+
+Given(/^an existing payment term$/) do
+  @payment_term = FactoryGirl.create(:payment_term, entity: @user.entity)
+end
+
 Given(/^an existing payment term from this other entity$/) do
   @payment_term_other_entity = FactoryGirl.create(:payment_term,
       label: 'Other payment term', entity: @other_entity)

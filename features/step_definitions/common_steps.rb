@@ -27,12 +27,3 @@ end
 When(/^the (user|administrator) is on the home page$/) do |arg1|
   visit '/'
 end
-
-Given(/^an existing payment term from the same entity$/) do
-  @payment_term_same_entity = FactoryGirl.create(:payment_term,
-      label: 'My payment term', entity: @entity)
-end
-
-Given(/^an existing payment term$/) do
-  @payment_term = FactoryGirl.create(:payment_term, entity: @user.entity)
-end
