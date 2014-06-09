@@ -3,24 +3,19 @@ Given(/^an existing entity$/) do
 end
 
 Given(/^an existing user$/) do
-  if @entity
-    @user = FactoryGirl.create(:user, entity: @entity)
-  else
-    @user = FactoryGirl.create(:user)
-  end
+  step('an existing entity') unless @entity
+  @user = FactoryGirl.create(:user, entity: @entity)
   sign_in @user
 end
 
 Given(/^an existing administrator$/) do
-  if @entity
-    @admin_user = FactoryGirl.create(:admin_user, entity: @entity)
-  else
-    @admin_user = FactoryGirl.create(:admin_user)
-  end
+  step('an existing entity') unless @entity
+  @admin_user = FactoryGirl.create(:admin_user, entity: @entity)
   sign_in @admin_user
 end
 
 Given(/^an existing customer$/) do
+  step('an existing entity') unless @entity 
   @customer = FactoryGirl.create(:customer, entity: @entity, country: "Hong kong")
 end
 
