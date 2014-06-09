@@ -4,6 +4,14 @@ ActiveAdmin.register Customer do
   permit_params :name, :short_name, :address1, :address2, :zip, :city, :country
   # permit_params :list, :of, :attributes, :on, :model
 
+  controller do
+    def create
+      @customer = Customer.new(permitted_params['customer'])
+      @customer.entity_id = current_user.entity_id
+      create!
+    end
+  end
+
   form do |f|
     f.inputs 'Details' do
       f.input :name, :as => :string, :input_html => { :id => 'customer-name' }

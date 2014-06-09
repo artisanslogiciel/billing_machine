@@ -25,7 +25,6 @@ When(/^he fills the name, short name, full address, country, IBAN and BIC\/SWIFT
 end
 
 When(/^he saves the customer$/) do
-  click_link 'submit'
   click_button 'Create Customer'
 end
 
@@ -53,6 +52,7 @@ end
 
 
 When(/^he edits the customer$/) do
+  pending 'useless for Active Admin implementation, keep for Customer Vault (customer management V2)'
   # find edit button for @invoice which have a data-id attribute equal to @customer.id
   edit_button = find(:xpath, "//a[@data-id='#{@customer.id}']")
   edit_button.click
