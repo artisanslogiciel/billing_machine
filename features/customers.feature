@@ -10,10 +10,10 @@ Feature: Customer Management
     And he creates a new customer
     And he fills the name, short name, full address, country, IBAN and BIC/SWIFT
     And he saves the customer
-    Then it's added to the customers list
+    # Then it's added to the customers list
 
-    When he edits the customer
-    Then all the fields are filled with the right values
+    # When he edits the customer
+    # Then all the fields are filled with the right values
 
     When the user goes to the invoices page
     And he creates a new invoice
