@@ -8,7 +8,7 @@ module Api
           authorize! :read, Invoice
           render_invoice_list
         rescue CanCan::AccessDenied => exeception
-          render_forbidden_error
+          render_forbidden_functionality_error
         end
       end
 
@@ -46,11 +46,6 @@ module Api
         def render_invoice_list
           @invoices = current_user.entity.invoices.order(unique_index: :desc)
           respond_with @invoices
-        end
-
-        def render_forbidden_error
-            json_content = '{"error":"You don\'t have access to this functionality"}'
-            render json: json_content, status: :forbidden
         end
     end
   end

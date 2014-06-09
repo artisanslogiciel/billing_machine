@@ -6,7 +6,7 @@ module Api
           authorize! :read, TimeSlice
           render_time_slice_list
         rescue
-          render_forbidden_error
+          render_forbidden_functionality_error
         end
       end
 
@@ -45,11 +45,6 @@ module Api
           user = current_user
           @time_slices = user.time_slices.order(day: :desc)
           respond_with @time_slices
-        end
-
-        def render_forbidden_error
-            json_content = '{"error":"You don\'t have access to this functionality"}'
-            render json: json_content, status: :forbidden
         end
     end
   end
