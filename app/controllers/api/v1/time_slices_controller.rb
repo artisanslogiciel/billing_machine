@@ -5,7 +5,11 @@ module Api
         authorize! :read, TimeSlice
         user = current_user
         @time_slices = user.time_slices.order(day: :desc)
-        respond_with @time_slices
+
+        respond_to do |format|
+          format.csv { send_data @time_slices.to_csv }
+          format.json  { send_data @time_slices.to_json}
+        end
       end
 
       def create
