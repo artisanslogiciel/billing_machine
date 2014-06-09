@@ -32,7 +32,7 @@ Given(/^an existing payment term from this other entity$/) do
       label: 'Other payment term', entity: @other_entity)
 end
 
-When(/^goes to the payment terms page$/) do
+When(/^he goes to the payment terms page$/) do
   click_on 'Payment Terms'
 end
 

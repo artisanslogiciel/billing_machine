@@ -30,6 +30,6 @@ Feature: Payment Terms Management
     And an existing payment term from this other entity
 
     When the administrator is in the admin section
-    And goes to the payment terms page
+    And he goes to the payment terms page
     Then he should see the payment term from his entity
     And he should not see the payment term from another entity

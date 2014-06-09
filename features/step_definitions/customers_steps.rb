@@ -1,6 +1,6 @@
 #encoding: utf-8
 
-When(/^the administrator goes to the customers page$/) do
+When(/^he goes to the customers page$/) do
   visit('/admin')
   click_link 'Customers'
 end
@@ -66,4 +66,22 @@ end
 Then(/^the customer's name has changed$/) do
   reload_the_page
   page.should have_field('customer-name', with: @new_name)
+end
+
+Given(/^an existing customer from the same entity$/) do
+    @customer_same_entity = FactoryGirl.create(:customer,
+      name: 'My customer', entity: @entity)
+end
+
+Given(/^an existing customer from this other entity$/) do
+    @customer_other_entity = FactoryGirl.create(:customer,
+      name: 'Other customer', entity: @other_entity)
+end
+
+Then(/^he should see the customer from his entity$/) do
+  page.should have_content(@customer_same_entity.name)
+end
+
+Then(/^he should not see the customer from another entity$/) do
+  page.should have_no_content(@customer_other_entity.name)
 end
