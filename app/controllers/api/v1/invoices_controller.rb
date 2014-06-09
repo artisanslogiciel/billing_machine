@@ -4,9 +4,12 @@ module Api
       wrap_parameters include: [Invoice.attribute_names, :lines_attributes].flatten
 
       def index
-        authorize! :read, Invoice
-        @invoices = current_user.entity.invoices.order(unique_index: :desc)
-        respond_with @invoices
+        begin
+          authorize! :read, Invoice
+          render_invoice_list
+        rescue CanCan::AccessDenied => exeception
+          render_forbidden_error
+        end
       end
 
       def create
@@ -38,6 +41,16 @@ module Api
                         :vat, :total_all_taxes, :advance, :balance, :vat_rate,
                         lines_attributes: [:_destroy, :id, :label, :quantity,
                                            :unit, :unit_price, :total])
+        end
+
+        def render_invoice_list
+          @invoices = current_user.entity.invoices.order(unique_index: :desc)
+          respond_with @invoices
+        end
+
+        def render_forbidden_error
+            json_content = '{"error":"You don\'t have access to this functionality"}'
+            render json: json_content, status: :forbidden
         end
     end
   end
