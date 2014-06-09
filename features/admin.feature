@@ -24,16 +24,3 @@ Feature: Administrator Interface
     Given an existing user
     When the user is on the home page
     Then he doesn't see the admin section tab
-
-  @javascript
-  Scenario: Show only payment terms from same entity
-    Given an existing entity
-    And an existing administrator from this entity
-    And an existing payment term from the same entity
-    And another existing entity
-    And an existing payment term from this other entity
-
-    When the administrator is in the admin section
-    And goes to the payment terms page
-    Then he should see the payment term from his entity
-    And he should not see the payment term from another entity
