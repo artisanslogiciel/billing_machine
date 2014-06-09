@@ -5,8 +5,8 @@ Feature: Customer Management
 
   @javascript
   Scenario: New customer
-    Given an existing user
-    When the user goes to the customers page
+    Given an existing administrator
+    When the administrator goes to the customers page
     And he creates a new customer
     And he fills the name, short name, full address, country, IBAN and BIC/SWIFT
     And he saves the customer
@@ -21,9 +21,9 @@ Feature: Customer Management
 
   @javascript
   Scenario: Edit customer
-    Given an existing user
+    Given an existing administrator
     And an existing customer
-    When the user goes to the customers page
+    When the administrator goes to the customers page
     And he edits the customer
     And changes his name
     And he saves the customer

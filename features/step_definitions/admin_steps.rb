@@ -31,13 +31,8 @@ Then(/^he doesn't see the admin section tab$/) do
   page.should have_no_selector '#admin-section'
 end
 
-Given(/^an existing entity$/) do
-  @entity = FactoryGirl.create(:entity, name: "My entity")
-end
-
 Given(/^an existing administrator from this entity$/) do
-  @admin_user = FactoryGirl.create(:admin_user, entity: @entity)
-  sign_in @admin_user
+  step "an existing administrator"
 end
 
 Given(/^another existing entity$/) do

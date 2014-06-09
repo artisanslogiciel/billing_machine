@@ -1,8 +1,8 @@
 #encoding: utf-8
 
-When(/^the user goes to the customers page$/) do
-  visit('/')
-  pending 'Not yet implemented'
+When(/^the administrator goes to the customers page$/) do
+  visit('/admin')
+  pending "Not yet implemented"
   click_link 'customers'
 end
 

@@ -5,7 +5,8 @@ Feature: Invoice Management
 
   @javascript
   Scenario: New invoice for existing customer
-    Given an existing user
+    Given an existing entity
+    And an existing user
     And an existing customer
     And an existing payment term
     When the user goes to the invoices page
