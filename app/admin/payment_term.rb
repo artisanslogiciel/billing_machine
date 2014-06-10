@@ -15,11 +15,11 @@ ActiveAdmin.register PaymentTerm do
     end
   end
 
-    form do |f|
-      f.inputs 'Payment Term' do
-        f.input :label
-      end
-      f.actions
+  form do |f|
+    f.inputs 'Payment Term' do
+      f.input :label
     end
+    f.actions
+  end
 
 end
