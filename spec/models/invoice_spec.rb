@@ -77,4 +77,19 @@ describe Invoice do
       invoice.pdf.should be_a AgilideeInvoice
     end
   end
+
+  describe 'to_csv' do
+    it 'should return csv' do
+      entity = FactoryGirl.create(:entity, customization_prefix: 'agilidee')
+      invoice0 = FactoryGirl.create(:invoice, entity: entity)
+      invoice1 = FactoryGirl.create(:invoice, entity: entity)
+      invoices = Invoice.all
+      csv_output = invoices.to_csv
+
+      csv_output.should be ==
+        "date;customer_id;payment_term_id;label;total_duty;vat;total_all_taxes;advance;balance;entity_id;unique_index;vat_rate\n"+
+        "2014-02-19;1;1;Software service;9.99;20.99;12.086901;1.0;11.086901;1;1;20.0\n"+
+        "2014-02-19;2;2;Software service;9.99;20.99;12.086901;1.0;11.086901;1;2;20.0\n"
+    end
+  end
 end
