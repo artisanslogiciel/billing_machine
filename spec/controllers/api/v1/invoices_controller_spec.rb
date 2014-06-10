@@ -36,9 +36,10 @@ module Api
 
           it 'should check access rights' do
             user.update(billing_machine: false)
-            expect {
-              get :index, format: :json
-              }.to raise_exception CanCan::AccessDenied
+            get :index, format: :json
+
+            assert_response :forbidden
+            response.body.should == '{"error":"You don\'t have access to this functionality"}'
           end
 
           it 'should return invoices' do
@@ -70,7 +71,7 @@ module Api
               }.to raise_exception CanCan::AccessDenied
           end
 
-         end
+        end
 
         describe '#update' do
 
