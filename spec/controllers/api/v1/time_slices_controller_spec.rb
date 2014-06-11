@@ -54,16 +54,23 @@ module Api
             assigns(:time_slices).should eq([timeslice2, timeslice0, timeslice1])
           end
 
-          it 'should sort time slices by date in CSV' do
-            timeslice0 = FactoryGirl.create(:time_slice, day: Date.new(2013, 10, 1), user: user)
-            timeslice1 = FactoryGirl.create(:time_slice, day: Date.new(2013,  9, 1), user: user)
-            timeslice2 = FactoryGirl.create(:time_slice, day: Date.new(2013, 11, 1), user: user)
+
+          it 'should return valid CSV' do
+            time_slice_of_current_user = time_slice
             get :index, format: :csv
+            CSV.parse(response.body)
+          end
+
+          it 'should return time_slice of current user in CSV' do
+            time_slice_of_current_user = time_slice
+            second_time_slice_of_current_user = FactoryGirl.create(:time_slice, user: user)
+            time_slice_of_another_user = another_time_slice
+
+            get :index, format: :csv
+
             assert_response :success
-            expected_csv =
-                'id;day;project_id;duration;activity_id;created_at;updated_at;comment;user_id\n
-                TODO'
-            response.body.should == expected_csv
+            number_of_time_slices_returned = CSV.parse(response.body).size - 1 # first line should be colums list
+            number_of_time_slices_returned.should be == 2
           end
 
           it 'should only show the current users ts' do
