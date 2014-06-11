@@ -11,11 +11,11 @@ class TimeSlice < ActiveRecord::Base
       csv << column_names
 
       all.each do |time_slice|
-        csv <<  [time_slice.day,
-                 time_slice.project.name,
+        csv <<  [time_slice.try(:day),
+                 time_slice.project.try(:name),
                  time_slice.duration,
-                 time_slice.activity.label,
-                 time_slice.comment]
+                 time_slice.activity.try(:label),
+                 time_slice.try(:comment)]
       end
     end
   end
