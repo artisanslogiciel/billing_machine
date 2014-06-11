@@ -8,7 +8,7 @@ module Api
 
         respond_to do |format|
           format.csv { send_data @time_slices.to_csv }
-          format.json  { send_data @time_slices.to_json}
+          format.json  { respond_with @time_slices }
         end
       end
 
