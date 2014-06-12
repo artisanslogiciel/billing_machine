@@ -2,13 +2,11 @@ module Api
   module V1
     class TimeSlicesController <  ApiController
       def index
-        authorize! :read, TimeSlice
-        user = current_user
-        @time_slices = user.time_slices.order(day: :desc)
-
-        respond_to do |format|
-          format.csv { send_data @time_slices.to_csv, type: "text/csv"}
-          format.json  { respond_with @time_slices }
+        begin
+          authorize! :read, TimeSlice
+          render_time_slice_list
+        rescue
+          render_forbidden_functionality_error
         end
       end
 
@@ -41,6 +39,15 @@ module Api
           end
 
           safe_p.permit(:duration, :project_id, :activity_id, :comment, :day)
+        end
+
+        def render_time_slice_list
+          user = current_user
+          @time_slices = user.time_slices.order(day: :desc)
+          respond_to do |format|
+            format.csv { send_data @time_slices.to_csv, type: "text/csv"}
+            format.json  { respond_with @time_slices }
+          end
         end
     end
   end
