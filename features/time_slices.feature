@@ -22,3 +22,9 @@ Feature: Time slices
     Then the current time slices' duration should be pre-filled
     When he validates the new duration
     Then the time slices' duration is updated
+
+  @javascript
+  Scenario: Export time slices in CSV
+    Given an existing time slice
+    When the user goes in the time slices section
+    Then he should see the CSV export button

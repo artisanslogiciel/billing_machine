@@ -6,5 +6,6 @@ FactoryGirl.define do
     project
     duration '7'
     activity
+    comment 'I coded'
   end
 end
