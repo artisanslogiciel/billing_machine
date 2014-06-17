@@ -33,9 +33,10 @@ module Api
             response.status.should eq(200)
           end
           it 'should not grant access if not mine' do
-            expect {
-              put :update, format: :json, id: another_time_slice.id, time_slice: {id: time_slice.id}
-              }.to raise_exception CanCan::AccessDenied
+            put :update, format: :json, id: another_time_slice.id, time_slice: {id: time_slice.id}
+
+            assert_response :forbidden
+            response.body.should == '{"error":"You don\'t have access to this functionality"}'
           end
         end
 
@@ -95,10 +96,11 @@ module Api
             assigns(:time_slice).duration.should eq(0.8)
           end
            it 'should check access rights' do
-              user.update(time_machine: false)
-              expect {
-                post :create, format: :json, time_slice: FactoryGirl.attributes_for(:time_slice)
-                }.to raise_exception CanCan::AccessDenied
+            user.update(time_machine: false)
+            post :create, format: :json, time_slice: FactoryGirl.attributes_for(:time_slice)
+
+            assert_response :forbidden
+            response.body.should == '{"error":"You don\'t have access to this functionality"}'
           end
         end
       end
