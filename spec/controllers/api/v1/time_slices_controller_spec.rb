@@ -3,6 +3,7 @@ require 'spec_helper'
 module Api
   module V1
     describe TimeSlicesController do
+      JSON_RESPONSE_403 = '{"error":"You don\'t have access to this functionality"}'
       context 'when not authenticated' do
         describe '#index' do
           it 'should refuse access' do
@@ -36,7 +37,7 @@ module Api
             put :update, format: :json, id: another_time_slice.id, time_slice: {id: time_slice.id}
 
             assert_response :forbidden
-            response.body.should == '{"error":"You don\'t have access to this functionality"}'
+            response.body.should == JSON_RESPONSE_403
           end
         end
 
@@ -67,7 +68,7 @@ module Api
             get :index, format: :json
 
             assert_response :forbidden
-            response.body.should == '{"error":"You don\'t have access to this functionality"}'
+            response.body.should == JSON_RESPONSE_403
           end
 
         end
@@ -100,7 +101,7 @@ module Api
             post :create, format: :json, time_slice: FactoryGirl.attributes_for(:time_slice)
 
             assert_response :forbidden
-            response.body.should == '{"error":"You don\'t have access to this functionality"}'
+            response.body.should == JSON_RESPONSE_403
           end
         end
       end

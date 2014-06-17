@@ -3,6 +3,7 @@ require 'spec_helper'
 module Api
   module V1
     describe InvoicesController do
+      JSON_RESPONSE_403 = '{"error":"You don\'t have access to this functionality"}'
       context 'when not authenticated' do
         describe '#index' do
           it 'should refuse access' do
@@ -39,7 +40,7 @@ module Api
             get :index, format: :json
 
             assert_response :forbidden
-            response.body.should == '{"error":"You don\'t have access to this functionality"}'
+            response.body.should == JSON_RESPONSE_403
           end
 
           it 'should return invoices' do
@@ -69,7 +70,7 @@ module Api
             post :create, format: :json, invoice: FactoryGirl.attributes_for(:invoice)
 
             assert_response :forbidden
-            response.body.should == '{"error":"You don\'t have access to this functionality"}'
+            response.body.should == JSON_RESPONSE_403
           end
 
         end
@@ -80,7 +81,7 @@ module Api
             put :update, id: another_invoice.id, format: :json, invoice: { label: 'Updated' }
 
             assert_response :forbidden
-            response.body.should == '{"error":"You don\'t have access to this functionality"}'
+            response.body.should == JSON_RESPONSE_403
           end
 
           it 'should update an entry with valid params' do
@@ -100,7 +101,7 @@ module Api
             get :show, id: another_invoice.id, format: :json
 
             assert_response :forbidden
-            response.body.should == '{"error":"You don\'t have access to this functionality"}'
+            response.body.should == JSON_RESPONSE_403
           end
 
           it 'should check access rights' do
