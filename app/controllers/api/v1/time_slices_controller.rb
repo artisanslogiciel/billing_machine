@@ -2,12 +2,8 @@ module Api
   module V1
     class TimeSlicesController <  ApiController
       def index
-        begin
-          authorize! :read, TimeSlice
-          render_time_slice_list
-        rescue
-          render_forbidden_functionality_error
-        end
+        authorize! :read, TimeSlice
+        render_time_slice_list
       end
 
       def create
