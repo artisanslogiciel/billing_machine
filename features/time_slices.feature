@@ -23,8 +23,8 @@ Feature: Time slices
     When he validates the new duration
     Then the time slices' duration is updated
 
-  @javascript
   Scenario: Export time slices in CSV
     Given an existing time slice
     When the user goes in the time slices section
     Then he should be able to download the CSV export file
+    And downloaded the CSV should be valid with expected information
