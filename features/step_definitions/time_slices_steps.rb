@@ -44,6 +44,6 @@ Then(/^the time slices' duration is updated$/) do
   page.should have_selector '.time-slice .duration', text: @new_duration
 end
 
-Then(/^he should see the CSV export button$/) do
+Then(/^he should be able to download the CSV export file$/) do
   page.should have_link('csv-export-button', :href=>"/api/v1/time_slices.csv")
 end

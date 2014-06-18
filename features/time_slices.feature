@@ -27,4 +27,4 @@ Feature: Time slices
   Scenario: Export time slices in CSV
     Given an existing time slice
     When the user goes in the time slices section
-    Then he should see the CSV export button
+    Then he should be able to download the CSV export file
