@@ -37,7 +37,7 @@ class Invoice < ActiveRecord::Base
 
   def self.to_csv(options = {:col_sep => ';'})
     CSV.generate(options) do |csv|
-      column_names = ["date", "customer_id", "payment_term_id", "label", "total_duty", "vat", "total_all_taxes", "advance", "balance", "entity_id", "unique_index", "vat_rate"]
+      column_names = ["date", "customer_id", "payment_term_id", "label", "total_duty", "vat", "total_all_taxes", "advance", "balance", "unique_index", "vat_rate"]
       csv << column_names
       all.each do |invoices|
         csv << invoices.attributes.values_at(*column_names)

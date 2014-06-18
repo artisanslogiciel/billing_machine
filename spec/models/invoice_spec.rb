@@ -79,17 +79,20 @@ describe Invoice do
   end
 
   describe 'to_csv' do
+    let(:entity) { FactoryGirl.create(:entity) }
+    let(:columns_names) {"Date;Client;Paiement;Label;Montant HT;Montant TVA;Montant TTC;Acompte;Solde à payer;Index unique;Taux TVA\n"}
     it 'should return csv' do
-      entity = FactoryGirl.create(:entity, customization_prefix: 'agilidee')
       invoice0 = FactoryGirl.create(:invoice, entity: entity)
       invoice1 = FactoryGirl.create(:invoice, entity: entity)
       invoices = Invoice.all
       csv_output = invoices.to_csv
 
       csv_output.should be ==
-        "date;customer_id;payment_term_id;label;total_duty;vat;total_all_taxes;advance;balance;entity_id;unique_index;vat_rate\n"+
-        "2014-02-19;1;1;Software service;9.99;20.99;12.086901;1.0;11.086901;1;1;20.0\n"+
-        "2014-02-19;2;2;Software service;9.99;20.99;12.086901;1.0;11.086901;1;2;20.0\n"
+        columns_names +
+        "#{invoice0.date};#{invoice0.customer.name};#{invoice0.payment_term.label};#{invoice0.label};#{invoice0.total_duty};"+
+            "#{invoice0.vat};#{invoice0.total_all_taxes};#{invoice0.advance};#{invoice0.balance};#{invoice0.unique_index};#{invoice0.vat_rate}\n"+
+        "#{invoice1.date};#{invoice1.customer.name};#{invoice1.payment_term.label};#{invoice1.label};#{invoice1.total_duty};"+
+            "#{invoice1.vat};#{invoice1.total_all_taxes};#{invoice1.advance};#{invoice1.balance};#{invoice1.unique_index};#{invoice1.vat_rate}\n"
     end
   end
 end
