@@ -85,8 +85,7 @@ describe Invoice do
     it 'should return csv' do
       invoice0 = FactoryGirl.create(:invoice, total_duty: 9.99, vat_rate: 19.6, vat: 23.2, total_all_taxes: 43.35, advance: 3.5, entity: entity)
       invoice1 = FactoryGirl.create(:invoice, total_duty: 13.00, vat_rate: 20.0, vat: 23.0, total_all_taxes: 43.0, advance: 3.0, entity: entity)
-      invoices = Invoice.all
-      csv_output = invoices.to_csv
+      csv_output = Invoice.to_csv
 
       csv_output.should be ==
         columns_names +
@@ -96,6 +95,16 @@ describe Invoice do
         "\"#{invoice1.date}\";\"#{invoice1.tracking_id}\";\"#{invoice1.label}\";\"#{invoice1.customer.name}\";\"#{invoice1.customer.address1}\";"+
         "\"#{invoice1.customer.address2}\";\"#{invoice1.customer.zip}\";\"#{invoice1.customer.city}\";\"#{invoice1.customer.country}\";\"13,0\";"+
             "\"20,0\";\"23,0\";\"43,0\";\"3,0\";\"40,0\"\n"
+    end
+    it 'should return expected csv with nil values' do
+      invoice0 = FactoryGirl.create(:invoice, entity: entity, total_duty: nil,
+        vat_rate: nil, vat: nil, total_all_taxes: 0, advance: nil, label: nil,
+        customer: nil, payment_term: nil, date: nil)
+      csv_output = Invoice.to_csv
+
+      csv_output.should be ==
+        columns_names +
+        '"";"1";"";"";"";"";"";"";"";"";"";"";"0,0";"0,0";"0,0"' + "\n"
     end
   end
 end
