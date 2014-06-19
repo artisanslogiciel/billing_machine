@@ -1,4 +1,5 @@
 class Invoice < ActiveRecord::Base
+  extend ActionView::Helpers::NumberHelper
   belongs_to :customer
   belongs_to :payment_term
   belongs_to :entity, inverse_of: :invoices
@@ -35,13 +36,32 @@ class Invoice < ActiveRecord::Base
     return pdf
   end
 
-  def self.to_csv(options = {:col_sep => ';'})
+  def self.to_csv(options = {:col_sep => ';', :force_quotes => true})
     CSV.generate(options) do |csv|
-      column_names = ["date", "customer_id", "payment_term_id", "label", "total_duty", "vat", "total_all_taxes", "advance", "balance", "unique_index", "vat_rate"]
+      column_names = ["Date", "Numéro", "Objet", "Client", "Adresse 1", "Adresse 2",
+        "Code postal", "Ville", "Pays", "Montant HT", "Taux TVA", "Montant TVA",
+        "Montant TTC", "Acompte", "Solde à payer"]
       csv << column_names
-      all.each do |invoices|
-        csv << invoices.attributes.values_at(*column_names)
+      all.each do |invoice|
+        csv <<  [invoice.date,
+                 invoice.tracking_id,
+                 invoice.label,
+                 invoice.customer.name,
+                 invoice.customer.address1,
+                 invoice.customer.address2,
+                 invoice.customer.zip,
+                 invoice.customer.city,
+                 invoice.customer.country,
+                 french_number(invoice.total_duty),
+                 french_number(invoice.vat_rate),
+                 french_number(invoice.vat),
+                 french_number(invoice.total_all_taxes),
+                 french_number(invoice.advance),
+                 french_number(invoice.balance)]
       end
     end
+  end
+  def self.french_number amount
+     number_with_delimiter(amount, :delimiter => '', :separator => ",")
   end
 end
