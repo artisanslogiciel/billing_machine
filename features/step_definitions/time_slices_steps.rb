@@ -51,7 +51,6 @@ end
 
 Then(/^downloaded the CSV should be valid with expected information$/) do
   page.driver.response.headers['Content-Type'].should include 'text/csv'
-  ap page.driver.response.body
   parsed_csv = CSV.parse(page.driver.response.body, options = {:col_sep => ';'})
   time_slice_data = parsed_csv[1]
 
