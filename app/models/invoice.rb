@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Invoice < ActiveRecord::Base
   extend ActionView::Helpers::NumberHelper
   belongs_to :customer
