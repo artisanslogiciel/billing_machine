@@ -4,12 +4,8 @@ module Api
       wrap_parameters include: [Invoice.attribute_names, :lines_attributes].flatten
 
       def index
-        begin
-          authorize! :read, Invoice
-          render_invoice_list
-        rescue CanCan::AccessDenied => exeception
-          render_forbidden_functionality_error
-        end
+        authorize! :read, Invoice
+        render_invoice_list
       end
 
       def create
