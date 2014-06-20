@@ -1,12 +1,12 @@
 require 'securerandom'
 
-Given(/^a user on the projects page$/) do
-  step('an existing user')
+Given(/^the user goes on project page$/) do
   visit('/projects')
 end
 
+
 Given(/^an existing project$/) do
-  @project = FactoryGirl.create(:project)
+  @project = FactoryGirl.create(:project, :entity =>@user.entity)
 end
 
 When(/^he fills the project's name$/) do
