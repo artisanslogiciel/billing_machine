@@ -6,7 +6,7 @@ end
 
 
 Given(/^an existing project$/) do
-  @project = FactoryGirl.create(:project, :entity =>@user.entity)
+  @project = FactoryGirl.create(:project, :entity =>@user.entity, :name => 'My project')
 end
 
 When(/^he fills the project's name$/) do
@@ -41,4 +41,17 @@ end
 Then(/^the project's name is updated$/) do
   reload_the_page
   page.should have_selector 'li.project .name', text: @new_name
+end
+
+Given(/^an existing project from this other entity$/) do
+  @project_other_entity = FactoryGirl.create(:project,
+      name: 'Other project', entity: @other_entity)
+end
+
+Then(/^he should see the project from his entity$/) do
+  page.should have_content('My project')
+end
+
+Then(/^he should not see the project from another entity$/) do
+  page.should have_no_content('Other project')
 end
