@@ -1,6 +1,7 @@
 .head
   h1 Factures
   .actions
+    a.btn.btn-success.btn-lg id='csv-export-button' href="/api/v1/invoices.csv" target="_blank" CSV
     a.btn.btn-primary.btn-lg id='new-invoice' href='' ng-click='navNewInvoice()' Nouvelle facture
 .row.header
   .col-lg-1.col-xs-2.date Date

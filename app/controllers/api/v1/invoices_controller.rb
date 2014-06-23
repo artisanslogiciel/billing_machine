@@ -41,7 +41,13 @@ module Api
 
         def render_invoice_list
           @invoices = current_user.entity.invoices.order(unique_index: :desc)
-          respond_with @invoices
+          respond_to do |format|
+            format.csv { send_data csv_data }
+            format.json { respond_with @invoices }
+         end
+        end
+        def csv_data
+         @invoices.to_csv.encode("WINDOWS-1252", :invalid => :replace, :undef => :replace, :replace => "?")
         end
     end
   end

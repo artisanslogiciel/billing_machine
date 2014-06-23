@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 
 describe Invoice do
@@ -75,6 +76,35 @@ describe Invoice do
       entity = FactoryGirl.create(:entity, customization_prefix: 'agilidee')
       invoice = FactoryGirl.create(:invoice, entity: entity)
       invoice.pdf.should be_a AgilideeInvoice
+    end
+  end
+
+  describe 'to_csv' do
+    let(:entity) { FactoryGirl.create(:entity) }
+    let(:columns_names) {'"Date";"Numéro";"Objet";"Client";"Adresse 1";"Adresse 2";"Code postal";"Ville";"Pays";"Montant HT";"Taux TVA";"Montant TVA";"Montant TTC";"Acompte";"Solde à payer"'+"\n"}
+    it 'should return csv' do
+      invoice0 = FactoryGirl.create(:invoice, total_duty: 9.99, vat_rate: 19.6, vat: 23.2, total_all_taxes: 43.35, advance: 3.5, label: "çé,à,ç,@", entity: entity)
+      invoice1 = FactoryGirl.create(:invoice, total_duty: 13.00, vat_rate: 20.0, vat: 23.0, total_all_taxes: 43.0, advance: 3.0, entity: entity)
+      csv_output = Invoice.to_csv
+
+      csv_output.should be ==
+        columns_names +
+        "\"#{invoice0.date}\";\"#{invoice0.tracking_id}\";\"çé,à,ç,@\";\"#{invoice0.customer.name}\";\"#{invoice0.customer.address1}\";"+
+        "\"#{invoice0.customer.address2}\";\"#{invoice0.customer.zip}\";\"#{invoice0.customer.city}\";\"#{invoice0.customer.country}\";\"9,99\";"+
+            "\"19,6\";\"23,2\";\"43,35\";\"3,5\";\"39,85\"\n"+
+        "\"#{invoice1.date}\";\"#{invoice1.tracking_id}\";\"#{invoice1.label}\";\"#{invoice1.customer.name}\";\"#{invoice1.customer.address1}\";"+
+        "\"#{invoice1.customer.address2}\";\"#{invoice1.customer.zip}\";\"#{invoice1.customer.city}\";\"#{invoice1.customer.country}\";\"13,0\";"+
+            "\"20,0\";\"23,0\";\"43,0\";\"3,0\";\"40,0\"\n"
+    end
+    it 'should return expected csv with nil values' do
+      invoice0 = FactoryGirl.create(:invoice, entity: entity, total_duty: nil,
+        vat_rate: nil, vat: nil, total_all_taxes: 0, advance: nil, label: nil,
+        customer: nil, payment_term: nil, date: nil)
+      csv_output = Invoice.to_csv
+
+      csv_output.should be ==
+        columns_names +
+        '"";"1";"";"";"";"";"";"";"";"";"";"";"0,0";"0,0";"0,0"' + "\n"
     end
   end
 end
