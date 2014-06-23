@@ -130,3 +130,8 @@ end
 When(/^he edits the line$/) do
   click_link 'Editer'
 end
+
+When(/^he finds and clicks on the download CSV export file$/) do
+  page.should have_link('csv-export-button', :href=>"/api/v1/invoices.csv")
+  click_link 'csv-export-button'
+end
