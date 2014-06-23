@@ -43,10 +43,22 @@ module Api
             response.body.should == JSON_RESPONSE_403
           end
 
-          it 'should return invoices' do
+          it 'should return invoices in JSON of the current user.entity' do
+            invoice = FactoryGirl.create(:invoice, entity: user.entity)
+            invoice_from_other_entity = FactoryGirl.create(:invoice)
+            get :index, format: :json
+            assigns(:invoices).should eq([invoice])
+          end
+
+          it 'should respond in CSV' do
+            get :index, format: :csv
+            assert_response :success
+          end
+
+          it 'should return invoices in CSV of the current user.entity' do
             invoice = FactoryGirl.create(:invoice, entity: user.entity)
             another_invoice = FactoryGirl.create(:invoice)
-            get :index, format: :json
+            get :index, format: :csv
             assigns(:invoices).should eq([invoice])
           end
         end
