@@ -48,12 +48,16 @@ module Api
             response.status.should eq(200)
           end
 
-          it 'should sort time slices by date' do
+          it 'should sort time slices by date and updated at' do
             timeslice0 = FactoryGirl.create(:time_slice, day: Date.new(2013, 10, 1), user: user)
+            timeslice01 = FactoryGirl.create(:time_slice, day: Date.new(2013, 10, 1), user: user)
+            timeslice02 = FactoryGirl.create(:time_slice, day: Date.new(2013, 10, 1), user: user)
             timeslice1 = FactoryGirl.create(:time_slice, day: Date.new(2013,  9, 1), user: user)
             timeslice2 = FactoryGirl.create(:time_slice, day: Date.new(2013, 11, 1), user: user)
+            timeslice02.update(duration: 3)
+            timeslice01.update(duration: 3)
             get :index, format: :json
-            assigns(:time_slices).should eq([timeslice2, timeslice0, timeslice1])
+            assigns(:time_slices).should eq([timeslice2, timeslice01, timeslice02, timeslice0, timeslice1])
           end
 
 
