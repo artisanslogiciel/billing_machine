@@ -48,7 +48,7 @@ module Api
             response.status.should eq(200)
           end
 
-          it 'should sort time slices by date and updated at' do
+          it 'should sort time slices by date and updated_at' do
             timeslice0 = FactoryGirl.create(:time_slice, day: Date.new(2013, 10, 1), user: user)
             timeslice01 = FactoryGirl.create(:time_slice, day: Date.new(2013, 10, 1), user: user)
             timeslice02 = FactoryGirl.create(:time_slice, day: Date.new(2013, 10, 1), user: user)
