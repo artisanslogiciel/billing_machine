@@ -126,6 +126,13 @@ module Api
               response.body.should == '{"day":["can\'t be blank"]}'
             end
           end
+          context 'when nothing is given' do
+            it 'should tell that the entity is not processable and why' do
+              post :create, format: :json, time_slice: nil
+              response.status.should eq(422)
+              response.body.should == '{"error":"Empty TimeSlice given"}'
+            end
+          end
 
           it 'should assign current user as owner' do
             post :create, format: :json, time_slice: FactoryGirl.attributes_for(:time_slice)
