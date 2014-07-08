@@ -3,6 +3,7 @@ require 'spec_helper'
 module Api
   module V1
     describe TimeSlicesController do
+      JSON_RESPONSE_403 = '{"error":"You don\'t have access to this functionality"}'
       context 'when not authenticated' do
         describe '#index' do
           it 'should refuse access' do
@@ -33,9 +34,10 @@ module Api
             response.status.should eq(200)
           end
           it 'should not grant access if not mine' do
-            expect {
-              put :update, format: :json, id: another_time_slice.id, time_slice: {id: time_slice.id}
-              }.to raise_exception CanCan::AccessDenied
+            put :update, format: :json, id: another_time_slice.id, time_slice: {id: time_slice.id}
+
+            assert_response :forbidden
+            response.body.should == JSON_RESPONSE_403
           end
         end
 
@@ -54,6 +56,25 @@ module Api
             assigns(:time_slices).should eq([timeslice2, timeslice0, timeslice1])
           end
 
+
+          it 'should return valid CSV' do
+            time_slice_of_current_user = time_slice
+            get :index, format: :csv
+            CSV.parse(response.body)
+          end
+
+          it 'should return time_slice of current user in CSV' do
+            time_slice_of_current_user = time_slice
+            second_time_slice_of_current_user = FactoryGirl.create(:time_slice, user: user)
+            time_slice_of_another_user = another_time_slice
+
+            get :index, format: :csv
+
+            assert_response :success
+            number_of_time_slices_returned = CSV.parse(response.body).size - 1 # first line should be colums list
+            number_of_time_slices_returned.should be == 2
+          end
+
           it 'should only show the current users ts' do
             mine = FactoryGirl.create(:time_slice, user: user)
             FactoryGirl.create(:time_slice)
@@ -63,9 +84,10 @@ module Api
 
           it 'should check access rights' do
             user.update(time_machine: false)
-            expect {
-              get :index, format: :json
-              }.to raise_exception CanCan::AccessDenied
+            get :index, format: :json
+
+            assert_response :forbidden
+            response.body.should == JSON_RESPONSE_403
           end
 
         end
@@ -94,10 +116,11 @@ module Api
             assigns(:time_slice).duration.should eq(0.8)
           end
            it 'should check access rights' do
-              user.update(time_machine: false)
-              expect {
-                post :create, format: :json, time_slice: FactoryGirl.attributes_for(:time_slice)
-                }.to raise_exception CanCan::AccessDenied
+            user.update(time_machine: false)
+            post :create, format: :json, time_slice: FactoryGirl.attributes_for(:time_slice)
+
+            assert_response :forbidden
+            response.body.should == JSON_RESPONSE_403
           end
         end
       end

@@ -5,8 +5,7 @@ module Api
 
       def index
         authorize! :read, Invoice
-        @invoices = current_user.entity.invoices.order(unique_index: :desc)
-        respond_with @invoices
+        render_invoice_list
       end
 
       def create
@@ -38,6 +37,17 @@ module Api
                         :vat, :total_all_taxes, :advance, :balance, :vat_rate,
                         lines_attributes: [:_destroy, :id, :label, :quantity,
                                            :unit, :unit_price, :total])
+        end
+
+        def render_invoice_list
+          @invoices = current_user.entity.invoices.order(unique_index: :desc)
+          respond_to do |format|
+            format.csv { send_data csv_data }
+            format.json { respond_with @invoices }
+         end
+        end
+        def csv_data
+         @invoices.to_csv.encode("WINDOWS-1252", :invalid => :replace, :undef => :replace, :replace => "?")
         end
     end
   end

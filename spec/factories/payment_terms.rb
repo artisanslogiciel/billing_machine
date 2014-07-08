@@ -3,5 +3,6 @@
 FactoryGirl.define do
   factory :payment_term do
     label 'Upon reception'
+    entity
   end
 end

@@ -10,8 +10,8 @@ describe SudDeveloppementInvoice, pdfs: true do
   end
 
   let(:customer) { FactoryGirl.create(:customer, city: 'Mickey City', address2: 'address2 value') }
-  let(:invoice) { FactoryGirl.create(:invoice, total_duty: 54.36, vat: 34.99,
-    total_all_taxes: 54.39, advance: 1.34, customer: customer) }
+  let(:invoice) { FactoryGirl.create(:invoice, total_duty: 54.36, vat: 10.65,
+    total_all_taxes: 65.01, advance: 1.34, customer: customer, vat_rate: 19.6) }
 
   let(:invoice_line) { FactoryGirl.create(:invoice_line,
     invoice_id: invoice.id,
@@ -166,18 +166,18 @@ describe SudDeveloppementInvoice, pdfs: true do
         it_should_write 'TOTAL HT'
         it_should_write '54,36 €'
 
-        it_should_write 'TVA (20,00%)'
-        it_should_write '34,99 €'
+        it_should_write 'TVA (19,6%)'
+        it_should_write '10,65 €'
 
         it_should_write 'TOTAL TTC'
-        it_should_write '54,39 €'
+        it_should_write '65,01 €'
 
         it_should_write 'Acompte reçu sur commande'
         it_should_write '1,34 €'
 
         it_should_write 'Solde à payer'
         it 'should write balance calculated using total_all_taxes - advance' do
-          text.strings.should include '53,05 €'
+          text.strings.should include '63,67 €'
         end
 
       end # context with floating values in french syntax

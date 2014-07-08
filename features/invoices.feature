@@ -7,6 +7,7 @@ Feature: Invoice Management
   Scenario: New invoice for existing customer
     Given an existing user
     And an existing customer
+    And an existing payment term
     When the user goes to the invoices page
     And he creates a new invoice
     And he fills the reference, the date and the payment terms
@@ -98,3 +99,10 @@ Feature: Invoice Management
     And he changes the VAT rate to "19.6"
     And the VAT due is "196.00€"
     And the total all taxes included is "1196.00€"
+
+  @javascript
+  Scenario: Export invoices in CSV
+    Given an existing user
+    And an existing invoice
+    When the user goes to the invoices page
+    Then he finds and clicks on the download CSV export file

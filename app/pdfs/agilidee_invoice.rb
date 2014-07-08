@@ -1,6 +1,5 @@
 # encoding: utf-8
 
-
 class AgilideeInvoice < Prawn::Document
   include ActionView::Helpers::NumberHelper
   attr_accessor :invoice
@@ -31,9 +30,8 @@ class AgilideeInvoice < Prawn::Document
     return date.day.to_s + ' ' + french_month + ' ' + date.year.to_s
   end
 
-
   def build
-    image Rails.root+'app/pdfs/agilidee_logo.png', at: [55, 735], :width => 150
+    image Rails.root + 'app/pdfs/agilidee_logo.png', at: [55, 735], :width => 150
 
     # Mentions légales - Coin supérieur droit
     bounding_box [235, 735], :width => 235, :height => 75 do
@@ -103,7 +101,8 @@ class AgilideeInvoice < Prawn::Document
       # Synthèse
       font_size 10
       table_matrix.push ['Net HT', '', '', euros(@invoice.total_duty)]
-      table_matrix.push ['TVA 20,0 %', '', '', euros(@invoice.vat)]
+      vat_rate = french_number(@invoice.vat_rate)
+      table_matrix.push ["TVA #{vat_rate} %", '', '', euros(@invoice.vat)]
       table_matrix.push ['Total TTC', '', '', euros(@invoice.total_all_taxes)]
       table_matrix.push ['Acompte reçu sur commande', '', '', euros(@invoice.advance)]
       table_matrix.push ['Solde à payer', '', '', euros(@invoice.balance)]

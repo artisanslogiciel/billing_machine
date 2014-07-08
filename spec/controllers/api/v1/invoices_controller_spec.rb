@@ -3,6 +3,7 @@ require 'spec_helper'
 module Api
   module V1
     describe InvoicesController do
+      JSON_RESPONSE_403 = '{"error":"You don\'t have access to this functionality"}'
       context 'when not authenticated' do
         describe '#index' do
           it 'should refuse access' do
@@ -36,15 +37,28 @@ module Api
 
           it 'should check access rights' do
             user.update(billing_machine: false)
-            expect {
-              get :index, format: :json
-              }.to raise_exception CanCan::AccessDenied
+            get :index, format: :json
+
+            assert_response :forbidden
+            response.body.should == JSON_RESPONSE_403
           end
 
-          it 'should return invoices' do
+          it 'should return invoices in JSON of the current user.entity' do
+            invoice = FactoryGirl.create(:invoice, entity: user.entity)
+            invoice_from_other_entity = FactoryGirl.create(:invoice)
+            get :index, format: :json
+            assigns(:invoices).should eq([invoice])
+          end
+
+          it 'should respond in CSV' do
+            get :index, format: :csv
+            assert_response :success
+          end
+
+          it 'should return invoices in CSV of the current user.entity' do
             invoice = FactoryGirl.create(:invoice, entity: user.entity)
             another_invoice = FactoryGirl.create(:invoice)
-            get :index, format: :json
+            get :index, format: :csv
             assigns(:invoices).should eq([invoice])
           end
         end
@@ -65,19 +79,21 @@ module Api
           end
           it 'should check access rights' do
             user.update(billing_machine: false)
-            expect {
-              post :create, format: :json, invoice: FactoryGirl.attributes_for(:invoice)
-              }.to raise_exception CanCan::AccessDenied
+            post :create, format: :json, invoice: FactoryGirl.attributes_for(:invoice)
+
+            assert_response :forbidden
+            response.body.should == JSON_RESPONSE_403
           end
 
-         end
+        end
 
         describe '#update' do
 
           it 'should check access rights' do
-            expect {
-              put :update, id: another_invoice.id, format: :json, invoice: { label: 'Updated' }
-              }.to raise_exception CanCan::AccessDenied
+            put :update, id: another_invoice.id, format: :json, invoice: { label: 'Updated' }
+
+            assert_response :forbidden
+            response.body.should == JSON_RESPONSE_403
           end
 
           it 'should update an entry with valid params' do
@@ -94,9 +110,10 @@ module Api
 
         describe '#show' do
           it 'should check access rights' do
-            expect {
-              get :show, id: another_invoice.id, format: :json
-              }.to raise_exception CanCan::AccessDenied
+            get :show, id: another_invoice.id, format: :json
+
+            assert_response :forbidden
+            response.body.should == JSON_RESPONSE_403
           end
 
           it 'should check access rights' do

@@ -43,3 +43,18 @@ Then(/^the time slices' duration is updated$/) do
   reload_the_page
   page.should have_selector '.time-slice .duration', text: @new_duration
 end
+
+Then(/^he should be able to download the CSV export file$/) do
+  page.should have_link('csv-export-button', :href=>"/api/v1/time_slices.csv")
+  click_link 'csv-export-button'
+end
+
+Then(/^downloaded the CSV should be valid with expected information$/) do
+  page.driver.response.headers['Content-Type'].should include 'text/csv'
+  parsed_csv = CSV.parse(page.driver.response.body, options = {:col_sep => ';'})
+  time_slice_data = parsed_csv[1]
+
+  time_slice_data.should include @time_slice.day.iso8601
+  time_slice_data.should include @time_slice.comment
+  time_slice_data.should include @time_slice.duration.to_s
+end

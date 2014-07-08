@@ -4,9 +4,6 @@ Activity.create(label: 'Production')
 Activity.create(label: 'Vente')
 Activity.create(label: 'Formation')
 
-PaymentTerm.create(label: '30 jours fin de mois')
-PaymentTerm.create(label: 'A réception de facture')
-
 # VINSON FRÈRES
 # RN7 - NORD
 # 26250 LIVRON SUR DROME
