@@ -56,7 +56,6 @@ module Api
             assigns(:time_slices).should eq([timeslice2, timeslice0, timeslice1])
           end
 
-
           it 'should return valid CSV' do
             time_slice_of_current_user = time_slice
             get :index, format: :csv
@@ -102,6 +101,30 @@ module Api
             post :create, format: :json, time_slice: FactoryGirl.attributes_for(:time_slice, duration: '4,2')
             response.status.should eq(200)
             assigns(:time_slice).duration.should eq(4.2)
+          end
+
+          context 'when invalid duration' do
+            it 'should tell that the entity is not processable and why' do
+              post :create, format: :json, time_slice: FactoryGirl.attributes_for(:time_slice, duration: nil)
+              response.status.should eq(422)
+              response.body.should == '{"duration":["can\'t be blank","is not a number"]}'
+            end
+          end
+
+          context 'when duration is too long' do
+            it 'should tell that the entity is not processable and why' do
+              post :create, format: :json, time_slice: FactoryGirl.attributes_for(:time_slice, duration: '13')
+              response.status.should eq(422)
+              response.body.should == '{"duration":["must be less than 12"]}'
+            end
+          end
+
+          context 'when invalid day' do
+            it 'should tell that the entity is not processable and why' do
+              post :create, format: :json, time_slice: FactoryGirl.attributes_for(:time_slice, day: 'I\'am not a date')
+              response.status.should eq(422)
+              response.body.should == '{"day":["can\'t be blank"]}'
+            end
           end
 
           it 'should assign current user as owner' do

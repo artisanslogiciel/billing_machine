@@ -12,6 +12,7 @@ end
 
 When(/^he creates a new time slice$/) do
   fill_in 'new-time-slice-duration', with: '4.23'
+  fill_in 'new-time-slice-day', with: '1970-01-01'
   fill_in 'new-time-slice-comment', with: 'Hello World'
   click_button 'new-time-slice-submit'
 end
@@ -19,9 +20,11 @@ end
 Then(/^the time slice is added to the list$/) do
   expect(page).to have_selector '.time-slice .duration', text: '4.23'
   expect(page).to have_selector '.time-slice .comment', text: 'Hello World'
+  expect(page).to have_selector '.time-slice .day', text: '1970-01-01'
   reload_the_page
   expect(page).to have_selector '.time-slice .duration', text: '4.23'
   expect(page).to have_selector '.time-slice .comment', text: 'Hello World'
+  expect(page).to have_selector '.time-slice .day', text: '1970-01-01'
 end
 
 When(/^he edits the time slices' duration$/) do

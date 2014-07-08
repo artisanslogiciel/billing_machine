@@ -7,8 +7,10 @@
     timeslice = TimeSlice.save(
       $scope.newTimeSlice
       (response) ->
+        console.log response
         console.log "SUCCESS"
       (error) ->
+        console.log error
         console.log "FAIL"
       )
     $scope.timeslices.splice(0,0,timeslice)

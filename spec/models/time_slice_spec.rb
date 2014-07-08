@@ -11,14 +11,18 @@ describe TimeSlice do
   it { should validate_presence_of :duration }
   it { should validate_numericality_of(:duration).is_greater_than(0).is_less_than(12) }
 
+  it 'should validate date' do
+    expect { FactoryGirl.create(:time_slice, day: 'I\'m not a date') }.to raise_error(ActiveRecord::RecordInvalid)
+  end
+
   describe '#to_csv' do
     let(:user) { FactoryGirl.create(:user) }
     let(:columns_names) {"Date;Project;Duration;Activity;Comment\n"}
 
     it 'should return expected csv' do
-      slice0 = FactoryGirl.create(:time_slice, day: Date.new(2013, 10, 1), user: user)
-      slice1 = FactoryGirl.create(:time_slice, day: Date.new(2013,  9, 1), user: user, comment: nil)
-      slice2 = FactoryGirl.create(:time_slice, day: Date.new(2013, 11, 1), user: user)
+      slice0 = FactoryGirl.create(:time_slice, day: '2013-10-01', user: user)
+      slice1 = FactoryGirl.create(:time_slice, day: '2013-09-01', user: user, comment: nil)
+      slice2 = FactoryGirl.create(:time_slice, day: '2013-11-01', user: user)
       TimeSlice.to_csv.should be ==
         columns_names +
         "2013-10-01;#{slice0.project.name};#{slice0.duration};#{slice0.activity.label};#{slice0.comment}\n"+
@@ -27,10 +31,10 @@ describe TimeSlice do
     end
 
     it 'should return expected csv with nil values' do
-      slice0 = TimeSlice.create(duration: 1, user: user)
+      slice0 = TimeSlice.create(duration: 1, day: '1970-01-01', user: user)
       TimeSlice.to_csv.should be ==
         columns_names +
-        ";;#{slice0.duration};;\n"
+        "1970-01-01;;#{slice0.duration};;\n"
     end
   end
 end

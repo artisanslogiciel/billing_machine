@@ -8,8 +8,12 @@ module Api
 
       def create
         authorize! :write, TimeSlice
-        @time_slice = TimeSlice.create(safe_params.merge({user: current_user}))
-        render :show
+        @time_slice = TimeSlice.new(safe_params.merge({user: current_user}))
+        if @time_slice.save
+          render :show , status: 200
+        else
+          render json: @time_slice.errors ,status: 422
+        end
       end
 
       def update

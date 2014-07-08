@@ -19,7 +19,7 @@ div ng-controller="TimeSliceCtrl"
       tr
         form ng-submit="addTimeSlice()"
           td
-            input type="date" ng-model="newTimeSlice.day"
+            input id='new-time-slice-day' type="date" ng-model="newTimeSlice.day"
           td
             select ng-model="newTimeSlice.project_id" ng-options="project.id as project.name for project in projects"
           td
@@ -62,8 +62,3 @@ div ng-controller="TimeSliceCtrl"
             a id="edit-{{timeslice.id}}" href="" Edit
           .action.bb-edit
             input id="submit-time-slice-{{timeslice.id}}" type="submit" class="btn btn-success btn-sm" value="Update" ng-click="update(timeslice)"
-
-
-
-
-

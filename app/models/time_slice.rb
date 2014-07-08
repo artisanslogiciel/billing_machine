@@ -1,5 +1,6 @@
 class TimeSlice < ActiveRecord::Base
   validates :duration, presence: true, numericality: { less_than: 12, greater_than: 0 }
+  validates :day, :presence => true
 
   belongs_to :activity
   belongs_to :user, inverse_of: :time_slices, dependent: :destroy
