@@ -39,7 +39,7 @@ module Api
 
         def render_time_slice_list
           user = current_user
-          @time_slices = user.time_slices.order(day: :desc)
+          @time_slices = user.time_slices.order(day: :desc, updated_at: :desc)
           respond_to do |format|
             format.csv { send_data @time_slices.to_csv, type: "text/csv"}
             format.json  { respond_with @time_slices }
