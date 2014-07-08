@@ -2,19 +2,41 @@
   $scope.timeslices = TimeSlice.query()
   $scope.projects = Project.query()
   $scope.activities = Activity.query()
-
+  $scope.success = document.getElementById('success-message')
+  $scope.error = document.getElementById('error-message')
   $scope.addTimeSlice = ->
     timeslice = TimeSlice.save(
       $scope.newTimeSlice
+
       (response) ->
-        console.log response
-        console.log "SUCCESS"
+        $scope.success.style.display = "block"
+        $scope.success.innerHTML = 'Time slice successfully added'
+        setTimeout (->
+          $scope.vanishMessage($scope.success)
+        ), 2000
+        setTimeout (->
+          $scope.removeMessage($scope.success)
+        ), 5000
+
       (error) ->
-        console.log error
-        console.log "FAIL"
+        $scope.error.style.display = "block"
+        $scope.error.innerHTML = error.data.error
+        setTimeout (->
+          $scope.vanishMessage($scope.error)
+        ), 2000
+        setTimeout (->
+          $scope.removeMessage($scope.error)
+        ), 5000
       )
     $scope.timeslices.splice(0,0,timeslice)
     $scope.newTimeSlice = {}
+
+  $scope.vanishMessage = (div) ->
+    div.classList.add('vanish')
+
+  $scope.removeMessage = (div) ->
+    div.style.display = "none"
+    div.classList.remove('vanish')
 
   $scope.update = (timeslice) ->
     timeslice.$update()

@@ -20,3 +20,15 @@
 li.error {
   color: red;
 }
+
+.alert {
+  transition: all 5s;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  display:none;
+}
+
+.vanish {
+  opacity: 0
+}
