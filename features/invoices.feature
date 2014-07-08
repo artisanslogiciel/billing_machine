@@ -27,7 +27,6 @@ Feature: Invoice Management
     Then it's added to the invoice list
 
   @javascript
-  @exclude_from_ci # fails almost always on CI, excluded meanwhile more investigation is done, issue #87
   Scenario: Edit invoice
     Given an existing user
     And an existing invoice
