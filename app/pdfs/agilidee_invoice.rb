@@ -1,6 +1,5 @@
 # encoding: utf-8
 
-
 class AgilideeInvoice < Prawn::Document
   include ActionView::Helpers::NumberHelper
   attr_accessor :invoice
@@ -31,9 +30,8 @@ class AgilideeInvoice < Prawn::Document
     return date.day.to_s + ' ' + french_month + ' ' + date.year.to_s
   end
 
-
   def build
-    image Rails.root+'app/pdfs/agilidee_logo.png', at: [55, 735], :width => 150
+    image Rails.root + 'app/pdfs/agilidee_logo.png', at: [55, 735], :width => 150
 
     # Mentions légales - Coin supérieur droit
     bounding_box [235, 735], :width => 235, :height => 75 do
