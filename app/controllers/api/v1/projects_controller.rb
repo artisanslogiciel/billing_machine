@@ -2,7 +2,7 @@ module Api
   module V1
     class ProjectsController <  ApiController
       def index
-        @projects = Project.all.order(:name)
+        @projects = Project.where(entity_id: current_user.entity_id).order(:name)
         respond_with @projects
       end
 
@@ -12,6 +12,7 @@ module Api
 
       def create
         @project = Project.new(safe_params)
+        @project.entity= current_user.entity
         if @project.save
           render :show
         else
