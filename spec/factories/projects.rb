@@ -3,5 +3,6 @@
 FactoryGirl.define do
   factory :project do
     name 'Backbone'
+    entity
   end
 end

@@ -20,7 +20,8 @@ module Api
 
       context 'when authenticated' do
         before(:each) do
-          sign_in FactoryGirl.create :user
+          @user=FactoryGirl.create :user
+          sign_in @user
         end
 
         it 'should check access rights'
@@ -31,12 +32,11 @@ module Api
           end
 
           it 'should sort projects by name' do
-            project_0 = FactoryGirl.create(:project, name: 'Charle')
-            project_1 = FactoryGirl.create(:project, name: 'Alice')
-            project_2 = FactoryGirl.create(:project, name: 'Bob')
+            project_0 = FactoryGirl.create(:project, name: 'Charle', :entity=> @user.entity)
+            project_1 = FactoryGirl.create(:project, name: 'Alice', :entity=> @user.entity)
+            project_2 = FactoryGirl.create(:project, name: 'Bob', :entity=> @user.entity)
             get :index, format: :json
             assigns(:projects).should eq([project_1, project_2, project_0])
-
           end
         end
 
