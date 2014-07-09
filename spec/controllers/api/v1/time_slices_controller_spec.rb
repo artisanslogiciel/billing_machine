@@ -134,7 +134,7 @@ module Api
             it 'should tell that the entity is not processable and why' do
               post :create, format: :json, time_slice: nil
               response.status.should eq(422)
-              response.body.should == '{"error":"Empty TimeSlice given"}'
+              response.body.should == '{"TimeSlice":["can\'t be empty"]}'
             end
           end
 

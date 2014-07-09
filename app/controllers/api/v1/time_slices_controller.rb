@@ -16,7 +16,7 @@ module Api
             render json: @time_slice.errors ,status: 422
           end
         rescue ActionController::ParameterMissing
-          render json: '{"error":"Empty TimeSlice given"}' ,status: 422
+          render json: '{"TimeSlice":["can\'t be empty"]}' ,status: 422
         end
       end
 
