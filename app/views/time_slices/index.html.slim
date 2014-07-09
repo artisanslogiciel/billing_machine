@@ -25,7 +25,7 @@ div ng-controller="TimeSliceCtrl"
           td
             select ng-model="newTimeSlice.project_id" ng-options="project.id as project.name for project in projects"
           td
-            input id='new-time-slice-duration' type="text" ng-model="newTimeSlice.duration"
+            input id='new-time-slice-duration' type="text" ng-model="newTimeSlice.duration" required="true"
           td
             select ng-model="newTimeSlice.activity_id" ng-options="activity.id as activity.label for activity in activities"
           td

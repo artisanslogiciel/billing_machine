@@ -27,6 +27,10 @@ Then(/^the time slice is added to the list$/) do
   expect(page).to have_selector '.time-slice .day', text: '1970-01-01'
 end
 
+Then(/^the duration should be required$/) do
+  find_field('new-time-slice-duration')[:required].should == "true"
+end
+
 When(/^he edits the time slices' duration$/) do
   click_link "edit-#{@time_slice.id}"
 end
