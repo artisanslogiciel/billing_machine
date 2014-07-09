@@ -12,6 +12,6 @@ Feature: Pdfs Management
     When the user goes to the invoices page
     Then he can see the pdf download button
 
-    Scenario: Invoice Pdf with valid name
+  Scenario: Invoice Pdf with valid name
     When the user download the pdf
     Then the Pdf should have the filename "Facture_1401_AC.pdf"
