@@ -8,6 +8,6 @@ class InvoicesController < ApplicationController
     authorize! :read, @invoice
     pdf = @invoice.pdf
     send_data pdf.render, type: 'application/pdf',
-          filename: "#{@invoice.tracking_id} #{@invoice.customer.short_name}.pdf", disposition: 'inline'
+          filename: "Facture_#{@invoice.tracking_id}_#{@invoice.customer.short_name}.pdf", disposition: 'inline'
   end
 end
