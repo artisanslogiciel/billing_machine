@@ -104,8 +104,10 @@ class AgilideeInvoice < Prawn::Document
       vat_rate = french_number(@invoice.vat_rate)
       table_matrix.push ["TVA #{vat_rate} %", '', '', euros(@invoice.vat)]
       table_matrix.push ['Total TTC', '', '', euros(@invoice.total_all_taxes)]
-      table_matrix.push ['Acompte reçu sur commande', '', '', euros(@invoice.advance)]
-      table_matrix.push ['Solde à payer', '', '', euros(@invoice.balance)]
+      if (@invoice.advance && @invoice.advance != 0.0)
+        table_matrix.push ['Acompte reçu sur commande', '', '', euros(@invoice.advance)]
+        table_matrix.push ['Solde à payer', '', '', euros(@invoice.balance)]
+      end
       write_table_from_matrix(table_matrix)
 
       move_down 15
