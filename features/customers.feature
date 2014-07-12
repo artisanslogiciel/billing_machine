@@ -43,3 +43,11 @@ Feature: Customer Management
     And he goes to the customers page
     Then he should see the customer from his entity
     And he should not see the customer from another entity
+
+  @javascript
+  Scenario: Show correctly zip code begining with 0
+    Given an existing administrator
+    And an existing customer with zip code 06560
+    When the administrator is in the admin section
+    And he goes to the customers page
+    Then he should see the customer zip code 06560
