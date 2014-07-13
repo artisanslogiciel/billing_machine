@@ -1,4 +1,4 @@
-@javascript
+@current
 Feature: Time slices
   As a user
   I want to time slices
@@ -9,11 +9,13 @@ Feature: Time slices
     Given an existing project
     Given an existing activity
 
+  @javascript
   Scenario: Add a time slice
     When the user goes in the time slices section
     And he creates a new time slice
     Then the time slice is added to the list
 
+  @javascript
   Scenario: Update a time slice
     Given an existing time slice
     When the user goes in the time slices section
@@ -28,7 +30,7 @@ Feature: Time slices
     Then he should be able to download the CSV export file
     And downloaded the CSV should be valid with expected information
 
-  @current
+  @javascript
   Scenario: Paginate by 10 time slices
     Given 15 existing time slice
     When the user goes in the time slices section
