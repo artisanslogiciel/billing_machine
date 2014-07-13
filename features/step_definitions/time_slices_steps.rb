@@ -17,6 +17,7 @@ end
 When(/^he creates a new time slice$/) do
   fill_in 'new-time-slice-duration', with: '4.23'
   fill_in 'new-time-slice-comment', with: 'Hello World'
+  check 'new-time-slice-billable'
   click_button 'new-time-slice-submit'
 end
 

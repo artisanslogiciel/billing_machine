@@ -4,7 +4,7 @@ require 'json'
 describe 'Time Slices management' do
   before(:each) do
     @user = FactoryGirl.create :user
-    @time_slice = FactoryGirl.create(:time_slice, user: @user)
+    @time_slice = FactoryGirl.create(:time_slice, user: @user, billable: true)
   end
 
   context 'when not authenticated' do
@@ -26,14 +26,16 @@ describe 'Time Slices management' do
 
         expect(json.size).to eq(1)
         expect(json[0]['id']).to eq(@time_slice.id)
+        expect(json[0]['billable']).to eq(true)
       end
     end
 
     describe '#create' do
       it 'returns the newly created item' do
-        post '/api/v1/time_slices', time_slice: FactoryGirl.attributes_for(:time_slice)
+        post '/api/v1/time_slices', time_slice: FactoryGirl.attributes_for(:time_slice, billable: true)
 
         expect(json['id']).to eq(TimeSlice.last.id)
+        expect(json['billable']).to eq(true)
       end
     end
 
@@ -44,6 +46,7 @@ describe 'Time Slices management' do
         put "/api/v1/time_slices/#{@time_slice.id}", time_slice: { duration: new_duration }
 
         expect(json['duration'].to_d).to eq(new_duration)
+        expect(json['billable']).to eq(true)
       end
     end
   end

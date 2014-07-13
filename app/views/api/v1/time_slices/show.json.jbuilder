@@ -1,1 +1,1 @@
-json.(@time_slice, :id, :duration, :comment, :project_id, :activity_id, :day)
+json.(@time_slice, :id, :duration, :comment, :project_id, :activity_id, :day, :billable)

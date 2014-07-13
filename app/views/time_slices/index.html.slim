@@ -14,6 +14,7 @@ div ng-controller="TimeSliceCtrl"
         th Duration
         th Activity
         th Comment
+        th Billable
         th Action
     tbody
 
@@ -29,6 +30,8 @@ div ng-controller="TimeSliceCtrl"
             select ng-model="newTimeSlice.activity_id" ng-options="activity.id as activity.label for activity in activities"
           td
             input id='new-time-slice-comment' type="textarea" ng-model="newTimeSlice.comment"
+          td
+            input id='new-time-slice-billabe' type="checkbox" ng-model="newTimeSlice.billable"
           td
             input id='new-time-slice-submit' type="submit" value="Add" class="btn btn-success btn-sm"
 
@@ -58,6 +61,11 @@ div ng-controller="TimeSliceCtrl"
             '{{timeslice.comment}}
           .comment.bb-edit
             input id="edit-time-slice-comment-{{timeslice.id}}" type="textarea" ng-model="timeslice.comment"
+        td
+          .comment.bb-show
+            '{{timeslice.billable}}
+          .comment.bb-edit
+            input id="edit-time-slice-billable-{{timeslice.id}}" type="checkbox" ng-model="timeslice.billable"
         td
           .action.bb-show
             a id="edit-{{timeslice.id}}" href="" Edit
