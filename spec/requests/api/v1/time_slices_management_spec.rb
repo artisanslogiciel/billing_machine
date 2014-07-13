@@ -27,6 +27,10 @@ describe 'Time Slices management' do
         expect(json.size).to eq(1)
         expect(json[0]['id']).to eq(@time_slice.id)
         expect(json[0]['billable']).to eq(true)
+        expect(json[0]['activity']['id']).to eq(@time_slice.activity.id)
+        expect(json[0]['activity']['label']).to eq(@time_slice.activity.label)
+        expect(json[0]['project']['id']).to eq(@time_slice.project.id)
+        expect(json[0]['project']['name']).to eq(@time_slice.project.name)
       end
     end
 

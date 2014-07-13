@@ -31,7 +31,7 @@ div ng-controller="TimeSliceCtrl"
           td
             input id='new-time-slice-comment' type="textarea" ng-model="newTimeSlice.comment"
           td
-            input id='new-time-slice-billabe' type="checkbox" ng-model="newTimeSlice.billable"
+            input id='new-time-slice-billable' type="checkbox" ng-model="newTimeSlice.billable"
           td
             input id='new-time-slice-submit' type="submit" value="Add" class="btn btn-success btn-sm"
 
@@ -43,7 +43,7 @@ div ng-controller="TimeSliceCtrl"
             input type="date" ng-model="timeslice.day"
         td
           .project.bb-show
-            '{{ projectName(timeslice.project_id) }}
+            '{{ timeslice.project.name }}
           .project.bb-edit
             select ng-model="timeslice.project_id" ng-options="project.id as project.name for project in projects"
         td
@@ -53,7 +53,7 @@ div ng-controller="TimeSliceCtrl"
             input id="edit-time-slice-duration-{{timeslice.id}}" type="text" ng-model="timeslice.duration"
         td
           .activity.bb-show
-            '{{ activityLabel(timeslice.activity_id)}}
+            '{{ timeslice.activity.label}}
           .activity.bb-edit
             select ng-model="timeslice.activity_id" ng-options="activity.id as activity.label for activity in activities"
         td
