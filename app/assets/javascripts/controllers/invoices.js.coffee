@@ -8,12 +8,23 @@
   $scope.navEditInvoice = (invoice)->
     $location.url('/invoices/'+invoice.id)
 
+  $scope.statusPaid = (invoice)->
+    invoice.paid = true
+    invoice.$update(
+      (response) ->
+      (error) ->
+        invoice.errors = error.data
+        console.log "An error occured"
+        console.log error.data
+    )
+
   $scope.customerName = (id) ->
     customer = _.findWhere $scope.customers, {id: id}
     if customer
       customer.name
     else
       ''
+
 ]
 
 @app.controller 'InvoiceCtrl', ["$scope", "$location", "$routeParams", "Customer", "PaymentTerm", "Invoice", ($scope, $location, $routeParams, Customer, PaymentTerm, Invoice) ->

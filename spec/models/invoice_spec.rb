@@ -27,7 +27,6 @@ describe Invoice do
       invoice2 = FactoryGirl.create(:invoice, entity: entity, date:'2014-02-01')
       invoice2.unique_index.should eq(2)
       entity.reload.unique_index.should eq(2)
-
     end
   end
 
@@ -52,6 +51,13 @@ describe Invoice do
       entity = FactoryGirl.create(:entity, unique_index: 36, customization_prefix: 'agilidee')
       invoice = FactoryGirl.create(:invoice, entity: entity, date:'2013-05-20')
       invoice.tracking_id.should eq('1337')
+    end
+  end
+
+  describe 'paid' do
+    it 'should be false by default' do
+        invoice = FactoryGirl.create(:invoice)
+        invoice.paid.should eq(false)
     end
   end
 

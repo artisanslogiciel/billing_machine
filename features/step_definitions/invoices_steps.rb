@@ -71,6 +71,8 @@ end
 
 When(/^he saves the invoice$/) do
   click_link 'submit'
+  sleep 10
+
 end
 
 When(/^he saves the new invoice$/) do
@@ -95,6 +97,10 @@ end
 
 Given(/^an existing invoice with a "(.*?)"% VAT rate$/) do |rate|
   @invoice = FactoryGirl.create(:invoice, entity: @user.entity, vat_rate: rate)
+end
+
+Given(/^an existing paid invoice$/) do
+  @invoice = FactoryGirl.create(:invoice, entity: @user.entity, paid: true)
 end
 
 When(/^he goes on the edit page of the invoice$/) do
@@ -134,4 +140,34 @@ end
 When(/^he finds and clicks on the download CSV export file$/) do
   page.should have_link('csv-export-button', :href=>"/api/v1/invoices.csv")
   click_link 'csv-export-button'
+end
+
+
+Then(/^the paid button is visible$/) do
+  page.should have_selector '.paid-invoice', text: 'Payée'
+end
+
+When(/^he clicks on the paid button$/) do
+  find('.paid-invoice').click
+end
+
+Then(/^the invoice paid status is marked paid$/) do
+  page.should have_selector '#paid', text: 'true'
+end
+
+Then(/^the paid button is not visible$/) do
+  page.should_not have_selector '#paid_button', text: 'Payée'
+end
+
+Then(/^the invoice is save as paid$/) do
+  Invoice.first.paid.should be_true
+end
+
+When(/^he set the invoice checkbox to false$/) do
+  find("#invoice-paid").set(false)
+end
+
+Then(/^the invoice paid status is marked unpaid$/) do
+  page.should have_selector '#paid', text: 'false'
+  Invoice.first.paid.should be_false
 end

@@ -107,3 +107,27 @@ Feature: Invoice Management
     And an existing invoice
     When the user goes to the invoices page
     Then he finds and clicks on the download CSV export file
+
+  @javascript
+  Scenario: Existing unpaid invoice set to paid
+    Given an existing user
+    And an existing invoice
+    When the user goes to the invoices page
+    Then the invoice paid status is marked unpaid
+    And he clicks on the paid button
+    Then the invoice paid status is marked paid
+    And the paid button is not visible
+
+  @javascript
+  Scenario: Existing paid invoice set to unpaid
+    Given an existing user
+    And an existing paid invoice
+    When the user goes to the invoices page
+    Then the invoice paid status is marked paid
+    And the paid button is not visible
+    And he goes on the edit page of the invoice
+    When he set the invoice checkbox to false
+    And he saves the invoice
+    When the user goes to the invoices page
+    Then the invoice paid status is marked unpaid
+    And the paid button is visible

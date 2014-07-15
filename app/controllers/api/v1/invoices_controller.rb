@@ -33,7 +33,7 @@ module Api
 
         def safe_params
           safe_p = params.require(:invoice)
-          safe_p.permit(:label, :customer_id, :date, :payment_term_id, :total_duty,
+          safe_p.permit(:label,:paid, :customer_id, :date, :payment_term_id, :total_duty,
                         :vat, :total_all_taxes, :advance, :balance, :vat_rate,
                         lines_attributes: [:_destroy, :id, :label, :quantity,
                                            :unit, :unit_price, :total])
