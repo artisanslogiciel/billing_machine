@@ -20,7 +20,7 @@
 
       (error) ->
         $scope.error.style.display = "block"
-        $scope.error.innerHTML = error.data.error
+        $scope.error.innerHTML = $scope.buildMessageFromError(error)
         setTimeout (->
           $scope.vanishMessage($scope.error)
         ), 2000
@@ -30,6 +30,11 @@
       )
     $scope.timeslices.splice(0,0,timeslice)
     $scope.newTimeSlice = {}
+
+  $scope.buildMessageFromError = (error) ->
+    if "day" of error.data
+      "Please fill a valid date"
+    else "Duration " + error.data.duration if "duration" of error.data
 
   $scope.vanishMessage = (div) ->
     div.classList.add('vanish')
