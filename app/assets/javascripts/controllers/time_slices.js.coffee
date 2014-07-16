@@ -8,12 +8,13 @@
       $scope.newTimeSlice
 
       (response) ->
+        $scope.info.classList.remove('alert-danger')
         $scope.timeslices.splice(0,0,timeslice)
         $scope.info.classList.add('alert-success')
         $scope.info.innerHTML = 'Time slice successfully added'
         $scope.info.style.visibility = 'visible'
-        $scope.info.classList.add('vanish')
-        $scope.timer('alert-success')
+        clearTimeout $scope.timeout
+        $scope.timer()
 
       (error) ->
         $scope.error_pop (error)
@@ -32,23 +33,23 @@
     else
       "An unknow error occurs"
 
-  $scope.vanishMessage = (alert_class) ->
+  $scope.vanishMessage = ->
     $scope.info.style.visibility = 'hidden'
-    $scope.info.classList.remove(alert_class)
-
 
   $scope.error_pop = (error) ->
+    $scope.info.classList.remove('alert-succes')
     $scope.info.classList.add('alert-danger')
     $scope.info.innerHTML = $scope.buildMessageFromError(error)
     $scope.info.style.visibility= 'visible'
-    $scope.timer('alert-danger')
+    clearTimeout $scope.timeout
+    $scope.timer()
 
   $scope.update = (timeslice) ->
     timeslice.$update()
 
-  $scope.timer = (message) ->
-    setTimeout (->
-          $scope.vanishMessage(message)
+  $scope.timer = ->
+    $scope.timeout = setTimeout (->
+          $scope.vanishMessage()
         ), 10000
 
   $scope.projectName = (project_id) ->
