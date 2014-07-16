@@ -26,8 +26,8 @@ li.error {
   font-size: 12px;
   font-weight: bold;
   visibility: hidden;
+  height: 49px;
+  margin: 20px 0 20px 0;
 }
 
-.vanish {
-  opacity: 1;
-}
+

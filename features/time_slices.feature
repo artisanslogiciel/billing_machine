@@ -13,7 +13,6 @@ Feature: Time slices
     When the user goes in the time slices section
     And he creates a new time slice
     Then the time slice is added to the list
-    And the duration should be required
 
   @javascript
   Scenario: Update a time slice

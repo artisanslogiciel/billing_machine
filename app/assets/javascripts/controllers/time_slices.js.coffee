@@ -13,9 +13,7 @@
         $scope.info.innerHTML = 'Time slice successfully added'
         $scope.info.style.visibility = 'visible'
         $scope.info.classList.add('vanish')
-        setTimeout (->
-          $scope.vanishMessage('alert-success')
-        ), 10000
+        $scope.timer('alert-success')
 
       (error) ->
         $scope.error_pop (error)
@@ -25,14 +23,18 @@
 
 
   $scope.buildMessageFromError = (error) ->
+    console.log(error)
     if "day" of error.data
       "Please fill a valid date"
-    else "Duration " + error.data.duration if "duration" of error.data
-
+    else if "duration" of error.data
+      "Duration " + error.data.duration[0]
+    else if "TimeSlice" of error.data
+      "Time Slice " + error.data.TimeSlice[0]
+    else
+      "An unknow error occurs"
 
   $scope.vanishMessage = (alert_class) ->
     $scope.info.style.visibility = 'hidden'
-    $scope.info.classList.remove('vanish')
     $scope.info.classList.remove(alert_class)
 
 
@@ -40,13 +42,15 @@
     $scope.info.classList.add('alert-danger')
     $scope.info.innerHTML = $scope.buildMessageFromError(error)
     $scope.info.style.visibility= 'visible'
-    $scope.info.classList.add('vanish')
-    setTimeout (->
-      $scope.vanishMessage('alert-danger')
-    ), 10000
+    $scope.timer('alert-danger')
 
   $scope.update = (timeslice) ->
     timeslice.$update()
+
+  $scope.timer = (message) ->
+    setTimeout (->
+          $scope.vanishMessage(message)
+        ), 10000
 
   $scope.projectName = (project_id) ->
     project = _.findWhere $scope.projects, {id: project_id}

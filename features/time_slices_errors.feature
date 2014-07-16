@@ -20,5 +20,11 @@ Feature: Time slices
     And he creates a new time slice with an invalid duration
     Then a messsage signals a problem with the duration
 
+  @javascript
+  Scenario: Add a time slice without a date
+    When the user goes in the time slices section
+    And he creates a new time slice without a duration
+    Then a messsage signals an empty duration
+
 
 #TODO chain multiple errors in one test
