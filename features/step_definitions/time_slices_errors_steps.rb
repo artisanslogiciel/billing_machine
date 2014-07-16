@@ -33,7 +33,6 @@ When(/^he creates a new time slice with a negative duration$/) do
   click_button 'new-time-slice-submit'
 end
 
-
 Then(/^a messsage signals an empty date$/) do
   find('#info-message').should be_visible
   page.should have_selector '#info-message', text: "Please fill a valid date"
