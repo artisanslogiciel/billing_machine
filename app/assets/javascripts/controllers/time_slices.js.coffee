@@ -23,7 +23,6 @@
 
 
   $scope.buildMessageFromError = (error) ->
-    console.log(error)
     if "day" of error.data
       "Please fill a valid date"
     else if "duration" of error.data
