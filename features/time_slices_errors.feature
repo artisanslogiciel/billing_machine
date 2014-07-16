@@ -26,5 +26,10 @@ Feature: Time slices
     And he creates a new time slice without a duration
     Then a messsage signals an empty duration
 
+  @javascript
+  Scenario: Do not add an invalid time slice
+    When the user goes in the time slices section
+    And he creates a new time slice without a date
+    Then the time slice is not added to the list
 
 #TODO chain multiple errors in one test
