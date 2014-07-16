@@ -1,1 +1,1 @@
-json.(@time_slice, :id, :duration, :comment, :project_id, :activity_id, :day)
+json.partial! 'api/v1/time_slices/time_slice', time_slice: @time_slice

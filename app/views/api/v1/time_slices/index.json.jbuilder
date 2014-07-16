@@ -1,0 +1,1 @@
+json.array! @time_slices, partial: 'api/v1/time_slices/time_slice', as: :time_slice

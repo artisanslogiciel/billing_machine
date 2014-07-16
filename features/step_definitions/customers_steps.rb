@@ -85,3 +85,12 @@ end
 Then(/^he should not see the customer from another entity$/) do
   page.should have_no_content(@customer_other_entity.name)
 end
+
+Given(/^an existing customer with zip code (\d+)$/) do |arg1|
+  customer=FactoryGirl.create(:customer,
+      name: 'customer with 0 zip code', zip: '06560', entity: @entity)
+end
+
+Then(/^he should see the customer zip code (\d+)$/) do |arg1|
+  page.should have_content('06560')
+end

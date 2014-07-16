@@ -10,10 +10,15 @@ Given(/^an existing time slice$/) do
   @time_slice = FactoryGirl.create(:time_slice, user: @user)
 end
 
+Given(/^(\d+) existing time slice$/) do |count|
+  FactoryGirl.create_list(:time_slice, Integer(count), user: @user)
+end
+
 When(/^he creates a new time slice$/) do
   fill_in 'new-time-slice-duration', with: '4.23'
   fill_in 'new-time-slice-day', with: '1970-01-01'
   fill_in 'new-time-slice-comment', with: 'Hello World'
+  check 'new-time-slice-billable'
   click_button 'new-time-slice-submit'
 end
 
@@ -66,3 +71,12 @@ Then(/^downloaded the CSV should be valid with expected information$/) do
   time_slice_data.should include @time_slice.comment
   time_slice_data.should include @time_slice.duration.to_s
 end
+
+Then(/^he should see (\d+) time slices$/) do |count|
+  page.should have_selector '.time-slice', count: count
+end
+
+When(/^he goes to the next page$/) do
+  click_link 'Next'
+end
+

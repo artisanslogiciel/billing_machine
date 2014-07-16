@@ -42,7 +42,7 @@ module Api
             end
           end
 
-          safe_p.permit(:duration, :project_id, :activity_id, :comment, :day)
+          safe_p.permit(:duration, :project_id, :activity_id, :comment, :day, :billable)
         end
 
         def render_time_slice_list

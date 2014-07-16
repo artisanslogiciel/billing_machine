@@ -152,6 +152,27 @@ describe AgilideeInvoice, pdfs: true do
 
         it_should_write 'Solde à payer'
         it_should_write '1146,00 €'
+
+        context 'without advance' do
+
+          before(:each) do
+            invoice_incomplete=FactoryGirl.create(:invoice, total_duty: 1000, vat: 196,
+              total_all_taxes: 1196, advance: 0, balance: 1146 , customer: customer,
+              date: '2014-04-16', vat_rate: 19.6)
+            pdf_incomplete=FactoryGirl.build(:agilidee_invoice, invoice: invoice_incomplete)
+            pdf_incomplete.build
+            @text_incomplete = PDF::Inspector::Text.analyze(pdf_incomplete.render)
+          end
+
+          it 'should not write Acompte reçu sur commande' do
+            @text_incomplete.strings.should_not include 'Acompte reçu sur commande'
+          end
+
+          it 'should not write Solde à payer' do
+            @text_incomplete.strings.should_not include 'Solde à payer'
+          end
+
+        end
       end
     end # context in Tableau
     it_should_write 'Conditions de paiement :'
@@ -165,12 +186,11 @@ describe AgilideeInvoice, pdfs: true do
     it_should_write 'BIC / SWIFT : ***REMOVED***'
 
     context 'in Mentions légales - Bas de page' do
-        it_should_write 'Mention légale'
-        it_should_write 'Tout retard de règlement donnera lieu de plein droit et sans qu’aucune mise en demeure ne soit nécessaire au paiement de'
-        it_should_write 'pénalités de retard sur la base du taux BCE majoré de dix (10) points et au paiement d’une indemnité forfaitaire pour frais de'
-        it_should_write 'recouvrement d’un montant de 40€'
+      it_should_write 'Mention légale'
+      it_should_write 'Tout retard de règlement donnera lieu de plein droit et sans qu’aucune mise en demeure ne soit nécessaire au paiement de'
+      it_should_write 'pénalités de retard sur la base du taux BCE majoré de dix (10) points et au paiement d’une indemnité forfaitaire pour frais de'
+      it_should_write 'recouvrement d’un montant de 40€'
     end
-
 
   end # describe #build
 end
