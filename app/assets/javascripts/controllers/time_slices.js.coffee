@@ -31,7 +31,7 @@
     else if "TimeSlice" of error.data
       "Time Slice " + error.data.TimeSlice[0]
     else
-      "An unknow error occurs"
+      "An unknow error occured"
 
   $scope.vanishMessage = ->
     $scope.info.style.visibility = 'hidden'

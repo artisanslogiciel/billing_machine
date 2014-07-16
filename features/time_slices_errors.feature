@@ -21,16 +21,20 @@ Feature: Time slices
     Then a messsage signals a problem with the date
 
   @javascript
-  Scenario: Add a time slice with an invalid duration
-    When the user goes in the time slices section
-    And he creates a new time slice with an invalid duration
-    Then a messsage signals a problem with the duration
-
-  @javascript
   Scenario: Add a time slice without a duration
     When the user goes in the time slices section
     And he creates a new time slice without a duration
     Then a messsage signals an empty duration
+
+  @javascript
+  Scenario: Add a time slice with an invalid duration
+    When the user goes in the time slices section
+    And he creates a new time slice with an invalid duration
+    Then a messsage signals a problem with the duration
+    When he creates a new time slice with a duration too big
+    Then a messsage signals a problem with the duration upper limit
+    When he creates a new time slice with a negative duration
+    Then a messsage signals a problem with the duration lower limit
 
   @javascript
   Scenario: Do not add an invalid time slice
