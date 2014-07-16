@@ -114,9 +114,9 @@ Feature: Invoice Management
     And an existing invoice
     When the user goes to the invoices page
     Then the invoice paid status is marked unpaid
-    And he clicks on the paid button
+    And he set the invoice as paid
     Then the invoice paid status is marked paid
-    And the paid button is not visible
+    And can't set the invoice as paid again
 
   @javascript
   Scenario: Existing paid invoice set to unpaid
@@ -124,10 +124,10 @@ Feature: Invoice Management
     And an existing paid invoice
     When the user goes to the invoices page
     Then the invoice paid status is marked paid
-    And the paid button is not visible
+    And can't set the invoice as paid again
     And he goes on the edit page of the invoice
     When he set the invoice checkbox to false
     And he saves the invoice
     When the user goes to the invoices page
     Then the invoice paid status is marked unpaid
-    And the paid button is visible
+    And he can set the invoice as paid

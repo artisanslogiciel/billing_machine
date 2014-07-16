@@ -143,11 +143,11 @@ When(/^he finds and clicks on the download CSV export file$/) do
 end
 
 
-Then(/^the paid button is visible$/) do
+Then(/^he can set the invoice as paid$/) do
   page.should have_selector '.paid-invoice', text: 'Payée'
 end
 
-When(/^he clicks on the paid button$/) do
+When(/^he set the invoice as paid$/) do
   find('.paid-invoice').click
 end
 
@@ -155,7 +155,7 @@ Then(/^the invoice paid status is marked paid$/) do
   page.should have_selector '#paid', text: 'true'
 end
 
-Then(/^the paid button is not visible$/) do
+Then(/^can't set the invoice as paid again$/) do
   page.should_not have_selector '#paid_button', text: 'Payée'
 end
 
