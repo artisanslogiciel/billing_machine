@@ -12,6 +12,12 @@ Feature: Time slices
   Scenario: Add a time slice without a date
     When the user goes in the time slices section
     And he creates a new time slice without a date
+    Then a messsage signals an empty date
+
+  @javascript
+  Scenario: Add a time slice with an invalid date
+    When the user goes in the time slices section
+    And he creates a new time slice with an invalid date
     Then a messsage signals a problem with the date
 
   @javascript
@@ -33,3 +39,4 @@ Feature: Time slices
     Then the time slice is not added to the list
 
 #TODO chain multiple errors in one test
+#success, duration too big
