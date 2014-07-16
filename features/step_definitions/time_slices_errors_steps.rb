@@ -1,5 +1,6 @@
 When(/^he creates a new time slice without a date$/) do
   fill_in 'new-time-slice-duration', with: '4.23'
+  fill_in 'new-time-slice-comment', with: "I'm invalid"
   click_button 'new-time-slice-submit'
 end
 
@@ -27,4 +28,8 @@ end
 Then(/^a messsage signals an empty duration$/) do
   find('#info-message').should be_visible
   page.should have_selector '#info-message', text: "Duration can't be blank"
+end
+
+Then(/^the time slice is not added to the list$/) do
+  page.should have_no_content("I'm invalid")
 end
