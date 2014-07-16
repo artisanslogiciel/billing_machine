@@ -119,6 +119,7 @@ Feature: Invoice Management
     And can't set the invoice as paid again
 
   @javascript
+  @exclude_from_ci
   Scenario: Existing paid invoice set to unpaid
     Given an existing user
     And an existing paid invoice
