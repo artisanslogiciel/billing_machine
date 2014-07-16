@@ -17,6 +17,11 @@ When(/^he creates a new time slice$/) do
   click_button 'new-time-slice-submit'
 end
 
+Then(/^a messsage signals the success of the operation$/) do
+  find('#info-message').should be_visible
+  page.should have_selector '#info-message', text: "Time slice successfully added"
+end
+
 Then(/^the time slice is added to the list$/) do
   expect(page).to have_selector '.time-slice .duration', text: '4.23'
   expect(page).to have_selector '.time-slice .comment', text: 'Hello World'

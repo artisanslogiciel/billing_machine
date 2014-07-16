@@ -41,6 +41,3 @@ Feature: Time slices
     When the user goes in the time slices section
     And he creates a new time slice without a date
     Then the time slice is not added to the list
-
-#TODO chain multiple errors in one test
-#success, duration too big
