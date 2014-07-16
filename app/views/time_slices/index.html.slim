@@ -21,7 +21,7 @@ div ng-controller="TimeSliceCtrl"
       tr
         form ng-submit="addTimeSlice()"
           td
-            input type="date" ng-model="newTimeSlice.day"
+            input id='new-time-slice-day' type="date" ng-model="newTimeSlice.day"
           td
             select ng-model="newTimeSlice.project_id" ng-options="project.id as project.name for project in projects"
           td

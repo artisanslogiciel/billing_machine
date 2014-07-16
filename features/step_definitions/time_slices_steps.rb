@@ -73,3 +73,6 @@ When(/^he goes to the next page$/) do
   click_link 'Next'
 end
 
+Then(/^the date input is set at today$/) do
+  page.should have_field('new-time-slice-day', with: Date.today.iso8601)
+end
