@@ -12,6 +12,8 @@ end
 
 When(/^he creates a new time slice without a duration$/) do
   fill_in 'new-time-slice-day', with: '1970-01-01'
+  fill_in 'new-time-slice-comment', with:
+      "This comment should not be reset when a failure occurs"
   click_button 'new-time-slice-submit'
 end
 
@@ -65,4 +67,9 @@ end
 
 Then(/^the time slice is not added to the list$/) do
   page.should have_no_content("I'm invalid")
+end
+
+Then(/^the comment should not be reset by the failure$/) do
+  page.should have_field("new-time-slice-comment", with:
+      'This comment should not be reset when a failure occurs')
 end

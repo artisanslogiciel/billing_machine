@@ -79,4 +79,3 @@ end
 When(/^he goes to the next page$/) do
   click_link 'Next'
 end
-

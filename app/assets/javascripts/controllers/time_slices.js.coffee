@@ -24,13 +24,11 @@
         $scope.info.style.visibility = 'visible'
         clearTimeout $scope.timeout
         $scope.timer()
+        $scope.newTimeSlice = {}
 
       (error) ->
         $scope.error_pop (error)
       )
-
-    $scope.newTimeSlice = {}
-
 
   $scope.buildMessageFromError = (error) ->
     if "day" of error.data

@@ -25,6 +25,7 @@ Feature: Time slices
     When the user goes in the time slices section
     And he creates a new time slice without a duration
     Then a messsage signals an empty duration
+    Then the comment should not be reset by the failure
 
   @javascript
   Scenario: Add a time slice with an invalid duration
