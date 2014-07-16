@@ -4,8 +4,8 @@ When(/^he creates a new time slice without a date$/) do
 end
 
 Then(/^a messsage signals a problem with the date$/) do
-  find('#error-message').should be_visible
-  page.should have_selector '#error-message', text: "Please fill a valid date"
+  find('#info-message').should be_visible
+  page.should have_selector '#info-message', text: "Please fill a valid date"
 end
 
 When(/^he creates a new time slice with an invalid duration$/) do
@@ -15,6 +15,7 @@ When(/^he creates a new time slice with an invalid duration$/) do
 end
 
 Then(/^a messsage signals a problem with the duration$/) do
-  find('#error-message').should be_visible
-  page.should have_selector '#error-message', text: "Duration is not a number"
+  page.save_screenshot("screen.png")
+  find('#info-message').should be_visible
+  page.should have_selector '#info-message', text: "Duration is not a number"
 end

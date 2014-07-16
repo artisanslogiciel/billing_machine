@@ -2,46 +2,48 @@
   $scope.timeslices = TimeSlice.query()
   $scope.projects = Project.query()
   $scope.activities = Activity.query()
-  $scope.success = document.getElementById('success-message')
-  $scope.error = document.getElementById('error-message')
+  $scope.info = document.getElementById('info-message')
   $scope.addTimeSlice = ->
     timeslice = TimeSlice.save(
       $scope.newTimeSlice
 
       (response) ->
-        $scope.success.style.display = "block"
-        $scope.success.innerHTML = 'Time slice successfully added'
+        $scope.timeslices.splice(0,0,timeslice)
+        $scope.info.classList.add('alert-success')
+        $scope.info.innerHTML = 'Time slice successfully added'
+        $scope.info.style.visibility = 'visible'
+        $scope.info.classList.add('vanish')
         setTimeout (->
-          $scope.vanishMessage($scope.success)
-        ), 2000
-        setTimeout (->
-          $scope.removeMessage($scope.success)
-        ), 5000
+          $scope.vanishMessage('alert-success')
+        ), 10000
 
       (error) ->
-        $scope.error.style.display = "block"
-        $scope.error.innerHTML = $scope.buildMessageFromError(error)
-        setTimeout (->
-          $scope.vanishMessage($scope.error)
-        ), 2000
-        setTimeout (->
-          $scope.removeMessage($scope.error)
-        ), 5000
+        $scope.error_pop (error)
       )
-    $scope.timeslices.splice(0,0,timeslice)
+
     $scope.newTimeSlice = {}
+
 
   $scope.buildMessageFromError = (error) ->
     if "day" of error.data
       "Please fill a valid date"
     else "Duration " + error.data.duration if "duration" of error.data
 
-  $scope.vanishMessage = (div) ->
-    div.classList.add('vanish')
 
-  $scope.removeMessage = (div) ->
-    div.style.display = "none"
-    div.classList.remove('vanish')
+  $scope.vanishMessage = (alert_class) ->
+    $scope.info.style.visibility = 'hidden'
+    $scope.info.classList.remove('vanish')
+    $scope.info.classList.remove(alert_class)
+
+
+  $scope.error_pop = (error) ->
+    $scope.info.classList.add('alert-danger')
+    $scope.info.innerHTML = $scope.buildMessageFromError(error)
+    $scope.info.style.visibility= 'visible'
+    $scope.info.classList.add('vanish')
+    setTimeout (->
+      $scope.vanishMessage('alert-danger')
+    ), 10000
 
   $scope.update = (timeslice) ->
     timeslice.$update()

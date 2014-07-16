@@ -22,13 +22,12 @@ li.error {
 }
 
 .alert {
-  transition: all 5s;
   text-align: center;
   font-size: 12px;
   font-weight: bold;
-  display:none;
+  visibility: hidden;
 }
 
 .vanish {
-  opacity: 0
+  opacity: 1;
 }
