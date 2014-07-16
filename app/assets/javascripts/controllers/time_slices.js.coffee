@@ -1,7 +1,10 @@
 @app.controller "TimeSliceCtrl", ["$scope", "TimeSlice", "Project", "Activity", ($scope, TimeSlice, Project, Activity) ->
   $scope.projects = Project.query()
   $scope.activities = Activity.query()
-  $scope.newTimeSlice = {day: new Date().toISOString().split('T')[0]}
+  $scope.getIsoDate = ->
+    new Date().toISOString().split('T')[0]
+
+  $scope.newTimeSlice = {day: $scope.getIsoDate()}
   $scope.timeslices = TimeSlice.query (time_slices) ->
     $scope.totalItems = time_slices.length
 
@@ -11,10 +14,11 @@
 
   $scope.numPages = -> 
     $scope.totalItems / $scope.pageSize
+
   $scope.addTimeSlice = ->
     timeslice = TimeSlice.save($scope.newTimeSlice)
     $scope.timeslices.splice(0,0,timeslice)
-    $scope.newTimeSlice = {day:new Date().toISOString().split('T')[0]}
+    $scope.newTimeSlice = {day: $scope.getIsoDate()}
 
   $scope.update = (timeslice) ->
     timeslice.$update()
