@@ -1,6 +1,7 @@
 @app.controller 'InvoicesCtrl', ["$scope", "Customer", "Invoice", "$location", ($scope, Customer, Invoice, $location) ->
   $scope.customers = Customer.query()
   $scope.invoices = Invoice.query()
+  $scope.info = document.getElementById('info-message')
 
   $scope.navNewInvoice = ->
     $location.url('/invoices/new')
@@ -12,6 +13,7 @@
     invoice.paid = true
     invoice.$update(
       (response) ->
+        $scope.popSuccessMessage ('invoice successfully set to paid')
       (error) ->
         invoice.errors = error.data
         console.log "An error occured"
@@ -25,9 +27,25 @@
     else
       ''
 
+  $scope.timer = ->
+      $scope.timeout = setTimeout (->
+            $scope.vanishMessage()
+          ), 10000
+
+    $scope.vanishMessage = ->
+      $scope.info.style.visibility = 'hidden'
+
+    $scope.popSuccessMessage = (message) ->
+      $scope.info.classList.remove('alert-danger')
+      $scope.info.classList.add('alert-success')
+      $scope.info.innerHTML = message
+      $scope.info.style.visibility = 'visible'
+      clearTimeout $scope.timeout
+      $scope.timer()
 ]
 
 @app.controller 'InvoiceCtrl', ["$scope", "$location", "$routeParams", "Customer", "PaymentTerm", "Invoice", ($scope, $location, $routeParams, Customer, PaymentTerm, Invoice) ->
+  $scope.info = document.getElementById('info-message')
   # begin of functions definition used by controller
   $scope.set_vat_rate_default_value = ->
     VAT_RATE_DEFAUT_VALUE = 20
@@ -104,6 +122,7 @@
     if $scope.invoice.id?
       $scope.invoice.$update(
         (response) ->
+          $scope.popSuccessMessage('Invoice successfully updated')
         (error) ->
           invoice.errors = error.data
           console.log "An error occured"
@@ -114,10 +133,27 @@
         $scope.invoice
         (response) ->
           $scope.invoice = response
+          $scope.popSuccessMessage('Invoice successfully saved')
         (error) ->
           $scope.invoice.errors = error.data
           console.log "An error occured"
           console.log error.data
       )
     $scope.sum()
+
+  $scope.timer = ->
+    $scope.timeout = setTimeout (->
+          $scope.vanishMessage()
+        ), 10000
+
+  $scope.vanishMessage = ->
+    $scope.info.style.visibility = 'hidden'
+
+  $scope.popSuccessMessage = (message) ->
+    $scope.info.classList.remove('alert-danger')
+    $scope.info.classList.add('alert-success')
+    $scope.info.innerHTML = message
+    $scope.info.style.visibility = 'visible'
+    clearTimeout $scope.timeout
+    $scope.timer()
 ]

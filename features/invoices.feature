@@ -24,6 +24,7 @@ Feature: Invoice Management
     And the VAT due is "40.00€"
     And the total all taxes included is "240.00€"
     When he saves the new invoice
+    Then a message signal the succes of the creation
     Then it's added to the invoice list
 
   @javascript
@@ -116,10 +117,11 @@ Feature: Invoice Management
     Then the invoice paid status is marked unpaid
     And he set the invoice as paid
     Then the invoice paid status is marked paid
+    And a message signal that the invoice is set to paid
+    And the invoice status is set to paid
     And can't set the invoice as paid again
 
   @javascript
-  @exclude_from_ci
   Scenario: Existing paid invoice set to unpaid
     Given an existing user
     And an existing paid invoice
@@ -127,8 +129,7 @@ Feature: Invoice Management
     Then the invoice paid status is marked paid
     And can't set the invoice as paid again
     And he goes on the edit page of the invoice
-    When he set the invoice checkbox to false
+    When he marks the invoice as unpaid
     And he saves the invoice
-    When the user goes to the invoices page
-    Then the invoice paid status is marked unpaid
-    And he can set the invoice as paid
+    Then a message signal the succes of the update
+    And the invoice status is set to unpaid

@@ -71,8 +71,6 @@ end
 
 When(/^he saves the invoice$/) do
   click_link 'submit'
-  sleep 10
-
 end
 
 When(/^he saves the new invoice$/) do
@@ -163,11 +161,36 @@ Then(/^the invoice is save as paid$/) do
   Invoice.first.paid.should be_true
 end
 
-When(/^he set the invoice checkbox to false$/) do
-  find("#invoice-paid").set(false)
+When(/^he marks the invoice as unpaid$/) do
+  uncheck "invoice-paid"
 end
 
 Then(/^the invoice paid status is marked unpaid$/) do
   page.should have_selector '#paid', text: 'false'
   Invoice.first.paid.should be_false
+end
+
+Then(/^the invoice status is set to unpaid$/) do
+ @invoice.reload.paid.should be_false
+end
+
+Then(/^the invoice status is set to paid$/) do
+  @invoice.reload.paid.should be_true
+end
+
+
+
+Then(/^a message signal the succes of the update$/) do
+  find('#info-message').should be_visible
+  page.should have_selector '#info-message', text: "Invoice successfully updated"
+end
+
+Then(/^a message signal the succes of the creation$/) do
+  find('#info-message').should be_visible
+  page.should have_selector '#info-message', text: "Invoice successfully saved"
+end
+
+Then(/^a message signal that the invoice is set to paid$/) do
+  find('#info-message').should be_visible
+  page.should have_selector '#info-message', text: "invoice successfully set to paid"
 end
