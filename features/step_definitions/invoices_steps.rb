@@ -171,16 +171,17 @@ Then(/^the invoice paid status is marked unpaid$/) do
 end
 
 Then(/^the invoice status is set to unpaid$/) do
- @invoice.reload.paid.should be_false
+ pending
+ Invoice.first.paid.should be_false
 end
 
 Then(/^the invoice status is set to paid$/) do
-  @invoice.reload.paid.should be_true
+  Invoice.first.paid.should be_true
 end
 
 
-
 Then(/^a message signal the succes of the update$/) do
+  pending
   find('#info-message').should be_visible
   page.should have_selector '#info-message', text: "Invoice successfully updated"
 end

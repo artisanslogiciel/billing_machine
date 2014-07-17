@@ -5,9 +5,11 @@
 
   $scope.navNewInvoice = ->
     $location.url('/invoices/new')
+    $scope.resetMessage()
 
   $scope.navEditInvoice = (invoice)->
     $location.url('/invoices/'+invoice.id)
+    $scope.resetMessage()
 
   $scope.statusPaid = (invoice)->
     invoice.paid = true
@@ -42,6 +44,10 @@
       $scope.info.style.visibility = 'visible'
       clearTimeout $scope.timeout
       $scope.timer()
+
+    $scope.resetMessage = ->
+      $scope.vanishMessage()
+      clearTimeout $scope.timeout
 ]
 
 @app.controller 'InvoiceCtrl', ["$scope", "$location", "$routeParams", "Customer", "PaymentTerm", "Invoice", ($scope, $location, $routeParams, Customer, PaymentTerm, Invoice) ->
@@ -75,6 +81,7 @@
 
   $scope.navToList = ->
     $location.url('/invoices')
+    $scope.resetMessage()
 
   $scope.line_total = (invoice_line) ->
     amount = parseFloat(invoice_line.quantity) * parseFloat(invoice_line.unit_price)
@@ -156,4 +163,8 @@
     $scope.info.style.visibility = 'visible'
     clearTimeout $scope.timeout
     $scope.timer()
+
+  $scope.resetMessage = ->
+    $scope.vanishMessage()
+    clearTimeout $scope.timeout
 ]
