@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20140716143936) do
     t.string   "name"
     t.string   "address1"
     t.string   "address2"
-    t.integer  "zip"
+    t.string   "zip"
     t.string   "city"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 20140716143936) do
     t.datetime "updated_at"
     t.text     "comment"
     t.integer  "user_id"
+    t.boolean  "billable",    default: false
   end
 
   add_index "time_slices", ["user_id"], name: "index_time_slices_on_user_id"

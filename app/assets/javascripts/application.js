@@ -18,6 +18,7 @@
 //= require angular
 //= require angular-route
 //= require angular-resource
+//= require ui-bootstrap-tpls-0.11.0.min
 //= require main
 //= require_tree ./filters
 //= require_tree ./factories

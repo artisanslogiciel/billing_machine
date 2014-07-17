@@ -8,7 +8,7 @@ Feature: Time slices
     Given an existing project
     Given an existing activity
 
-  @javascript
+  @current @javascript
   Scenario: Add a time slice
     When the user goes in the time slices section
     And he creates a new time slice
@@ -28,3 +28,11 @@ Feature: Time slices
     When the user goes in the time slices section
     Then he should be able to download the CSV export file
     And downloaded the CSV should be valid with expected information
+
+  @javascript
+  Scenario: Paginate by 10 time slices
+    Given 15 existing time slice
+    When the user goes in the time slices section
+    Then he should see 10 time slices
+    When he goes to the next page
+    Then he should see 5 time slices
