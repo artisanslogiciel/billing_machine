@@ -27,7 +27,7 @@ class CreateIdCards < ActiveRecord::Migration
       t.string :custom_info_1
       t.string :custom_info_2
       t.string :custom_info_3
-      t.timestamps 
+      t.timestamps
     end
   end
 end

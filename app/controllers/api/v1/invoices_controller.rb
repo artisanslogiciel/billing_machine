@@ -11,7 +11,7 @@ module Api
       def create
         authorize! :write, Invoice
         @invoice = Invoice.new(safe_params)
-        @invoice.entity_id = current_user.entity_id
+        @invoice.entity = current_user.entity
         status = @invoice.save ? 200 : 422
         render partial: 'invoice', status: status, :locals => { :invoice => @invoice }
       end

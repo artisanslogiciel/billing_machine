@@ -3,5 +3,6 @@
 FactoryGirl.define do
   factory :id_card do
     name "MyString"
+    entity
   end
 end

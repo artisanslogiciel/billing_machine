@@ -28,7 +28,6 @@ module Api
           sign_in user
         end
 
-
         describe '#index' do
           it 'should grant access' do
             get :index, format: :json
@@ -70,7 +69,7 @@ module Api
           end
           it 'should assign entity_id' do
             post :create, format: :json, invoice: FactoryGirl.attributes_for(:invoice)
-            assigns(:invoice).entity_id.should eq(user.entity_id)
+            assigns(:invoice).entity.should eq(user.entity)
           end
           it 'should return an error code when it cannot save the entity' do
             Invoice.any_instance.stub(:save).and_return false
