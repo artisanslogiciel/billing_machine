@@ -76,8 +76,4 @@
   #     activity.label
   #   else
   #     ''
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/issue_104_add_default_date_to_today_for_new_timeslice
 ]
