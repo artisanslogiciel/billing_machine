@@ -1,5 +1,6 @@
 When(/^he creates a new time slice without a date$/) do
   fill_in 'new-time-slice-duration', with: '4.23'
+  fill_in 'new-time-slice-day', with: ''
   fill_in 'new-time-slice-comment', with: "I'm invalid"
   click_button 'new-time-slice-submit'
 end
