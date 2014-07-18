@@ -22,6 +22,10 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
         label for='invoice-payment-term' class='col-sm-5 control-label' Paiement
         .col-sm-7
           select.form-control id='invoice-payment-term' ng-model="invoice.payment_term_id" ng-options="payment_term.id as payment_term.label for payment_term in payment_terms"
+      .form-group
+        label for='invoice-paid' class='col-sm-5 control-label' Payée
+        .col-sm-7
+          input id='invoice-paid' type="checkbox" ng-model="invoice.paid"
     .customer
       .form-group
         label for='invoice-customer' class='col-sm-5 control-label' Client

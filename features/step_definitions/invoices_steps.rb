@@ -97,6 +97,10 @@ Given(/^an existing invoice with a "(.*?)"% VAT rate$/) do |rate|
   @invoice = FactoryGirl.create(:invoice, entity: @user.entity, vat_rate: rate)
 end
 
+Given(/^an existing paid invoice$/) do
+  @invoice = FactoryGirl.create(:invoice, entity: @user.entity, paid: true)
+end
+
 When(/^he goes on the edit page of the invoice$/) do
   find(:xpath, "//a[@data-id='#{@invoice.id}']").click
 end
@@ -134,4 +138,60 @@ end
 When(/^he finds and clicks on the download CSV export file$/) do
   page.should have_link('csv-export-button', :href=>"/api/v1/invoices.csv")
   click_link 'csv-export-button'
+end
+
+
+Then(/^he can set the invoice as paid$/) do
+  page.should have_selector '.paid-invoice', text: 'Payée'
+end
+
+When(/^he set the invoice as paid$/) do
+  find('.paid-invoice').click
+end
+
+Then(/^the invoice paid status is marked paid$/) do
+  page.should have_selector '#paid', text: 'true'
+end
+
+Then(/^can't set the invoice as paid again$/) do
+  page.should_not have_selector '#paid_button', text: 'Payée'
+end
+
+Then(/^the invoice is save as paid$/) do
+  Invoice.first.paid.should be_true
+end
+
+When(/^he marks the invoice as unpaid$/) do
+  uncheck "invoice-paid"
+end
+
+Then(/^the invoice paid status is marked unpaid$/) do
+  page.should have_selector '#paid', text: 'false'
+  Invoice.first.paid.should be_false
+end
+
+Then(/^the invoice status is set to unpaid$/) do
+ pending
+ Invoice.first.paid.should be_false
+end
+
+Then(/^the invoice status is set to paid$/) do
+  Invoice.first.paid.should be_true
+end
+
+
+Then(/^a message signal the succes of the update$/) do
+  pending
+  find('#info-message').should be_visible
+  page.should have_selector '#info-message', text: "Invoice successfully updated"
+end
+
+Then(/^a message signal the succes of the creation$/) do
+  find('#info-message').should be_visible
+  page.should have_selector '#info-message', text: "Invoice successfully saved"
+end
+
+Then(/^a message signal that the invoice is set to paid$/) do
+  find('#info-message').should be_visible
+  page.should have_selector '#info-message', text: "invoice successfully set to paid"
 end

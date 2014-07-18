@@ -20,3 +20,12 @@
 li.error {
   color: red;
 }
+
+.alert {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  visibility: hidden;
+  height: 49px;
+  margin: 10px 0 10px 0;
+}

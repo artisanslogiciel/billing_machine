@@ -24,6 +24,7 @@ Feature: Invoice Management
     And the VAT due is "40.00€"
     And the total all taxes included is "240.00€"
     When he saves the new invoice
+    Then a message signal the succes of the creation
     Then it's added to the invoice list
 
   @javascript
@@ -107,3 +108,28 @@ Feature: Invoice Management
     And an existing invoice
     When the user goes to the invoices page
     Then he finds and clicks on the download CSV export file
+
+  @javascript
+  Scenario: Existing unpaid invoice set to paid
+    Given an existing user
+    And an existing invoice
+    When the user goes to the invoices page
+    Then the invoice paid status is marked unpaid
+    And he set the invoice as paid
+    Then the invoice paid status is marked paid
+    And a message signal that the invoice is set to paid
+    And the invoice status is set to paid
+    And can't set the invoice as paid again
+
+  @javascript
+  Scenario: Existing paid invoice set to unpaid
+    Given an existing user
+    And an existing paid invoice
+    When the user goes to the invoices page
+    Then the invoice paid status is marked paid
+    And can't set the invoice as paid again
+    And he goes on the edit page of the invoice
+    When he marks the invoice as unpaid
+    And he saves the invoice
+    Then a message signal the succes of the update
+    And the invoice status is set to unpaid
