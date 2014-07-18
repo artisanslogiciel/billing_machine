@@ -2,6 +2,10 @@
   $scope.projects = Project.query()
   $scope.activities = Activity.query()
   $scope.info = document.getElementById('info-message')
+  $scope.getIsoDate = ->
+    new Date().toISOString().split('T')[0]
+
+  $scope.newTimeSlice = {day: $scope.getIsoDate()}
   $scope.timeslices = TimeSlice.query (time_slices) ->
     $scope.totalItems = time_slices.length
 
@@ -24,7 +28,7 @@
         $scope.info.style.visibility = 'visible'
         clearTimeout $scope.timeout
         $scope.timer()
-        $scope.newTimeSlice = {}
+        $scope.newTimeSlice = {day: $scope.getIsoDate()}
 
       (error) ->
         $scope.error_pop (error)
@@ -72,5 +76,8 @@
   #     activity.label
   #   else
   #     ''
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/issue_104_add_default_date_to_today_for_new_timeslice
 ]

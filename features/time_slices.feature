@@ -16,6 +16,11 @@ Feature: Time slices
     And the time slice is added to the list
 
   @javascript
+  Scenario: Set date time at today for new timeslice
+    When the user goes in the time slices section
+    Then the date input is set at today
+
+  @javascript
   Scenario: Update a time slice
     Given an existing time slice
     When the user goes in the time slices section
