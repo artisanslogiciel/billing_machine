@@ -3,7 +3,7 @@
     h1 Time Lapse
   .col-lg-1
     a.btn.btn-sm.btn-success id='csv-export-button' href="/api/v1/time_slices.csv" CSV
-div ng-controller="TimeSliceCtrl" 
+div ng-controller="TimeSliceCtrl"
   pagination total-items="totalItems" ng-model="currentPage" items-per-page="pageSize" max-size="10" boundary-links="true" class="pagination-sm" num-pages="numPages" rotate="false"
   pre Page {{currentPage}} / {{numPages}}, Total items: {{totalItems}}
   table class="table table-striped table-hover" id="time-slices"
@@ -21,7 +21,7 @@ div ng-controller="TimeSliceCtrl"
       tr
         form ng-submit="addTimeSlice()"
           td
-            input type="date" ng-model="newTimeSlice.day"
+            input id='new-time-slice-day' type="date" ng-model="newTimeSlice.day"
           td
             select ng-model="newTimeSlice.project_id" ng-options="project.id as project.name for project in projects"
           td
@@ -71,8 +71,3 @@ div ng-controller="TimeSliceCtrl"
             a id="edit-{{timeslice.id}}" href="" Edit
           .action.bb-edit
             input id="submit-time-slice-{{timeslice.id}}" type="submit" class="btn btn-success btn-sm" value="Update" ng-click="update(timeslice)"
-
-
-
-
-

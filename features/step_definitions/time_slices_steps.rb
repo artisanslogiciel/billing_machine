@@ -16,17 +16,25 @@ end
 
 When(/^he creates a new time slice$/) do
   fill_in 'new-time-slice-duration', with: '4.23'
+  fill_in 'new-time-slice-day', with: '1970-01-01'
   fill_in 'new-time-slice-comment', with: 'Hello World'
   check 'new-time-slice-billable'
   click_button 'new-time-slice-submit'
 end
 
+Then(/^a messsage signals the success of the operation$/) do
+  find('#info-message').should be_visible
+  page.should have_selector '#info-message', text: "Time slice successfully added"
+end
+
 Then(/^the time slice is added to the list$/) do
   expect(page).to have_selector '.time-slice .duration', text: '4.23'
   expect(page).to have_selector '.time-slice .comment', text: 'Hello World'
+  expect(page).to have_selector '.time-slice .day', text: '1970-01-01'
   reload_the_page
   expect(page).to have_selector '.time-slice .duration', text: '4.23'
   expect(page).to have_selector '.time-slice .comment', text: 'Hello World'
+  expect(page).to have_selector '.time-slice .day', text: '1970-01-01'
 end
 
 When(/^he edits the time slices' duration$/) do
@@ -64,7 +72,6 @@ Then(/^downloaded the CSV should be valid with expected information$/) do
   time_slice_data.should include @time_slice.duration.to_s
 end
 
-
 Then(/^he should see (\d+) time slices$/) do |count|
   page.should have_selector '.time-slice', count: count
 end
@@ -72,4 +79,3 @@ end
 When(/^he goes to the next page$/) do
   click_link 'Next'
 end
-

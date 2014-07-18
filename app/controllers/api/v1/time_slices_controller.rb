@@ -8,8 +8,16 @@ module Api
 
       def create
         authorize! :write, TimeSlice
-        @time_slice = TimeSlice.create(safe_params.merge({user: current_user}))
-        render :show
+        begin
+          @time_slice = TimeSlice.create(safe_params.merge({user: current_user}))
+          if @time_slice.save
+            render :show , status: 200
+          else
+            render json: @time_slice.errors ,status: 422
+          end
+        rescue ActionController::ParameterMissing
+          render json: '{"TimeSlice":["can\'t be empty"]}' ,status: 422
+        end
       end
 
       def update
