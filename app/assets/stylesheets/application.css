@@ -17,6 +17,12 @@
  *= stub active_admin
  */
 
+@media screen and (max-width:991px) {
+  .container li {
+    font-size: 12px;
+  }
+}
+
 li.error {
   color: red;
 }
@@ -29,3 +35,5 @@ li.error {
   height: 49px;
   margin: 10px 0 10px 0;
 }
+
+
