@@ -14,6 +14,7 @@ class AgilideeInvoice < Prawn::Document
   def initialize(invoice)
     super(:page_size => 'A4')
     @invoice = invoice
+    @id_card = invoice.id_card
   end
 
   def draw_bounds_debug
@@ -39,7 +40,7 @@ class AgilideeInvoice < Prawn::Document
       font_size 8
       write_legal_line 'SIRET 522 162 379 00013 APE 6202A'
       write_legal_line 'SARL au capital de 10.000 euros'
-      write_legal_line 'RCS MARSEILLE 522 162 379'
+      write_legal_line @id_card.registration_number
       move_down 5
       write_legal_line 'N° TVA FR 05 522 162 379 000 13'
       move_down 15

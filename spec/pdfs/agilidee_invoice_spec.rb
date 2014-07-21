@@ -11,9 +11,12 @@ describe AgilideeInvoice, pdfs: true do
 
   let(:customer) { FactoryGirl.create(:customer, city: 'Mickey City',
     address2: 'address2 value', country: 'Hong Kong') }
+
+  let(:id_card) {FactoryGirl.create(:id_card, registration_number: 'RCS MARSEILLE 522 162 379')}
+
   let(:invoice) { FactoryGirl.create(:invoice, total_duty: 1000, vat: 196,
     total_all_taxes: 1196, advance: 50, balance: 1146 , customer: customer,
-    date: '2014-04-16', vat_rate: 19.6)}
+    date: '2014-04-16', vat_rate: 19.6, id_card: id_card)}
 
   let(:invoice_line) { FactoryGirl.create(:invoice_line,
     invoice_id: invoice.id,
