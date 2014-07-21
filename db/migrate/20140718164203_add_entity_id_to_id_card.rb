@@ -1,6 +1,4 @@
 class AddEntityIdToIdCard < ActiveRecord::Migration
-  class IdCard < ActiveRecord::Base
-  end
   def change
     add_reference :id_cards, :entity, index: true
   end
