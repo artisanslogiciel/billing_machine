@@ -66,7 +66,7 @@ class AgilideeInvoice < Prawn::Document
       text '<b>Contact :</b> '+ @id_card.contact_name, :inline_format => true
       text '<b>Tél :</b> '+ @id_card.contact_phone, :inline_format => true
       text '<b>Fax:</b> '+ @id_card.contact_fax, :inline_format => true
-      text '<b>Email:</b> benoit.gantaume@agilidee.com', :inline_format => true
+      text '<b>Email:</b> '+ @id_card.contact_email, :inline_format => true
     end
 
     # Informations client

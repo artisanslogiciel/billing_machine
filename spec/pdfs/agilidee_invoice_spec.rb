@@ -14,7 +14,8 @@ describe AgilideeInvoice, pdfs: true do
 
   let(:id_card) {FactoryGirl.create(:id_card, registration_number: 'RCS MARSEILLE 522 162 379', siret: '522 162 379 00013', ape_naf: '6202A',
     legal_form: 'SARL', capital: 10000, intracommunity_vat: 'FR 05 522 162 379 000 13', address1: '46 Avenue des Chartreux', zip: '13004',
-    city: 'Marseille', contact_name: 'Benoit Gantaume', contact_phone: '+33.6.76.31.22.91', contact_fax: '+33.9.72.14.07.28')}
+    city: 'Marseille', contact_name: 'Benoit Gantaume', contact_phone: '+33.6.76.31.22.91', contact_fax: '+33.9.72.14.07.28',
+    contact_email: 'benoit.gantaume@agilidee.com')}
 
   let(:invoice) { FactoryGirl.create(:invoice, total_duty: 1000, vat: 196,
     total_all_taxes: 1196, advance: 50, balance: 1146 , customer: customer,

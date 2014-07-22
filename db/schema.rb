@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140722100452) do
+ActiveRecord::Schema.define(version: 20140722104053) do
 
   create_table "activities", force: true do |t|
     t.string   "label"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20140722100452) do
     t.datetime "updated_at"
     t.integer  "entity_id"
     t.string   "contact_fax"
+    t.string   "contact_email"
   end
 
   add_index "id_cards", ["entity_id"], name: "index_id_cards_on_entity_id"

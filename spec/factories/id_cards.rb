@@ -16,5 +16,6 @@ FactoryGirl.define do
     contact_name 'Bozo LECLOWN'
     contact_phone '045869165'
     contact_fax '0635648195'
+    contact_email 'bozo_leclown@pinder.com'
   end
 end
