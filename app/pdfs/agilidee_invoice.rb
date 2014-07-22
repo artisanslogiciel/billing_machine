@@ -125,7 +125,6 @@ class AgilideeInvoice < Prawn::Document
     bounding_box [50, 37], :width => 425 do
       font "Times-Roman"
       font_size 8.5
-      text 'Mention légale', :color => GREY
       text @id_card.custom_info_1, :color => GREY
     end
   end

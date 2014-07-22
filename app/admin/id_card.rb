@@ -47,9 +47,9 @@ ActiveAdmin.register IdCard do
       f.input :bank_name, :as => :string, :input_html => { :id => 'id-card-bank-name' }
       f.input :bank_address, :as => :string, :input_html => { :id => 'id-card-bank-address' }
       f.input :ape_naf, :as => :string, :input_html => { :id => 'id-card-ape-naf' }
-      f.input :custom_info_1, :as => :string, :input_html => { :id => 'id-card-custom-info-1' }
-      f.input :custom_info_2, :as => :string, :input_html => { :id => 'id-card-custom-info-2' }
-      f.input :custom_info_3, :as => :string, :input_html => { :id => 'id-card-custom-info-3' }
+      f.input :custom_info_1, :as => :text, :input_html => { :id => 'id-card-custom-info-1', :rows => 1 }
+      f.input :custom_info_2, :as => :string, :input_html => { :id => 'id-card-custom-info-2', :rows => 1 }
+      f.input :custom_info_3, :as => :string, :input_html => { :id => 'id-card-custom-info-3', :rows => 1 }
     end
     f.actions
   end

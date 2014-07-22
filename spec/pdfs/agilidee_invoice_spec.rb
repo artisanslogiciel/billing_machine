@@ -16,7 +16,7 @@ describe AgilideeInvoice, pdfs: true do
     legal_form: 'SARL', capital: 10000, intracommunity_vat: 'FR 05 522 162 379 000 13', address1: '46 Avenue des Chartreux', zip: '13004',
     city: 'Marseille', contact_name: 'Benoit Gantaume', contact_phone: '+33.6.76.31.22.91', contact_fax: '+33.9.72.14.07.28',
     contact_email: 'benoit.gantaume@agilidee.com', iban: '***REMOVED***', bic_swift: '***REMOVED***',
-    custom_info_1: 'Tout retard de règlement donnera lieu de plein droit et sans qu’aucune mise en demeure ne soit nécessaire au paiement de ' +
+    custom_info_1: "Mention légale"+"\n"+"Tout retard de règlement donnera lieu de plein droit et sans qu’aucune mise en demeure ne soit nécessaire au paiement de " +
         'pénalités de retard sur la base du taux BCE majoré de dix (10) points et au paiement d’une indemnité forfaitaire pour frais de ' +
         'recouvrement d’un montant de 40€')}
 
@@ -200,6 +200,5 @@ describe AgilideeInvoice, pdfs: true do
       it_should_write 'pénalités de retard sur la base du taux BCE majoré de dix (10) points et au paiement d’une indemnité forfaitaire pour frais de'
       it_should_write 'recouvrement d’un montant de 40€'
     end
-
   end # describe #build
 end
