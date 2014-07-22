@@ -3,7 +3,7 @@ ActiveAdmin.register IdCard do
 
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  permit_params :name, :siret, :legal_form, :capital, :registration_number,
+  permit_params :name, :logo, :siret, :legal_form, :capital, :registration_number,
     :intracommunity_vat, :address1, :address2, :zip, :city, :phone,
     :contact_name, :contact_phone, :contact_fax, :contact_email, :contact_address_1, :contact_address_2,
     :contact_zip, :contact_city, :iban, :bic_swift, :bank_name, :bank_address,
@@ -24,6 +24,7 @@ ActiveAdmin.register IdCard do
   form do |f|
     f.inputs 'Details' do
       f.input :name, :as => :string, :input_html => { :id => 'id-card-name' }
+      f.input :logo, :as => :file, :hint => f.template.image_tag(f.object.logo.url(:thumb))
       f.input :siret, :as => :string, :input_html => { :id => 'id-card-siret' }
       f.input :legal_form, :as => :string, :input_html => { :id => 'id-card-legal-form' }
       f.input :capital, :as => :number, :input_html => { :id => 'id-card-capital' }
@@ -53,5 +54,18 @@ ActiveAdmin.register IdCard do
     end
     f.actions
   end
+
+  # TODO, DO NOT MERGE
+  # Remove "Logo File Name","Logo Content Type","Logo File Size","Logo Updated At"
+  # from Show and index
+  # and think about adding thumbmail to index and show
+#  show do |ad|
+#    attributes_table do
+#      row :name
+#      row :logo do
+#        image_tag(ad.logo.url(:thumb))
+#      end
+#    end
+#  end
 
 end
