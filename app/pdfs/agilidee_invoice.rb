@@ -117,8 +117,8 @@ class AgilideeInvoice < Prawn::Document
 
       move_down 10
       text 'Coordonnées bancaires :'
-      text 'IBAN : ***REMOVED***'
-      text 'BIC / SWIFT : ***REMOVED***'
+      text 'IBAN : ' + @id_card.iban
+      text 'BIC / SWIFT : ' + @id_card.bic_swift
     end # Tableau
 
     # Mentions légales - Bas de page
@@ -126,9 +126,7 @@ class AgilideeInvoice < Prawn::Document
       font "Times-Roman"
       font_size 8.5
       text 'Mention légale', :color => GREY
-      text 'Tout retard de règlement donnera lieu de plein droit et sans qu’aucune mise en demeure ne soit nécessaire au paiement de ' +
-        'pénalités de retard sur la base du taux BCE majoré de dix (10) points et au paiement d’une indemnité forfaitaire pour frais de ' +
-        'recouvrement d’un montant de 40€', :color => GREY
+      text @id_card.custom_info_1, :color => GREY
     end
   end
 

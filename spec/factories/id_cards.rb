@@ -17,5 +17,8 @@ FactoryGirl.define do
     contact_phone '045869165'
     contact_fax '0635648195'
     contact_email 'bozo_leclown@pinder.com'
+    iban 'FR 456 253 645 459'
+    bic_swift 'lihlhkjgkg'
+    custom_info_1 'Mentions qui doivent etre assez longues pour pouvoir remplir tout le bas de page'
   end
 end
