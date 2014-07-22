@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140722104053) do
+ActiveRecord::Schema.define(version: 20140722121732) do
 
   create_table "activities", force: true do |t|
     t.string   "label"
@@ -73,9 +73,9 @@ ActiveRecord::Schema.define(version: 20140722104053) do
     t.string   "bank_name"
     t.string   "bank_address"
     t.string   "ape_naf"
-    t.string   "custom_info_1"
-    t.string   "custom_info_2"
-    t.string   "custom_info_3"
+    t.text     "custom_info_1",       limit: 511
+    t.text     "custom_info_2",       limit: 511
+    t.text     "custom_info_3",       limit: 511
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "entity_id"
