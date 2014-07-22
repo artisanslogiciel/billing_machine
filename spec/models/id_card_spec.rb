@@ -7,4 +7,6 @@ describe IdCard do
 
   it {should validate_presence_of :entity}
   it {should have_many :invoices}
+
+  it {should have_attached_file(:logo)}
 end
