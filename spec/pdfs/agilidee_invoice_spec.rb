@@ -12,7 +12,8 @@ describe AgilideeInvoice, pdfs: true do
   let(:customer) { FactoryGirl.create(:customer, city: 'Mickey City',
     address2: 'address2 value', country: 'Hong Kong') }
 
-  let(:id_card) {FactoryGirl.create(:id_card, registration_number: 'RCS MARSEILLE 522 162 379')}
+  let(:id_card) {FactoryGirl.create(:id_card, registration_number: 'RCS MARSEILLE 522 162 379', siret: 'SIRET 522 162 379 00013 APE 6202A', 
+    legal_form: 'SARL', capital: 10000 )}
 
   let(:invoice) { FactoryGirl.create(:invoice, total_duty: 1000, vat: 196,
     total_all_taxes: 1196, advance: 50, balance: 1146 , customer: customer,
@@ -161,7 +162,7 @@ describe AgilideeInvoice, pdfs: true do
           before(:each) do
             invoice_incomplete=FactoryGirl.create(:invoice, total_duty: 1000, vat: 196,
               total_all_taxes: 1196, advance: 0, balance: 1146 , customer: customer,
-              date: '2014-04-16', vat_rate: 19.6)
+              date: '2014-04-16', vat_rate: 19.6, id_card: id_card)
             pdf_incomplete=FactoryGirl.build(:agilidee_invoice, invoice: invoice_incomplete)
             pdf_incomplete.build
             @text_incomplete = PDF::Inspector::Text.analyze(pdf_incomplete.render)

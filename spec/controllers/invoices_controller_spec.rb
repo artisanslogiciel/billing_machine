@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe InvoicesController do
-  let(:user) {FactoryGirl.create :user }
-  let(:invoice) { FactoryGirl.create(:invoice, entity: user.entity) }
+  let(:user) { FactoryGirl.create :user }
+  let(:id_card) { FactoryGirl.create(:id_card) }
+  let(:invoice) { FactoryGirl.create(:invoice, entity: user.entity, id_card: id_card) }
   let(:another_invoice) { FactoryGirl.create(:invoice) }
 
   context 'when not authenticated' do

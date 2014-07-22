@@ -27,9 +27,9 @@ ActiveAdmin.register IdCard do
       f.input :siret, :as => :string, :input_html => { :id => 'id-card-siret' }
       f.input :legal_form, :as => :string, :input_html => { :id => 'id-card-legal-form' }
       f.input :capital, :as => :number, :input_html => { :id => 'id-card-capital' }
-      f.input :registration_number, :as => :number, :input_html => { :id => 'id-card-registration-number' }
-      f.input :intracommunity_vat, :as => :number, :input_html => { :id => 'id-card-intracommunity-vat' }
-      f.input :address1, :as => :number, :input_html => { :id => 'id-card-address1' }
+      f.input :registration_number, :as => :string, :input_html => { :id => 'id-card-registration-number' }
+      f.input :intracommunity_vat, :as => :string, :input_html => { :id => 'id-card-intracommunity-vat' }
+      f.input :address1, :as => :string, :input_html => { :id => 'id-card-address1' }
       f.input :address2, :as => :string, :input_html => { :id => 'id-card-address2' }
       f.input :zip, :as => :number, :input_html => { :id => 'id-card-zip' }
       f.input :city, :as => :string, :input_html => { :id => 'id-card-city' }

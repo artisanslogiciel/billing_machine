@@ -38,8 +38,8 @@ class AgilideeInvoice < Prawn::Document
     bounding_box [235, 735], :width => 235, :height => 75 do
       draw_bounds_debug
       font_size 8
-      write_legal_line 'SIRET 522 162 379 00013 APE 6202A'
-      write_legal_line 'SARL au capital de 10.000 euros'
+      write_legal_line @id_card.siret
+      write_legal_line @id_card.legal_form + ' au capital de ' + number_with_delimiter(@id_card.capital, :delimiter => '.') + ' euros'
       write_legal_line @id_card.registration_number
       move_down 5
       write_legal_line 'N° TVA FR 05 522 162 379 000 13'
