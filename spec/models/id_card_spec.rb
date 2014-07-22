@@ -9,4 +9,8 @@ describe IdCard do
   it {should have_many :invoices}
 
   it {should have_attached_file(:logo)}
+  it { should validate_attachment_content_type(:logo).
+                  allowing('image/png','image/jpeg', 'image/gif').
+                  rejecting('text/plain', 'text/xml','image/svg') }
+
 end
