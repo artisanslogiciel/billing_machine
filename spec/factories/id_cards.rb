@@ -6,6 +6,12 @@ FactoryGirl.define do
     entity
     legal_form 'SA'
     capital 1000000000
-    registration_number 'RCS 123456789'
+    registration_number '123456789'
+    ape_naf '6258'
+    address1 '72 rue du ROR'
+    zip '72054'
+    city 'Kaukura'
+    siret 'FR 1234569123'
+    intracommunity_vat '123456789123'
   end
 end

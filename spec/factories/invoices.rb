@@ -12,7 +12,6 @@ FactoryGirl.define do
     advance '1.00'
     balance '11.086901'
     vat_rate '20.0'
-
     id_card
   end
 end

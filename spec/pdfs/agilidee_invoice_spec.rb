@@ -12,8 +12,9 @@ describe AgilideeInvoice, pdfs: true do
   let(:customer) { FactoryGirl.create(:customer, city: 'Mickey City',
     address2: 'address2 value', country: 'Hong Kong') }
 
-  let(:id_card) {FactoryGirl.create(:id_card, registration_number: 'RCS MARSEILLE 522 162 379', siret: 'SIRET 522 162 379 00013 APE 6202A', 
-    legal_form: 'SARL', capital: 10000 )}
+  let(:id_card) {FactoryGirl.create(:id_card, registration_number: 'RCS MARSEILLE 522 162 379', siret: '522 162 379 00013', ape_naf: '6202A',
+    legal_form: 'SARL', capital: 10000, intracommunity_vat: 'FR 05 522 162 379 000 13', address1: '46 Avenue des Chartreux', zip: '13004',
+    city: 'Marseille')}
 
   let(:invoice) { FactoryGirl.create(:invoice, total_duty: 1000, vat: 196,
     total_all_taxes: 1196, advance: 50, balance: 1146 , customer: customer,
