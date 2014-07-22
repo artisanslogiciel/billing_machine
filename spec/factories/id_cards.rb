@@ -13,5 +13,8 @@ FactoryGirl.define do
     city 'Kaukura'
     siret 'FR 1234569123'
     intracommunity_vat '123456789123'
+    contact_name 'Bozo LECLOWN'
+    contact_phone '045869165'
+    contact_fax '0635648195'
   end
 end

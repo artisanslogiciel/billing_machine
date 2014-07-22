@@ -5,7 +5,7 @@ ActiveAdmin.register IdCard do
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   permit_params :name, :siret, :legal_form, :capital, :registration_number,
     :intracommunity_vat, :address1, :address2, :zip, :city, :phone,
-    :contact_name, :contact_phone, :contact_address_1, :contact_address_2,
+    :contact_name, :contact_phone, :contact_fax, :contact_address_1, :contact_address_2,
     :contact_zip, :contact_city, :iban, :bic_swift, :bank_name, :bank_address,
     :ape_naf, :custom_info_1, :custom_info_2, :custom_info_3
 
@@ -36,6 +36,7 @@ ActiveAdmin.register IdCard do
       f.input :phone, :as => :string, :input_html => { :id => 'id-card-phone' }
       f.input :contact_name, :as => :string, :input_html => { :id => 'id-card-contact-name' }
       f.input :contact_phone, :as => :string, :input_html => { :id => 'id-card-contact-phone' }
+      f.input :contact_fax, :as => :string, :input_html => { :id => 'id-card-contact-fax' }
       f.input :contact_address_1, :as => :string, :input_html => { :id => 'id-card-contact-address-1' }
       f.input :contact_address_2, :as => :string, :input_html => { :id => 'id-card-contact-address-2' }
       f.input :contact_zip, :as => :string, :input_html => { :id => 'id-card-contact-zip' }
