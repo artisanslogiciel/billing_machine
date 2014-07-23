@@ -4,7 +4,8 @@ class Invoice < ActiveRecord::Base
   belongs_to :customer
   belongs_to :payment_term
   belongs_to :id_card, inverse_of: :invoices , dependent: :destroy
-  has_one :entity, through: :id_card
+  has_one :entity, through: :id_card # TODO: Remove that, this worked until now but I can blow up at every model edition
+  #delegate :entity, to: :id_card # TODO: might be the solution but the factories blow up
   has_many :lines,  inverse_of: :invoice, dependent: :destroy, class_name: 'InvoiceLine'
   accepts_nested_attributes_for :lines, allow_destroy: true
   validates_presence_of :id_card

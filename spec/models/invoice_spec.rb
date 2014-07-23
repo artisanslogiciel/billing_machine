@@ -7,8 +7,7 @@ describe Invoice do
   end
   it { should belong_to :customer }
   it { should belong_to :payment_term }
-  #it { should belong_to :entity }
-  it { should have_one :entity }
+  it { should validate_presence_of :id_card }
   it { should validate_presence_of :entity }
   it { should have_many :lines}
 
