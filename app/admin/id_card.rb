@@ -65,17 +65,16 @@ ActiveAdmin.register IdCard do
     f.actions
   end
 
-  # TODO, DO NOT MERGE
-  # Remove "Logo File Name","Logo Content Type","Logo File Size","Logo Updated At"
-  # from Show and index
-  # and think about adding thumbmail to index and show
-#  show do |ad|
-#    attributes_table do
-#      row :name
-#      row :logo do
-#        image_tag(ad.logo.url(:thumb))
-#      end
-#    end
-#  end
+  show do |ad|
+    attributes_table do
+      attributes_with_default_row = attributes_used - [:logo]
+      row :logo do
+        image_tag(ad.logo.url(:thumb))
+      end
+      attributes_with_default_row.each do |attr|
+        row attr
+      end
+    end
+  end
 
 end
