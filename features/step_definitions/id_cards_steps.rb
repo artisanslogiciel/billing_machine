@@ -9,7 +9,7 @@ end
 
 When(/^he adds an id card$/) do
   @new_id_card_name = "My new identity"
-  fill_in "id-card-name", with: @new_id_card_name
+  fill_in "id_card_name", with: @new_id_card_name
   click_button 'Create Id card'
 end
 
