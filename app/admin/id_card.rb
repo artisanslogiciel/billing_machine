@@ -78,10 +78,10 @@ ActiveAdmin.register IdCard do
   end
 
   index do
+    default_actions
     attributes_with_default_display.each do |attr|
       column attr
     end
-    default_actions
   end
 
 end
