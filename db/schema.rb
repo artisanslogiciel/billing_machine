@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140723114618) do
+ActiveRecord::Schema.define(version: 20140723121349) do
 
   create_table "activities", force: true do |t|
     t.string   "label"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20140723114618) do
   add_index "entities", ["id", "unique_index"], name: "index_entities_on_id_and_unique_index", unique: true
 
   create_table "id_cards", force: true do |t|
-    t.string   "name"
+    t.string   "entity_name"
     t.string   "siret"
     t.string   "legal_form"
     t.integer  "capital"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20140723114618) do
     t.string   "zip"
     t.string   "city"
     t.string   "phone"
-    t.string   "contact_name"
+    t.string   "contact_full_name"
     t.string   "contact_phone"
     t.string   "contact_address_1"
     t.string   "contact_address_2"

@@ -9,7 +9,9 @@ end
 
 When(/^he adds an id card$/) do
   @new_id_card_name = "My new identity"
-  fill_in "id_card_name", with: @new_id_card_name
+  # Active Admin prefixes the field id with the table name
+  # that why this one sucks and we should find another colum name
+  fill_in "id_card_id_card_name", with: @new_id_card_name
   click_button 'Create Id card'
 end
 
@@ -19,7 +21,7 @@ end
 
 Given(/^an existing id card from the same entity$/) do
   @id_card_same_entity = FactoryGirl.create(:id_card,
-      name: 'My id card', entity: @entity)
+      id_card_name: 'My id card', entity: @entity)
 end
 
 Given(/^an existing id card$/) do
@@ -28,7 +30,7 @@ end
 
 Given(/^an existing id card from this other entity$/) do
   @id_card_other_entity = FactoryGirl.create(:id_card,
-      name: 'Other id card', entity: @other_entity)
+      id_card_name: 'Other id card', entity: @other_entity)
 end
 
 When(/^he goes to the id cards page$/) do

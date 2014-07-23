@@ -63,7 +63,7 @@ class AgilideeInvoice < Prawn::Document
     bounding_box [50, 585], :width => 235, :height => 50 do
       draw_bounds_debug
       font_size 10
-      text '<b>Contact :</b> '+ @id_card.contact_name, :inline_format => true
+      text '<b>Contact :</b> '+ @id_card.contact_full_name, :inline_format => true
       text '<b>Tél :</b> '+ @id_card.contact_phone, :inline_format => true
       text '<b>Fax:</b> '+ @id_card.contact_fax, :inline_format => true
       text '<b>Email:</b> '+ @id_card.contact_email, :inline_format => true

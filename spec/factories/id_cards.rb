@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :id_card do
-    name "AGILiDEE"
+    entity_name "AGILiDEE"
     entity
     legal_form 'SA'
     capital 1000000000
@@ -13,12 +13,12 @@ FactoryGirl.define do
     city 'Kaukura'
     siret 'FR 1234569123'
     intracommunity_vat '123456789123'
-    contact_name 'Bozo LECLOWN'
-    contact_phone '045869165'
-    contact_fax '0635648195'
+    contact_full_name 'Bozo LECLOWN'
+    contact_phone '0400000000'
+    contact_fax '+33 400000000'
     contact_email 'bozo_leclown@pinder.com'
     iban 'FR 456 253 645 459'
-    bic_swift 'lihlhkjgkg'
-    custom_info_1 'Mentions qui doivent etre assez longues pour pouvoir remplir tout le bas de page'
+    bic_swift 'PSSTTHEGAME'
+    custom_info_1 'Mentions longues pour passer à la ligne à des fin de tests de mise page des pdf des factures'
   end
 end

@@ -4,7 +4,7 @@ ActiveAdmin.register IdCard do
   attributes_used = [
     :logo,
     :id_card_name,
-    :name,
+    :entity_name,
     :legal_form,
     :capital,
     :siret,
@@ -20,7 +20,7 @@ ActiveAdmin.register IdCard do
     :address2,
     :zip,
     :city,
-    :contact_name,
+    :contact_full_name,
     :contact_phone,
     :contact_fax,
     :contact_email,
