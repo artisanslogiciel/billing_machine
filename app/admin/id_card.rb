@@ -3,6 +3,7 @@ ActiveAdmin.register IdCard do
 
   attributes_used = [
     :logo,
+    :id_card_name,
     :name,
     :legal_form,
     :capital,
@@ -50,8 +51,10 @@ ActiveAdmin.register IdCard do
 
   form do |f|
     f.inputs 'Details' do
-      attributes_with_custom_forms = [:logo, :custom_info_1, :custom_info_2, :custom_info_3]
+      attributes_with_custom_forms = [:logo, :id_card_name, :custom_info_1, :custom_info_2, :custom_info_3]
       attributes_with_default_forms = attributes_used - attributes_with_custom_forms
+
+      f.input :id_card_name, :required => true, :placeholder => "name to describe this id card, e.g.`new 2014 logo`"
 
       f.input :logo, :hint => f.template.image_tag(f.object.logo.url(:thumb))
 
