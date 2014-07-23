@@ -30,6 +30,7 @@ ActiveAdmin.register IdCard do
     :custom_info_1,
     :custom_info_2,
     :custom_info_3]
+  attributes_with_default_display = attributes_used - [:logo]
 
   # See permitted parameters documentation:
   # https://github.com/gregbell/active_admin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
@@ -67,14 +68,20 @@ ActiveAdmin.register IdCard do
 
   show do |ad|
     attributes_table do
-      attributes_with_default_row = attributes_used - [:logo]
       row :logo do
         image_tag(ad.logo.url(:thumb))
       end
-      attributes_with_default_row.each do |attr|
+      attributes_with_default_display.each do |attr|
         row attr
       end
     end
+  end
+
+  index do
+    attributes_with_default_display.each do |attr|
+      column attr
+    end
+    default_actions
   end
 
 end
