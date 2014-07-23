@@ -14,7 +14,7 @@ describe AgilideeInvoice, pdfs: true do
 
   let(:id_card) {FactoryGirl.create(:id_card, registration_number: 'RCS MARSEILLE 522 162 379', siret: '522 162 379 00013', ape_naf: '6202A',
     legal_form: 'SARL', capital: 10000, intracommunity_vat: 'FR 05 522 162 379 000 13', address1: '46 Avenue des Chartreux', zip: '13004',
-    city: 'Marseille', contact_name: 'Benoit Gantaume', contact_phone: '+33.6.76.31.22.91', contact_fax: '+33.9.72.14.07.28',
+    city: 'Marseille', contact_full_name: 'Benoit Gantaume', contact_phone: '+33.6.76.31.22.91', contact_fax: '+33.9.72.14.07.28',
     contact_email: 'benoit.gantaume@agilidee.com', iban: '***REMOVED***', bic_swift: '***REMOVED***',
     custom_info_1: "Mention légale"+"\n"+"Tout retard de règlement donnera lieu de plein droit et sans qu’aucune mise en demeure ne soit nécessaire au paiement de " +
         'pénalités de retard sur la base du taux BCE majoré de dix (10) points et au paiement d’une indemnité forfaitaire pour frais de ' +

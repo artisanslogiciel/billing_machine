@@ -20,5 +20,6 @@ FactoryGirl.define do
     iban 'FR 456 253 645 459'
     bic_swift 'PSSTTHEGAME'
     custom_info_1 'Mentions longues pour passer à la ligne à des fin de tests de mise page des pdf des factures'
+    custom_info_1 'Long string to trigger a line break and test the layout in the invoice PDF generators'
   end
 end
