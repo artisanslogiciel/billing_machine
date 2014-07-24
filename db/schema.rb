@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140723121349) do
+ActiveRecord::Schema.define(version: 20140724085539) do
 
   create_table "activities", force: true do |t|
     t.string   "label"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20140723121349) do
     t.boolean  "billing_machine",      default: false
     t.boolean  "time_machine",         default: false
     t.string   "customization_prefix"
+    t.integer  "current_id_card_id"
   end
 
   add_index "entities", ["id", "unique_index"], name: "index_entities_on_id_and_unique_index", unique: true

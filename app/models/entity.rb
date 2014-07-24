@@ -12,4 +12,9 @@ class Entity < ActiveRecord::Base
   has_many :payment_terms, inverse_of: :entity, dependent: :destroy
   has_many :customers, inverse_of: :entity, dependent: :destroy
   validates_presence_of :customization_prefix
+
+  def current_id_card
+    IdCard.find(self.current_id_card_id)
+  end
+
 end
