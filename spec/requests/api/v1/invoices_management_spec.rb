@@ -4,7 +4,8 @@ require 'json'
 describe 'Invoices management' do
   let(:user) {FactoryGirl.create(:user)}
   before(:each) do
-    @invoice = FactoryGirl.create(:invoice, entity: user.entity)
+    id_card = FactoryGirl.create(:id_card, entity: user.entity)
+    @invoice = FactoryGirl.create(:invoice, id_card: id_card)
     @invoice_line = FactoryGirl.create(:invoice_line, invoice: @invoice)
   end
 

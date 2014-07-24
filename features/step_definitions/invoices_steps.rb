@@ -90,15 +90,15 @@ Then(/^it's added to the invoice list$/) do
 end
 
 Given(/^an existing invoice$/) do
-  @invoice = FactoryGirl.create(:invoice, entity: @user.entity)
+  @invoice = FactoryGirl.create(:invoice, id_card: @user.entity.current_id_card)
 end
 
 Given(/^an existing invoice with a "(.*?)"% VAT rate$/) do |rate|
-  @invoice = FactoryGirl.create(:invoice, entity: @user.entity, vat_rate: rate)
+  @invoice = FactoryGirl.create(:invoice, id_card: @user.entity.current_id_card, vat_rate: rate)
 end
 
 Given(/^an existing paid invoice$/) do
-  @invoice = FactoryGirl.create(:invoice, entity: @user.entity, paid: true)
+  @invoice = FactoryGirl.create(:invoice, id_card: @user.entity.current_id_card, paid: true)
 end
 
 When(/^he goes on the edit page of the invoice$/) do

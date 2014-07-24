@@ -21,7 +21,8 @@ module Api
 
       context 'when authenticated' do
         let(:user) {FactoryGirl.create :user }
-        let(:invoice) { FactoryGirl.create(:invoice, entity: user.entity) }
+        let!(:id_card) { FactoryGirl.create(:id_card, entity: user.entity) }
+        let(:invoice) { FactoryGirl.create(:invoice, id_card: id_card) }
         let(:another_invoice) { FactoryGirl.create(:invoice) }
 
         before(:each) do
@@ -43,7 +44,6 @@ module Api
           end
 
           it 'should return invoices in JSON of the current user.entity' do
-            invoice = FactoryGirl.create(:invoice, entity: user.entity)
             invoice_from_other_entity = FactoryGirl.create(:invoice)
             get :index, format: :json
             assigns(:invoices).should eq([invoice])
@@ -55,7 +55,6 @@ module Api
           end
 
           it 'should return invoices in CSV of the current user.entity' do
-            invoice = FactoryGirl.create(:invoice, entity: user.entity)
             another_invoice = FactoryGirl.create(:invoice)
             get :index, format: :csv
             assigns(:invoices).should eq([invoice])

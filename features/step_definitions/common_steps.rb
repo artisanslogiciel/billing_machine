@@ -4,6 +4,7 @@ end
 
 Given(/^an existing entity$/) do
   @entity = FactoryGirl.create(:entity, name: "My entity")
+  FactoryGirl.create(:id_card, entity: @entity)
 end
 
 Given(/^an existing user$/) do
