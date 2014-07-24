@@ -8,7 +8,6 @@ class Invoice < ActiveRecord::Base
   has_many :lines,  inverse_of: :invoice, dependent: :destroy, class_name: 'InvoiceLine'
   accepts_nested_attributes_for :lines, allow_destroy: true
   validates_presence_of :id_card
-  validates_presence_of :entity
   before_create :assign_unique_index
 
   before_save :update_balance

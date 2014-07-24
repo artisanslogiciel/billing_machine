@@ -8,7 +8,8 @@ describe Invoice do
   let(:id_card) { FactoryGirl.create(:id_card, entity: entity)}
   it { should belong_to :customer }
   it { should belong_to :payment_term }
-  it { should have_many :lines}
+  it { should have_many :lines }
+  it { should validate_presence_of :id_card }
 
   describe 'unique_index' do
     context ' when unique index is 69' do
