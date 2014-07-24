@@ -38,7 +38,7 @@ class AgilideeInvoice < Prawn::Document
     bounding_box [235, 735], :width => 235, :height => 75 do
       draw_bounds_debug
       font_size 8
-      write_legal_line 'SIRET '+@id_card.siret+' APE '+@id_card.ape_naf
+      write_legal_line 'SIRET ' + @id_card.siret + ' APE ' + @id_card.ape_naf
       write_legal_line @id_card.legal_form + ' au capital de ' + number_with_delimiter(@id_card.capital, :delimiter => '.') + ' euros'
       write_legal_line @id_card.registration_number
       move_down 5
@@ -56,17 +56,17 @@ class AgilideeInvoice < Prawn::Document
         :inline_format => true,
         :align => :right
       font_size 11.5
-      text @id_card.city+' le ' + invoice_french_date, :align => :right
+      text @id_card.city + ' le ' + invoice_french_date, :align => :right
     end
 
     # Informations de contact
     bounding_box [50, 585], :width => 235, :height => 50 do
       draw_bounds_debug
       font_size 10
-      text '<b>Contact :</b> '+ @id_card.contact_full_name, :inline_format => true
-      text '<b>Tél :</b> '+ @id_card.contact_phone, :inline_format => true
-      text '<b>Fax:</b> '+ @id_card.contact_fax, :inline_format => true
-      text '<b>Email:</b> '+ @id_card.contact_email, :inline_format => true
+      text '<b>Contact :</b> ' + @id_card.contact_full_name, :inline_format => true
+      text '<b>Tél :</b> ' + @id_card.contact_phone, :inline_format => true
+      text '<b>Fax:</b> ' + @id_card.contact_fax, :inline_format => true
+      text '<b>Email:</b> ' + @id_card.contact_email, :inline_format => true
     end
 
     # Informations client
