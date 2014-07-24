@@ -32,7 +32,9 @@ class AgilideeInvoice < Prawn::Document
   end
 
   def build
-    image Rails.root + 'app/pdfs/agilidee_logo.png', at: [55, 735], :width => 150
+    if invoice.id_card.logo.exists?
+      image invoice.id_card.logo.path , at: [55, 735], :width => 150
+    end
 
     # Mentions légales - Coin supérieur droit
     bounding_box [235, 735], :width => 235, :height => 75 do
