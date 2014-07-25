@@ -17,23 +17,9 @@ class AgilideeInvoice < Prawn::Document
     @id_card = invoice.id_card
   end
 
-  def draw_bounds_debug
-    transparent(0.5) {stroke_bounds} if DEBUG
-  end
-
-  def write_legal_line text
-    text text, :align => :right, :color => GREY
-  end
-
-  def invoice_french_date
-    date = @invoice.date
-    french_month = FRENCH_MONTH_NAMES[date.month]
-    return date.day.to_s + ' ' + french_month + ' ' + date.year.to_s
-  end
-
   def build
-    if invoice.id_card.logo.exists?
-      image invoice.id_card.logo.path , at: [55, 735], :width => 150
+    if @invoice.id_card.logo.exists?
+      image @invoice.id_card.logo.path , at: [55, 735], :width => 150
     end
 
     # Mentions légales - Coin supérieur droit
@@ -58,7 +44,7 @@ class AgilideeInvoice < Prawn::Document
         :inline_format => true,
         :align => :right
       font_size 11.5
-      text @id_card.city + ' le ' + invoice_french_date, :align => :right
+      text @id_card.city + ' le ' + french_date(@invoice.date), :align => :right
     end
 
     # Informations de contact
@@ -141,6 +127,20 @@ class AgilideeInvoice < Prawn::Document
       invoice_lines_range = Range.new(1,(matrix.length - 6))
       row(invoice_lines_range).style :size => 9
     end
+  end
+
+  def draw_bounds_debug
+    transparent(0.5) { stroke_bounds } if DEBUG
+  end
+
+  def write_legal_line text
+    text text, :align => :right, :color => GREY
+  end
+
+  def french_date date
+    date
+    french_month = FRENCH_MONTH_NAMES[date.month]
+    return date.day.to_s + ' ' + french_month + ' ' + date.year.to_s
   end
 
   def euros amount
