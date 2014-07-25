@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140724085539) do
+ActiveRecord::Schema.define(version: 20140725105320) do
 
   create_table "activities", force: true do |t|
     t.string   "label"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20140724085539) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.string   "id_card_name"
+    t.string   "registration_city"
   end
 
   add_index "id_cards", ["entity_id"], name: "index_id_cards_on_entity_id"
