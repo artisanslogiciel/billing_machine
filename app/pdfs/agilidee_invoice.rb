@@ -42,7 +42,7 @@ class AgilideeInvoice < Prawn::Document
       font_size 8
       write_legal_line 'SIRET ' + @id_card.siret + ' APE ' + @id_card.ape_naf
       write_legal_line @id_card.legal_form + ' au capital de ' + number_with_delimiter(@id_card.capital, :delimiter => '.') + ' euros'
-      write_legal_line @id_card.registration_number
+      write_legal_line @id_card.registration_city + ' ' + @id_card.registration_number
       move_down 5
       write_legal_line 'N° TVA ' + @id_card.intracommunity_vat
       move_down 15

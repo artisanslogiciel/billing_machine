@@ -8,6 +8,7 @@ ActiveAdmin.register IdCard do
     :legal_form,
     :capital,
     :siret,
+    :registration_city,
     :registration_number,
     :intracommunity_vat,
     :iban,

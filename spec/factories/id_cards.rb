@@ -6,6 +6,7 @@ FactoryGirl.define do
     entity
     legal_form 'SA'
     capital 1000000000
+    registration_city 'Gotham City'
     registration_number '123456789'
     ape_naf '6258'
     address1 '72 rue du ROR'
@@ -19,6 +20,8 @@ FactoryGirl.define do
     contact_email 'bozo_leclown@pinder.com'
     iban 'FR 456 253 645 459'
     bic_swift 'PSSTTHEGAME'
+    bank_name 'My Bank Name'
+    bank_address 'My Bank Addresse'
     custom_info_1 'Long string to trigger a line break and test the layout in the invoice PDF generators'
 
     after(:create) do |id_card|

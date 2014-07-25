@@ -13,6 +13,7 @@ class SudDeveloppementInvoice < Prawn::Document
   def initialize(invoice)
     super(:page_size => 'A4')
     @invoice = invoice
+    @id_card = invoice.id_card
   end
 
   def draw_bounds_debug
@@ -27,11 +28,9 @@ class SudDeveloppementInvoice < Prawn::Document
   def build
     stroke_axis :step_length => 50, :color => GREY if DEBUG
 
-
-    # if invoice.logo.exists?
-    #   image @invoice.logo.path(:medium), at: [300, 730]
-    # end
-    image Rails.root+'app/pdfs/sud_developpement_logo.png', at: [0, 770], :width => 80
+    if invoice.id_card.logo.exists?
+      image invoice.id_card.logo.path, at: [0, 770], :width => 80
+    end
 
     line [85, 770], [85, 0]
     stroke
@@ -51,48 +50,42 @@ class SudDeveloppementInvoice < Prawn::Document
       draw_bounds_debug
       font_size 8
       write_legal_line 'Téléphone'
-      write_legal_line '+33 (0)6 62 15 80 90'
+      write_legal_line @id_card.contact_phone
       write_legal_line ' '
       write_legal_line 'mail à'
-      text 'jogallien@sud-d.com',:align => :center, :leading => 3, :color => BLUE
+      text @id_card.contact_email, :align => :center, :leading => 3, :color => BLUE
       write_legal_line ' '
       write_legal_line 'Courrier à '
-      write_legal_line 'BP17'
-      write_legal_line '83270'
-      write_legal_line 'ST-CYR SUR MER'
+      write_legal_line @id_card.contact_address_1
+      write_legal_line @id_card.contact_zip
+      write_legal_line @id_card.contact_city
       move_down 170
-      write_legal_line 'SARL au capital de'
-      write_legal_line '1 000 euros'
+      write_legal_line @id_card.legal_form + " au capital de"
+      write_legal_line separate_thousands_with_space(@id_card.capital) + " euros"
       write_legal_line ' '
-      write_legal_line 'RCS à TOULON'
-      write_legal_line 'B 753 162 213'
+      write_legal_line @id_card.registration_city
+      write_legal_line @id_card.registration_number
       write_legal_line ' '
       write_legal_line 'SIRET'
-      write_legal_line '753 162 213 00015'
+      write_legal_line @id_card.siret
       write_legal_line ' '
       write_legal_line 'APE/NAF 6831Z'
       write_legal_line ' '
-      write_legal_line 'Carte Professionnelle'
-      write_legal_line 'Transactions N°5956'
-      write_legal_line 'Préfecture TOULON'
-      write_legal_line 'Var (83)'
+      write_legal_line @id_card.custom_info_2
       write_legal_line ' '
-      write_legal_line 'RC PRO Groupama'
-      write_legal_line 'N° 500 407 450 001'
+      write_legal_line @id_card.custom_info_3
       write_legal_line ' '
       write_legal_line 'Siège Social à'
-      write_legal_line 'Ch. du Collet-Redon'
-      write_legal_line '83270'
-      write_legal_line 'SAINT CYR SUR MER'
+      write_legal_line @id_card.address1
+      write_legal_line @id_card.zip
+      write_legal_line @id_card.city
     end
 
     # Déclaration
     bounding_box [90, 650], :width => 200, :height => 45 do
       draw_bounds_debug
       font_size 11
-      text "La société SUD-DÉVELOPPEMENT", :style => :italic, :align => :center, :color => GREY
-      text "déclare ne recevoir ni ne détenir", :style => :italic, :align => :center, :color => GREY
-      text "aucun fonds, effets ou valeurs", :style => :italic, :align => :center, :color => GREY
+      text @id_card.custom_info_1, :style => :italic, :align => :center, :color => GREY
     end
 
     # Informations client
@@ -170,10 +163,10 @@ class SudDeveloppementInvoice < Prawn::Document
             :cell_style => {:align => :center, :font_style => :italic, :padding => [2, 2, 2, 2]})
 
       move_down 8
-      datas = [['Banque : BNP PARIBAS'],
-            ['Agence de : SAINT CYR SUR MER (83270)'],
-            ['IBAN : ***REMOVED***'],
-            ['BIC : ***REMOVED***']]
+      datas = [['Banque : ' + @id_card.bank_name],
+            ['Agence de : ' + @id_card.bank_address],
+            ['IBAN : '+ @id_card.iban],
+            ['BIC : ' + @id_card.bic_swift]]
 
       table(datas,
             :column_widths => [235],
@@ -217,5 +210,8 @@ class SudDeveloppementInvoice < Prawn::Document
     end
   end
 
+  def separate_thousands_with_space number
+    number_with_delimiter(number, :delimiter => ' ')
+  end
 
 end

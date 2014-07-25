@@ -12,13 +12,26 @@ describe AgilideeInvoice, pdfs: true do
   let(:customer) { FactoryGirl.create(:customer, city: 'Mickey City',
     address2: 'address2 value', country: 'Hong Kong') }
 
-  let(:id_card) {FactoryGirl.create(:id_card, registration_number: 'RCS MARSEILLE 000 000 000', siret: '000 000 000 00000', ape_naf: '0000A',
-    legal_form: 'SARL', capital: 1_000_000_000, intracommunity_vat: 'FR 00 000 000 000 000 00', address1: '42 Avenue de Ruby', zip: '13004',
-    city: 'Marseille', contact_full_name: 'Jane Doe', contact_phone: '+33.6.00.00.00.00', contact_fax: '+33.9.00.00.00.00',
-    contact_email: 'email@example.org', iban: 'FR76 0000 0000 0000 0000 0000 000', bic_swift: 'PSSTTHEGAME',
+  let(:id_card) { FactoryGirl.create(:id_card,
+    registration_city: 'RCS MARSEILLE',
+    registration_number: '000 000 000',
+    siret: '000 000 000 00000',
+    ape_naf: '0000A',
+    legal_form: 'SARL',
+    capital: 1_000_000_000,
+    intracommunity_vat: 'FR 00 000 000 000 000 00',
+    address1: '42 Avenue de Ruby', zip: '13004',
+    city: 'Marseille',
+    contact_full_name: 'Jane Doe',
+    contact_phone: '+33.6.00.00.00.00',
+    contact_fax: '+33.9.00.00.00.00',
+    contact_email: 'email@example.org',
+    iban: 'FR76 0000 0000 0000 0000 0000 000',
+    bic_swift: 'PSSTTHEGAME',
     custom_info_1: "Mention légale" + "\n" + "Tout retard de règlement donnera lieu de plein droit et sans qu’aucune mise en demeure ne soit nécessaire au paiement de " +
         'pénalités de retard sur la base du taux BCE majoré de dix (10) points et au paiement d’une indemnité forfaitaire pour frais de ' +
-        'recouvrement d’un montant de 999999€')}
+        'recouvrement d’un montant de 999999€'
+    ) }
 
   let(:invoice) { FactoryGirl.create(:invoice, total_duty: 1000, vat: 196,
     total_all_taxes: 1196, advance: 50, balance: 1146 , customer: customer,
