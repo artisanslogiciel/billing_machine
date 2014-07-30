@@ -70,7 +70,8 @@ class AgilideeInvoice < Prawn::Document
     end
 
     # Objet
-    bounding_box [50, 420], :width => 235, :height => 75 do
+    bounding_box [50, 425], :width => 350, :height => 30 do
+      draw_bounds_debug
       font_size 11
       text '<b>Objet :</b> ' + @invoice.label, :inline_format => true
     end
