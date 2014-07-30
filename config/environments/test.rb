@@ -33,4 +33,7 @@ Backbone::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+  
+  # secret_key_base: not important in test
+  Backbone::Application.config.secret_key_base = 'some value to make it work, if there is a better way, tell me'
 end

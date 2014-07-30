@@ -28,4 +28,7 @@ Backbone::Application.configure do
   config.assets.debug = true
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  
+  # secret_key_base: not important in development
+  Backbone::Application.config.secret_key_base = 'some value to make it work, if there is a better way, tell me'
 end
