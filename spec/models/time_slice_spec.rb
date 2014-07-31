@@ -17,24 +17,24 @@ describe TimeSlice do
 
   describe '#to_csv' do
     let(:user) { FactoryGirl.create(:user) }
-    let(:columns_names) {"Date;Project;Duration;Activity;Comment\n"}
+    let(:columns_names) {"Date;Project;Duration;Activity;Comment;Billing\n"}
 
     it 'should return expected csv' do
       slice0 = FactoryGirl.create(:time_slice, day: '2013-10-01', user: user)
       slice1 = FactoryGirl.create(:time_slice, day: '2013-09-01', user: user, comment: nil)
-      slice2 = FactoryGirl.create(:time_slice, day: '2013-11-01', user: user)
+      slice2 = FactoryGirl.create(:time_slice, day: '2013-11-01', user: user, billable: true)
       TimeSlice.to_csv.should be ==
         columns_names +
-        "2013-10-01;#{slice0.project.name};#{slice0.duration};#{slice0.activity.label};#{slice0.comment}\n"+
-        "2013-09-01;#{slice1.project.name};#{slice1.duration};#{slice1.activity.label};#{slice1.comment}\n"+
-        "2013-11-01;#{slice2.project.name};#{slice2.duration};#{slice2.activity.label};#{slice2.comment}\n"
+        "2013-10-01;#{slice0.project.name};#{slice0.duration};#{slice0.activity.label};#{slice0.comment};#{slice0.billable}\n"+
+        "2013-09-01;#{slice1.project.name};#{slice1.duration};#{slice1.activity.label};#{slice1.comment};#{slice1.billable}\n"+
+        "2013-11-01;#{slice2.project.name};#{slice2.duration};#{slice2.activity.label};#{slice2.comment};#{slice2.billable}\n"
     end
 
     it 'should return expected csv with nil values' do
       slice0 = TimeSlice.create(duration: 1, day: '1970-01-01', user: user)
       TimeSlice.to_csv.should be ==
         columns_names +
-        "1970-01-01;;#{slice0.duration};;\n"
+        "1970-01-01;;#{slice0.duration};;;false\n"
     end
   end
 end

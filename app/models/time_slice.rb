@@ -8,7 +8,7 @@ class TimeSlice < ActiveRecord::Base
 
   def self.to_csv(options = {:col_sep => ';'})
     CSV.generate(options) do |csv|
-      column_names = ["Date", "Project", "Duration", "Activity", "Comment"]
+      column_names = ["Date", "Project", "Duration", "Activity", "Comment", "Billing"]
       csv << column_names
 
       all.each do |time_slice|
@@ -16,7 +16,9 @@ class TimeSlice < ActiveRecord::Base
                  time_slice.project.try(:name),
                  time_slice.duration,
                  time_slice.activity.try(:label),
-                 time_slice.try(:comment)]
+                 time_slice.try(:comment),
+                 time_slice.billable
+                 ]
       end
     end
   end
