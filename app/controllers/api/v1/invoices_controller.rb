@@ -42,12 +42,13 @@ module Api
         def render_invoice_list
           @invoices = current_user.entity.invoices.order(unique_index: :desc)
           respond_to do |format|
-            format.csv { send_data csv_data }
+            format.csv { send_data generate_encoded_csv(@invoices), type: "text/csv" }
             format.json { respond_with @invoices }
-         end
+          end
         end
-        def csv_data
-         @invoices.to_csv.encode("WINDOWS-1252", :invalid => :replace, :undef => :replace, :replace => "?")
+
+        def generate_encoded_csv invoices # TODO extract to own class
+          invoices.to_csv.encode("WINDOWS-1252", :invalid => :replace, :undef => :replace, :replace => "?")
         end
     end
   end
