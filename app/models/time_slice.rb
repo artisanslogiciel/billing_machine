@@ -6,7 +6,7 @@ class TimeSlice < ActiveRecord::Base
   belongs_to :user, inverse_of: :time_slices, dependent: :destroy
   belongs_to :project
 
-  def self.to_csv(options = {:col_sep => ';'})
+  def self.to_csv(options = {:col_sep => ';', :force_quotes => true})
     CSV.generate(options) do |csv|
       column_names = ["Date", "Project", "Duration", "Activity", "Comment", "Billing"]
       csv << column_names
