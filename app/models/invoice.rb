@@ -37,7 +37,7 @@ class Invoice < ActiveRecord::Base
     return pdf
   end
 
-  def self.to_csv(options = {:col_sep => ';', :force_quotes => true})
+  def self.to_csv(options = {:force_quotes => true})
     CSV.generate(options) do |csv|
       column_names = ["Date", "Numéro", "Objet", "Client", "Adresse 1", "Adresse 2",
         "Code postal", "Ville", "Pays", "Montant HT", "Taux TVA", "Montant TVA",
