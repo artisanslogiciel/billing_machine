@@ -28,8 +28,8 @@ describe TimeSlice do
       slice0.dup.update(day: '2013-11-01', comment: nil) # factorize arguments
       TimeSlice.to_csv.should be ==
         columns_names +
-        '"2013-10-01";"projectName";"3.14";"activityLabel";"SliceComment";"false"' + "\n" +
-        '"2013-09-01";"projectName";"3.14";"activityLabel";"SliceComment";"true"' + "\n" +
+        '"2013-10-01";"projectName";"3.14";"activityLabel";"SliceComment";"false"' + "\n"\
+        '"2013-09-01";"projectName";"3.14";"activityLabel";"SliceComment";"true"' + "\n"\
         '"2013-11-01";"projectName";"3.14";"activityLabel";"";"false"' + "\n"
     end
 
