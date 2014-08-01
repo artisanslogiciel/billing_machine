@@ -28,16 +28,16 @@ describe TimeSlice do
       slice0.dup.update(day: '2013-11-01', comment: nil) # factorize arguments
       TimeSlice.to_csv.should be ==
         columns_names +
-        '"2013-10-01";"projectName";"3.14";"activityLabel";"SliceComment";"false"' + "\n"\
-        '"2013-09-01";"projectName";"3.14";"activityLabel";"SliceComment";"true"' + "\n"\
-        '"2013-11-01";"projectName";"3.14";"activityLabel";"";"false"' + "\n"
+        '"2013-10-01";"projectName";"3,14";"activityLabel";"SliceComment";"false"' + "\n"\
+        '"2013-09-01";"projectName";"3,14";"activityLabel";"SliceComment";"true"' + "\n"\
+        '"2013-11-01";"projectName";"3,14";"activityLabel";"";"false"' + "\n"
     end
 
     it 'should return expected csv with nil values' do
       slice0 = TimeSlice.create(duration: 1, day: '1970-01-01', user: user)
       TimeSlice.to_csv.should be ==
         columns_names +
-        '"1970-01-01";"";"1.0";"";"";"false"' + "\n"
+        '"1970-01-01";"";"1,0";"";"";"false"' + "\n"
     end
   end
 end

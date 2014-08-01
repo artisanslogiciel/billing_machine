@@ -69,7 +69,6 @@ Then(/^downloaded the CSV should be valid with expected information$/) do
 
   time_slice_data.should include @time_slice.day.iso8601
   time_slice_data.should include @time_slice.comment
-  time_slice_data.should include @time_slice.duration.to_s
 end
 
 Then(/^he should see (\d+) time slices$/) do |count|

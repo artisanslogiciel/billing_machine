@@ -14,7 +14,7 @@ class TimeSlice < ActiveRecord::Base
       all.each do |time_slice|
         csv <<  [time_slice.try(:day),
                  time_slice.project.try(:name),
-                 time_slice.duration,
+                 french_number(time_slice.duration),
                  time_slice.activity.try(:label),
                  time_slice.try(:comment),
                  time_slice.billable
@@ -22,5 +22,8 @@ class TimeSlice < ActiveRecord::Base
       end
     end
   end
-
+  def self.french_number amount
+     extend ActionView::Helpers::NumberHelper
+     number_with_delimiter(amount, :delimiter => '', :separator => ",")
+  end
 end

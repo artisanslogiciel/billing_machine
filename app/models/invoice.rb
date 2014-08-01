@@ -1,6 +1,5 @@
 # encoding: utf-8
 class Invoice < ActiveRecord::Base
-  extend ActionView::Helpers::NumberHelper
   belongs_to :customer
   belongs_to :payment_term
   belongs_to :id_card, inverse_of: :invoices , dependent: :destroy
@@ -64,6 +63,7 @@ class Invoice < ActiveRecord::Base
     end
   end
   def self.french_number amount
+     extend ActionView::Helpers::NumberHelper
      number_with_delimiter(amount, :delimiter => '', :separator => ",")
   end
 end
