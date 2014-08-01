@@ -17,17 +17,20 @@ describe TimeSlice do
 
   describe '#to_csv' do
     let(:user) { FactoryGirl.create(:user) }
+    let(:project) { FactoryGirl.create(:project, name: "projectName") }
+    let(:activity) { FactoryGirl.create(:activity, label: "activityLabel") }
     let(:columns_names) {"Date;Project;Duration;Activity;Comment;Billing\n"}
 
     it 'should return expected csv' do
-      slice0 = FactoryGirl.create(:time_slice, day: '2013-10-01', user: user)
-      slice1 = FactoryGirl.create(:time_slice, day: '2013-09-01', user: user, comment: nil)
-      slice2 = FactoryGirl.create(:time_slice, day: '2013-11-01', user: user, billable: true)
+      slice0 = FactoryGirl.create(:time_slice, day: '2013-10-01', comment: "SliceComment", duration: "3.14",
+        user: user, project: project, activity: activity)
+      slice0.dup.update(day: '2013-09-01', billable: true) # copy first slice to
+      slice0.dup.update(day: '2013-11-01', comment: nil) # factorize arguments
       TimeSlice.to_csv.should be ==
         columns_names +
-        "2013-10-01;#{slice0.project.name};#{slice0.duration};#{slice0.activity.label};#{slice0.comment};#{slice0.billable}\n"+
-        "2013-09-01;#{slice1.project.name};#{slice1.duration};#{slice1.activity.label};#{slice1.comment};#{slice1.billable}\n"+
-        "2013-11-01;#{slice2.project.name};#{slice2.duration};#{slice2.activity.label};#{slice2.comment};#{slice2.billable}\n"
+        "2013-10-01;projectName;3.14;activityLabel;SliceComment;false\n"+
+        "2013-09-01;projectName;3.14;activityLabel;SliceComment;true\n"+
+        "2013-11-01;projectName;3.14;activityLabel;;false\n"
     end
 
     it 'should return expected csv with nil values' do
