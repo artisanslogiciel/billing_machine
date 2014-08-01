@@ -63,7 +63,7 @@ module Api
           it 'should return valid CSV' do
             time_slice_of_current_user = time_slice
             get :index, format: :csv
-            CSV.parse(response.body, options = {:col_sep => ';'})
+            CSV.parse(response.body)
           end
 
           it 'should return time_slice of current user in CSV' do
@@ -74,7 +74,7 @@ module Api
             get :index, format: :csv
 
             assert_response :success
-            csv_parsed = CSV.parse(response.body, options = {:col_sep => ';'})
+            csv_parsed = CSV.parse(response.body)
             number_of_time_slices_returned = csv_parsed.size - 1 # first line should be colums list
             number_of_time_slices_returned.should be == 2
           end

@@ -53,12 +53,9 @@ module Api
             format.json  { respond_with @time_slices }
           end
         end
-        def csv_data # TODO extract to own class
-          @time_slices.to_csv.encode("WINDOWS-1252", :invalid => :replace, :undef => :replace, :replace => "?")
-        end
 
         def generate_encoded_csv time_slices # TODO extract to own class
-          time_slices.to_csv.encode("WINDOWS-1252", :invalid => :replace, :undef => :replace, :replace => "?")
+          time_slices.to_csv.encode("WINDOWS-1252", :crlf_newline => true, :invalid => :replace, :undef => :replace, :replace => "?")
         end
     end
   end

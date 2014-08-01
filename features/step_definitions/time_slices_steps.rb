@@ -64,7 +64,7 @@ end
 
 Then(/^downloaded the CSV should be valid with expected information$/) do
   page.driver.response.headers['Content-Type'].should include 'text/csv'
-  parsed_csv = CSV.parse(page.driver.response.body, options = {:col_sep => ';'})
+  parsed_csv = CSV.parse(page.driver.response.body)
   time_slice_data = parsed_csv[1]
 
   time_slice_data.should include @time_slice.day.iso8601
