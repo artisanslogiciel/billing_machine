@@ -196,14 +196,18 @@ Then(/^a message signal that the invoice is set to paid$/) do
   page.should have_selector '#info-message', text: "invoice successfully set to paid"
 end
 
-Then(/^the advance is "(.*?)"$/) do |value|
+Then(/^the advance is "(.*?)"€$/) do |value|
   page.should have_field('invoice-advance', with: value)
 end
 
 Then(/^the balance included is "(.*?)"$/) do |value|
-    page.should have_field('invoice-balance', with: value)
+  page.should have_selector '#invoice-balance', text: value
 end
 
-When(/^he changes the advance to "(.*?)"$/) do |value|
+When(/^he changes the advance to "(.*?)"€$/) do |value|
   fill_in 'invoice-advance', with: value
+end
+
+When(/^he goes to the newly created invoice page$/) do
+  visit "/invoices#/invoices/1"
 end

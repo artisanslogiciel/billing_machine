@@ -113,6 +113,14 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
       .col-sm-7
         .form-control-static.invoice-total-taxes ng-bind="invoice.total_all_taxes | euros"
     .form-group
+      label class='col-sm-5 control-label' Acompte:
+      .col-sm-2
+          input.form-control id="invoice-advance" ng-model="invoice.advance"
+    .form-group
+      label class='col-sm-5 control-label' Solde à payer
+      .col-sm-7
+        .form-control-static id="invoice-balance" ng-bind="calculate_balance() | euros"
+    .form-group
       label class='col-sm-5 control-label'
       .col-sm-7
         a.btn.btn-success#submit href="" ng-click="submit()" Sauvegarder
