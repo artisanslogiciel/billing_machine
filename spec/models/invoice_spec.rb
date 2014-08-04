@@ -101,18 +101,18 @@ describe Invoice do
     let(:id_card) { FactoryGirl.create(:id_card) }
     let(:customer) { FactoryGirl.create(:customer, name: "cutomerName", address1: "address1", address2: "address2",
       zip: "13005", city: "Marseille", country: "country") }
-    let(:columns_names) {'"Date","Numéro","Objet","Client","Adresse 1","Adresse 2","Code postal","Ville","Pays","Montant HT","Taux TVA","Montant TVA","Montant TTC","Acompte","Solde à payer"'+"\n"}
+    let(:columns_names) {'"Date";"Numéro";"Objet";"Client";"Adresse 1";"Adresse 2";"Code postal";"Ville";"Pays";"Montant HT";"Taux TVA";"Montant TVA";"Montant TTC";"Acompte";"Solde à payer"'+"\n"}
     it 'should return csv' do
       invoice0 = FactoryGirl.create(:invoice, label: "invoiceLabel", date: "2014-07-31", unique_index: 1, total_duty: 9.99, vat_rate: 19.6, vat: 23.2, total_all_taxes: 43.35, advance: 3.5, id_card: id_card, customer: customer)
-      invoice0.dup.update(label: "çé,à,ç,@", date: "2014-08-01", unique_index: 2, total_duty: 13.00, vat_rate: 20.0, vat: 23.0, total_all_taxes: 43.0, advance: 3.0)
+      invoice0.dup.update(label: 'çé"à;ç\";,@\\', date: "2014-08-01", unique_index: 2, total_duty: 13.00, vat_rate: 20.0, vat: 23.0, total_all_taxes: 43.0, advance: 3.0)
       csv_output = Invoice.to_csv
 
       csv_output.should be ==
         columns_names +
-        '"2014-07-31","1401","invoiceLabel","cutomerName","address1","address2",'\
-        '"13005","Marseille","country","9,99","19,6","23,2","43,35","3,5","39,85"' + "\n"\
-        '"2014-08-01","1402","çé,à,ç,@","cutomerName","address1","address2",'\
-        '"13005","Marseille","country","13,0","20,0","23,0","43,0","3,0","40,0"' + "\n"
+        '"2014-07-31";"1401";"invoiceLabel";"cutomerName";"address1";"address2";'\
+        '"13005";"Marseille";"country";"9,99";"19,6";"23,2";"43,35";"3,5";"39,85"' + "\n"\
+        '"2014-08-01";"1402";"çé""à;ç\"";,@\";"cutomerName";"address1";"address2";'\
+        '"13005";"Marseille";"country";"13,0";"20,0";"23,0";"43,0";"3,0";"40,0"' + "\n"
     end
     it 'should return expected csv with nil values' do
       invoice0 = FactoryGirl.create(:invoice, id_card: id_card, total_duty: nil,
@@ -122,7 +122,7 @@ describe Invoice do
 
       csv_output.should be ==
         columns_names +
-        '"","1","","","","","","","","","","","0,0","0,0","0,0"' + "\n"
+        '"";"1";"";"";"";"";"";"";"";"";"";"";"0,0";"0,0";"0,0"' + "\n"
     end
   end
 end
