@@ -9,7 +9,8 @@ namespace :db do
     FactoryGirl.create(:invoice, id_card: id_card, customer: Customer.first, payment_term: PaymentTerm.first)
     FactoryGirl.create(:invoice_line, invoice: Invoice.first)
     FactoryGirl.create(:invoice_line, invoice: Invoice.first, label: "truc")
-    FactoryGirl.create(:time_slice, user: User.first)
+    FactoryGirl.create(:project, entity: entity)
+    FactoryGirl.create(:time_slice, user: User.first, project: Project.first)
     puts "Now you can log in with #{User.first.email} with password: adminadmin"
   end
 end
