@@ -39,6 +39,25 @@ Feature: Invoice Management
     Then the invoices's label has changed
 
   @javascript
+  Scenario: New invoice with advance
+    Given an existing user
+    When the user goes to the invoices page
+    And he creates a new invoice
+    And he fills a new line with "Bidule", "1", "€", "100"
+    And he adds the new line
+    Then the total all taxes included is "120.00€"
+    And the advance is "0.00€"
+    And the balance included is "120.00€"
+    When he changes the advance to "30.00€"
+    Then the balance included is "90.00€"
+
+    When he saves the new invoice
+    Then a message signal the succes of the creation
+    When he reload the page
+    Then the advance is "0.00€"
+    Then the balance included is "90.00€"
+
+  @javascript
   Scenario: New invoice with default VAT rate
     Given an existing user
     When the user goes to the invoices page

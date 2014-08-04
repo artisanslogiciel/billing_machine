@@ -195,3 +195,15 @@ Then(/^a message signal that the invoice is set to paid$/) do
   find('#info-message').should be_visible
   page.should have_selector '#info-message', text: "invoice successfully set to paid"
 end
+
+Then(/^the advance is "(.*?)"$/) do |value|
+  page.should have_field('invoice-advance', with: value)
+end
+
+Then(/^the balance included is "(.*?)"$/) do |value|
+    page.should have_field('invoice-balance', with: value)
+end
+
+When(/^he changes the advance to "(.*?)"$/) do |value|
+  fill_in 'invoice-advance', with: value
+end
