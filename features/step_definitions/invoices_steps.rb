@@ -103,6 +103,8 @@ end
 
 When(/^he goes on the edit page of the invoice$/) do
   find(:xpath, "//a[@data-id='#{@invoice.id}']").click
+  # ensure invoice page is loaded
+  page.should have_content('Index unique')
 end
 
 When(/^changes the label$/) do
@@ -181,7 +183,6 @@ end
 
 
 Then(/^a message signal the succes of the update$/) do
-  pending
   find('#info-message').should be_visible
   page.should have_selector '#info-message', text: "Invoice successfully updated"
 end
