@@ -173,8 +173,7 @@ Then(/^the invoice paid status is marked unpaid$/) do
 end
 
 Then(/^the invoice status is set to unpaid$/) do
- pending
- Invoice.first.paid.should be_false
+  Invoice.first.paid.should be_false
 end
 
 Then(/^the invoice status is set to paid$/) do
