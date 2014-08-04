@@ -27,7 +27,6 @@ Then(/^he sees the customer's infos$/) do
   page.should have_selector '.customer-country', text: @customer.country
 end
 
-
 When(/^he fills a line with "(.*?)", "(.*?)", "(.*?)", "(.*?)"$/) do |arg1, arg2, arg3, arg4|
   fill_in 'new-line-label', with: arg1
   fill_in 'new-line-quantity', with: arg2
@@ -102,9 +101,11 @@ Given(/^an existing paid invoice$/) do
 end
 
 When(/^he goes on the edit page of the invoice$/) do
+  # ensure invoice list page is loaded
+  page.should have_selector('.edit-invoice')
   find(:xpath, "//a[@data-id='#{@invoice.id}']").click
   # ensure invoice page is loaded
-  page.should have_content('Index unique')
+  page.should have_field('invoice-label', with: @invoice.label)
 end
 
 When(/^changes the label$/) do
@@ -141,7 +142,6 @@ When(/^he finds and clicks on the download CSV export file$/) do
   page.should have_link('csv-export-button', :href=>"/api/v1/invoices.csv")
   click_link 'csv-export-button'
 end
-
 
 Then(/^he can set the invoice as paid$/) do
   page.should have_selector '.paid-invoice', text: 'Payée'
@@ -180,7 +180,6 @@ end
 Then(/^the invoice status is set to paid$/) do
   Invoice.first.paid.should be_true
 end
-
 
 Then(/^a message signal the succes of the update$/) do
   find('#info-message').should be_visible
