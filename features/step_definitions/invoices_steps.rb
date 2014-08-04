@@ -181,17 +181,17 @@ Then(/^the invoice status is set to paid$/) do
   Invoice.first.paid.should be_true
 end
 
-Then(/^a message signal the succes of the update$/) do
+Then(/^a message signals the success of the update$/) do
   find('#info-message').should be_visible
   page.should have_selector '#info-message', text: "Invoice successfully updated"
 end
 
-Then(/^a message signal the succes of the creation$/) do
+Then(/^a message signals the success of the creation$/) do
   find('#info-message').should be_visible
   page.should have_selector '#info-message', text: "Invoice successfully saved"
 end
 
-Then(/^a message signal that the invoice is set to paid$/) do
+Then(/^a message signals that the invoice is set to paid$/) do
   find('#info-message').should be_visible
   page.should have_selector '#info-message', text: "invoice successfully set to paid"
 end
