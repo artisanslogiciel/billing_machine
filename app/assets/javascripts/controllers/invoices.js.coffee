@@ -54,8 +54,8 @@
   $scope.info = document.getElementById('info-message')
   # begin of functions definition used by controller
   $scope.set_vat_rate_default_value = ->
-    VAT_RATE_DEFAUT_VALUE = 20
-    $scope.invoice.vat_rate = VAT_RATE_DEFAUT_VALUE
+    $scope.invoice.vat_rate = VAT_RATE_DEFAULT_VALUE = 20
+    $scope.invoice.advance = ADVANCE_DEFAULT_VALUE = 0
 
   $scope.set_invoice = ->
     if $routeParams.id?
@@ -107,6 +107,9 @@
     $scope.invoice.vat = $scope.invoice.total_duty * ($scope.invoice.vat_rate/100)
     $scope.invoice.total_all_taxes = $scope.invoice.total_duty + $scope.invoice.vat
     return $scope.invoice.vat
+
+  $scope.calculate_balance = ->
+    $scope.invoice.balance = $scope.invoice.total_all_taxes - $scope.invoice.advance
 
   $scope.edit_line = (invoice_line) ->
     invoice_line.quantity = parseFloat(invoice_line.quantity)
