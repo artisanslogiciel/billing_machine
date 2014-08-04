@@ -28,14 +28,14 @@ Feature: Invoice Management
     Then it's added to the invoice list
 
   @javascript
-  @exclude_from_ci
-  Scenario: Edit invoice # fails on CI, excluded meanwhile more investigation is done, issue #87
+  Scenario: Edit invoice
     Given an existing user
     And an existing invoice
     When the user goes to the invoices page
     And he goes on the edit page of the invoice
     And changes the label
     When he saves the invoice
+    Then a message signal the succes of the update
     Then the invoices's label has changed
 
   @javascript
