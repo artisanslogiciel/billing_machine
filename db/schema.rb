@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140725105320) do
+ActiveRecord::Schema.define(version: 20140805123451) do
 
   create_table "activities", force: true do |t|
     t.string   "label"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 20140725105320) do
     t.decimal  "vat_rate"
     t.boolean  "paid",            default: false
     t.integer  "id_card_id"
+    t.date     "due_date"
   end
 
   add_index "invoices", ["customer_id"], name: "index_invoices_on_customer_id"
