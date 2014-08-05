@@ -27,7 +27,6 @@ Then(/^he sees the customer's infos$/) do
   page.should have_selector '.customer-country', text: @customer.country
 end
 
-
 When(/^he fills a line with "(.*?)", "(.*?)", "(.*?)", "(.*?)"$/) do |arg1, arg2, arg3, arg4|
   fill_in 'new-line-label', with: arg1
   fill_in 'new-line-quantity', with: arg2
@@ -102,7 +101,11 @@ Given(/^an existing paid invoice$/) do
 end
 
 When(/^he goes on the edit page of the invoice$/) do
+  # ensure invoice list page is loaded
+  page.should have_selector('.edit-invoice')
   find(:xpath, "//a[@data-id='#{@invoice.id}']").click
+  # ensure invoice page is loaded
+  page.should have_field('invoice-label', with: @invoice.label)
 end
 
 When(/^changes the label$/) do
@@ -140,7 +143,6 @@ When(/^he finds and clicks on the download CSV export file$/) do
   click_link 'csv-export-button'
 end
 
-
 Then(/^he can set the invoice as paid$/) do
   page.should have_selector '.paid-invoice', text: 'Payée'
 end
@@ -171,27 +173,40 @@ Then(/^the invoice paid status is marked unpaid$/) do
 end
 
 Then(/^the invoice status is set to unpaid$/) do
- pending
- Invoice.first.paid.should be_false
+  Invoice.first.paid.should be_false
 end
 
 Then(/^the invoice status is set to paid$/) do
   Invoice.first.paid.should be_true
 end
 
-
-Then(/^a message signal the succes of the update$/) do
-  pending
+Then(/^a message signals the success of the update$/) do
   find('#info-message').should be_visible
   page.should have_selector '#info-message', text: "Invoice successfully updated"
 end
 
-Then(/^a message signal the succes of the creation$/) do
+Then(/^a message signals the success of the creation$/) do
   find('#info-message').should be_visible
   page.should have_selector '#info-message', text: "Invoice successfully saved"
 end
 
-Then(/^a message signal that the invoice is set to paid$/) do
+Then(/^a message signals that the invoice is set to paid$/) do
   find('#info-message').should be_visible
   page.should have_selector '#info-message', text: "invoice successfully set to paid"
+end
+
+Then(/^the advance is "(.*?)"€$/) do |value|
+  page.should have_field('invoice-advance', with: value)
+end
+
+Then(/^the balance included is "(.*?)"$/) do |value|
+  page.should have_selector '#invoice-balance', text: value
+end
+
+When(/^he changes the advance to "(.*?)"€$/) do |value|
+  fill_in 'invoice-advance', with: value
+end
+
+When(/^he goes to the newly created invoice page$/) do
+  visit "/invoices#/invoices/1"
 end
