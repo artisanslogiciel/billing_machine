@@ -7,3 +7,7 @@ end
 Then(/^the due date is still there$/) do
   page.should have_field('invoice-due-date', with: @due_date)
 end
+
+Then(/^the invoice paid status should be green$/) do
+  find("#paid")[:class].should include("green")
+end
