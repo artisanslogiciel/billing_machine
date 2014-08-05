@@ -14,5 +14,6 @@ Feature: Invoice due date Management
     And he goes on the edit page of the invoice
     And he sets a due date
     And he saves the invoice
+    Then a message signals the success of the update
     And he reload the page
     Then the due date is still there
