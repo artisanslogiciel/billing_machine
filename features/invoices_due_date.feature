@@ -17,3 +17,9 @@ Feature: Invoice due date Management
     Then a message signals the success of the update
     And he reload the page
     Then the due date is still there
+
+  @javascript
+  Scenario: Paid invoice green in list
+    Given an existing paid invoice
+    When the user goes to the invoices page
+    Then the invoice paid status should be green

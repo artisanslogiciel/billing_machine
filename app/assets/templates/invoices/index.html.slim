@@ -15,7 +15,7 @@
   .col-lg-2.col-xs-2.tracking-id ng-bind="invoice.tracking_id"
   .col-lg-3.col-xs-6.customer-name ng-bind="customerName(invoice.customer_id)"
   .col-lg-2.col-xs-2.total-duty ng-bind="invoice.total_duty | euros"
-  .col-lg-1.col-xs-2.paid id='paid'  ng-bind="invoice.paid"
+  .col-lg-1.col-xs-2.paid id='paid' ng-bind="invoice.paid" ng-class="{green: invoice.paid==true}"
   .col-lg-3.col-xs-12.actions
     a.btn.btn-sm.btn-success href="/invoices/{{invoice.id}}.pdf" target="_blank" Télécharger
     a.btn.btn-sm.btn-success.edit-invoice data-id='{{invoice.id}}' ng-click='navEditInvoice(invoice)' Editer
