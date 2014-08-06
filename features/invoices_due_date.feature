@@ -23,3 +23,9 @@ Feature: Invoice due date Management
     Given an existing paid invoice
     When the user goes to the invoices page
     Then the invoice paid status should be green
+
+  @javascript
+  Scenario: Unpaid invoice with due date just passed appears orange in list
+    Given an existing unpaid invoice with a due date yesterday
+    When the user goes to the invoices page
+    Then the invoice paid status should be orange
