@@ -25,7 +25,31 @@ Feature: Invoice due date Management
     Then the invoice paid status should be green
 
   @javascript
+  Scenario: Unpaid invoice with due date not passed have no color in list
+    Given an existing unpaid invoice with a due date not yet passed
+    When the user goes to the invoices page
+    Then the invoice paid status should not have a color
+
+  @javascript
+  Scenario: Unpaid invoice with due date the same day have no color in list
+    Given an existing unpaid invoice with a due date the same day
+    When the user goes to the invoices page
+    Then the invoice paid status should not have a color
+
+  @javascript
   Scenario: Unpaid invoice with due date just passed appears orange in list
     Given an existing unpaid invoice with a due date yesterday
     When the user goes to the invoices page
     Then the invoice paid status should be orange
+
+  @javascript
+  Scenario: Unpaid invoice with due date passed by 15 days appears orange in list
+    Given an existing unpaid invoice with a due date 15 days ago
+    When the user goes to the invoices page
+    Then the invoice paid status should be orange
+
+  @javascript
+  Scenario: Unpaid invoice with due date passed by 16 days appears red in list
+    Given an existing unpaid invoice with a due date 16 days ago
+    When the user goes to the invoices page
+    Then the invoice paid status should be red

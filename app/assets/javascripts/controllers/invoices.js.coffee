@@ -15,13 +15,43 @@
     invoice.paid = true
     invoice.$update(
       (response) ->
-        $scope.popSuccessMessage ('invoice successfully set to paid')
+        $scope.popSuccessMessage('invoice successfully set to paid')
       (error) ->
         invoice.errors = error.data
         console.log "An error occured"
         console.log error.data
     )
+# begin invoice color
+  $scope.colorIfPaidOrLate = (invoice)->
+    if invoice.paid
+      return "green"
+    difference = todayMinusDate(invoice.due_date)
+    if payment_very_late(difference)
+      return "red"
+    else if payment_late(difference)
+      return "orange"
 
+  payment_late = (difference)->
+    0 < difference < 16
+
+  payment_very_late = (difference)->
+    difference > 15
+
+  todayMinusDate = (dateString)->
+    date = new Date(dateString)
+    today = localeDateTime()
+    days = milesecondsToDays(today - date)
+    daysTruncated = Math.floor(days)
+
+  localeDateTime = ->
+    nowUtc = new Date()
+    offset = nowUtc.getTimezoneOffset()
+    return new Date(nowUtc.getTime() - offset*60000)
+
+  milesecondsToDays = (miliseconds)->
+    MILISECONDS_IN_A_DAY = 86400000
+    days = miliseconds / MILISECONDS_IN_A_DAY
+# end invoice color
   $scope.customerName = (id) ->
     customer = _.findWhere $scope.customers, {id: id}
     if customer
