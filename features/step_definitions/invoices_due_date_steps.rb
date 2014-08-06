@@ -13,19 +13,19 @@ Given(/^an existing unpaid invoice$/) do
                                 paid: false)
 end
 
-Given(/^it's due date is not yet passed$/) do
+Given(/^its due date is not yet passed$/) do
   @invoice.update(due_date: (Date.today + 1))
 end
 
-Given(/^it's due date is the same day$/) do
+Given(/^its due date is the same day$/) do
   @invoice.update(due_date: (Date.today))
 end
 
-Given(/^it's due date is yesterday$$/) do
+Given(/^its due date is yesterday$$/) do
   @invoice.update(due_date: (Date.today - 1))
 end
 
-Given(/^it's due date is (\d+) days ago$/) do |days|
+Given(/^its due date is (\d+) days ago$/) do |days|
   @invoice.update(due_date: (Date.today - days.to_i))
 end
 
