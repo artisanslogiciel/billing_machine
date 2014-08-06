@@ -11,3 +11,14 @@ end
 Then(/^the invoice paid status should be green$/) do
   find("#paid")[:class].should include("green")
 end
+
+Given(/^an existing unpaid invoice with a due date yesterday$/) do
+  @invoice = FactoryGirl.create(:invoice, id_card: @user.entity.current_id_card,
+                                paid: false,
+                                due_date: (Date.today - 1))
+end
+
+Then(/^the invoice paid status should be orange$/) do
+  ap @invoice
+  find("#paid")[:class].should include("orange")
+end
