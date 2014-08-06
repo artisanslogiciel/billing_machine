@@ -99,6 +99,8 @@
 
   $("input#invoice-date").mask("9999-99-99");
 
+  $("input#invoice-due-date").mask("9999-99-99");
+
   $scope.set_invoice()
 
   $scope.set_vat_rate_default_value()
