@@ -83,9 +83,9 @@ class AgilideeInvoice < Prawn::Document
       # Lignes de facturation
 
       @invoice.lines.each do |line|
-        table_matrix.push [line.label, french_number(line.unit_price, 2),
+        table_matrix.push [line.label, french_number(euros(line.unit_price), 2),
             french_number(line.quantity),
-            french_number(line.total, 2)]
+            french_number(euros(line.total), 2)]
       end
 
       # Synthèse
