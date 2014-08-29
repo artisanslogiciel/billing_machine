@@ -1,6 +1,6 @@
 Feature: Payment Terms Management
   As an administrator
-  I want to create payment term
+  I want to create payment terms
   In order to use them in the invoices module
 
   @javascript
@@ -19,7 +19,7 @@ Feature: Payment Terms Management
     When the administrator goes to the payment terms administration page
     Then he doesn't see the filter for entity
     When he goes to the new payment term page
-    Then he doesn't see the entity select field
+    Then he doesn't see the payment term's entity select field
 
   @javascript
   Scenario: Show only payment terms from same entity

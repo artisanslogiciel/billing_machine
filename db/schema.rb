@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140716143936) do
+ActiveRecord::Schema.define(version: 20140725105320) do
 
   create_table "activities", force: true do |t|
     t.string   "label"
@@ -46,9 +46,51 @@ ActiveRecord::Schema.define(version: 20140716143936) do
     t.boolean  "billing_machine",      default: false
     t.boolean  "time_machine",         default: false
     t.string   "customization_prefix"
+    t.integer  "current_id_card_id"
   end
 
   add_index "entities", ["id", "unique_index"], name: "index_entities_on_id_and_unique_index", unique: true
+
+  create_table "id_cards", force: true do |t|
+    t.string   "entity_name"
+    t.string   "siret"
+    t.string   "legal_form"
+    t.integer  "capital"
+    t.string   "registration_number"
+    t.string   "intracommunity_vat"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "zip"
+    t.string   "city"
+    t.string   "phone"
+    t.string   "contact_full_name"
+    t.string   "contact_phone"
+    t.string   "contact_address_1"
+    t.string   "contact_address_2"
+    t.string   "contact_zip"
+    t.string   "contact_city"
+    t.string   "iban"
+    t.string   "bic_swift"
+    t.string   "bank_name"
+    t.string   "bank_address"
+    t.string   "ape_naf"
+    t.text     "custom_info_1",       limit: 511
+    t.text     "custom_info_2",       limit: 511
+    t.text     "custom_info_3",       limit: 511
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "entity_id"
+    t.string   "contact_fax"
+    t.string   "contact_email"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.string   "id_card_name"
+    t.string   "registration_city"
+  end
+
+  add_index "id_cards", ["entity_id"], name: "index_id_cards_on_entity_id"
 
   create_table "invoice_lines", force: true do |t|
     t.string   "label"
@@ -73,16 +115,16 @@ ActiveRecord::Schema.define(version: 20140716143936) do
     t.decimal  "total_all_taxes"
     t.decimal  "advance"
     t.decimal  "balance"
-    t.integer  "entity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "unique_index"
     t.decimal  "vat_rate"
     t.boolean  "paid",            default: false
+    t.integer  "id_card_id"
   end
 
   add_index "invoices", ["customer_id"], name: "index_invoices_on_customer_id"
-  add_index "invoices", ["entity_id"], name: "index_invoices_on_entity_id"
+  add_index "invoices", ["id_card_id"], name: "index_invoices_on_id_card_id"
 
   create_table "payment_terms", force: true do |t|
     t.string   "label"

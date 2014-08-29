@@ -7,10 +7,11 @@ describe "Abilities" do
   subject{ ability }
 
   describe '#invoices' do
+    let(:id_card) { FactoryGirl.create(:id_card, entity: user.entity) }
     context 'when user cannot access it' do
       let(:user) {FactoryGirl.create(:user, billing_machine: false)}
       it 'should only provide access if billing machine is active' do
-        invoice = FactoryGirl.create(:invoice, entity: user.entity)
+        invoice = FactoryGirl.create(:invoice, id_card: id_card)
         ability.should_not be_able_to(:read, invoice)
         ability.should_not be_able_to(:write, invoice)
         ability.should_not be_able_to(:read, Invoice)
@@ -21,7 +22,7 @@ describe "Abilities" do
       let(:entity) {FactoryGirl.create(:entity, billing_machine: false)}
       let(:user) {FactoryGirl.create(:user, billing_machine: true, entity: entity)}
       it 'should only provide access if billing machine is active' do
-        invoice = FactoryGirl.create(:invoice, entity: user.entity)
+        invoice = FactoryGirl.create(:invoice, id_card: id_card)
         ability.should_not be_able_to(:read, invoice)
         ability.should_not be_able_to(:write, invoice)
         ability.should_not be_able_to(:read, Invoice)

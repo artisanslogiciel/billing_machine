@@ -14,37 +14,26 @@ class AgilideeInvoice < Prawn::Document
   def initialize(invoice)
     super(:page_size => 'A4')
     @invoice = invoice
-  end
-
-  def draw_bounds_debug
-    transparent(0.5) {stroke_bounds} if DEBUG
-  end
-
-  def write_legal_line text
-    text text, :align => :right, :color => GREY
-  end
-
-  def invoice_french_date
-    date = @invoice.date
-    french_month = FRENCH_MONTH_NAMES[date.month]
-    return date.day.to_s + ' ' + french_month + ' ' + date.year.to_s
+    @id_card = invoice.id_card
   end
 
   def build
-    image Rails.root + 'app/pdfs/agilidee_logo.png', at: [55, 735], :width => 150
+    if @invoice.id_card.logo.exists?
+      image @invoice.id_card.logo.path , at: [55, 735], :width => 150
+    end
 
     # Mentions légales - Coin supérieur droit
     bounding_box [235, 735], :width => 235, :height => 75 do
       draw_bounds_debug
       font_size 8
-      write_legal_line 'SIRET 522 162 379 00013 APE 6202A'
-      write_legal_line 'SARL au capital de 10.000 euros'
-      write_legal_line 'RCS MARSEILLE 522 162 379'
+      write_legal_line 'SIRET ' + @id_card.siret + ' APE ' + @id_card.ape_naf
+      write_legal_line @id_card.legal_form + ' au capital de ' + number_with_delimiter(@id_card.capital, :delimiter => '.') + ' euros'
+      write_legal_line @id_card.registration_city + ' ' + @id_card.registration_number
       move_down 5
-      write_legal_line 'N° TVA FR 05 522 162 379 000 13'
+      write_legal_line 'N° TVA ' + @id_card.intracommunity_vat
       move_down 15
-      write_legal_line '46 Avenue des Chartreux'
-      write_legal_line '13004 Marseille'
+      write_legal_line @id_card.address1
+      write_legal_line @id_card.zip + " " + @id_card.city
     end
 
     # Entete de facturation
@@ -55,17 +44,17 @@ class AgilideeInvoice < Prawn::Document
         :inline_format => true,
         :align => :right
       font_size 11.5
-      text 'Marseille le ' + invoice_french_date, :align => :right
+      text @id_card.city + ' le ' + french_date(@invoice.date), :align => :right
     end
 
     # Informations de contact
     bounding_box [50, 585], :width => 235, :height => 50 do
       draw_bounds_debug
       font_size 10
-      text '<b>Contact :</b> Benoit Gantaume', :inline_format => true
-      text '<b>Tél :</b> +33.6.76.31.22.91', :inline_format => true
-      text '<b>Fax:</b> +33.9.72.14.07.28', :inline_format => true
-      text '<b>Email:</b> benoit.gantaume@agilidee.com', :inline_format => true
+      text '<b>Contact :</b> ' + @id_card.contact_full_name, :inline_format => true
+      text '<b>Tél :</b> ' + @id_card.contact_phone, :inline_format => true
+      text '<b>Fax:</b> ' + @id_card.contact_fax, :inline_format => true
+      text '<b>Email:</b> ' + @id_card.contact_email, :inline_format => true
     end
 
     # Informations client
@@ -116,18 +105,15 @@ class AgilideeInvoice < Prawn::Document
 
       move_down 10
       text 'Coordonnées bancaires :'
-      text 'IBAN : ***REMOVED***'
-      text 'BIC / SWIFT : ***REMOVED***'
+      text 'IBAN : ' + @id_card.iban
+      text 'BIC / SWIFT : ' + @id_card.bic_swift
     end # Tableau
 
     # Mentions légales - Bas de page
     bounding_box [50, 37], :width => 425 do
       font "Times-Roman"
       font_size 8.5
-      text 'Mention légale', :color => GREY
-      text 'Tout retard de règlement donnera lieu de plein droit et sans qu’aucune mise en demeure ne soit nécessaire au paiement de ' +
-        'pénalités de retard sur la base du taux BCE majoré de dix (10) points et au paiement d’une indemnité forfaitaire pour frais de ' +
-        'recouvrement d’un montant de 40€', :color => GREY
+      text @id_card.custom_info_1, :color => GREY
     end
   end
 
@@ -141,6 +127,20 @@ class AgilideeInvoice < Prawn::Document
       invoice_lines_range = Range.new(1,(matrix.length - 6))
       row(invoice_lines_range).style :size => 9
     end
+  end
+
+  def draw_bounds_debug
+    transparent(0.5) { stroke_bounds } if DEBUG
+  end
+
+  def write_legal_line text
+    text text, :align => :right, :color => GREY
+  end
+
+  def french_date date
+    date
+    french_month = FRENCH_MONTH_NAMES[date.month]
+    return date.day.to_s + ' ' + french_month + ' ' + date.year.to_s
   end
 
   def euros amount

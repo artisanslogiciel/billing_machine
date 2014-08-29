@@ -11,9 +11,31 @@ describe AgilideeInvoice, pdfs: true do
 
   let(:customer) { FactoryGirl.create(:customer, city: 'Mickey City',
     address2: 'address2 value', country: 'Hong Kong') }
+
+  let(:id_card) { FactoryGirl.create(:id_card,
+    registration_city: 'RCS MARSEILLE',
+    registration_number: '000 000 000',
+    siret: '000 000 000 00000',
+    ape_naf: '0000A',
+    legal_form: 'SARL',
+    capital: 1_000_000_000,
+    intracommunity_vat: 'FR 00 000 000 000 000 00',
+    address1: '42 Avenue de Ruby', zip: '13004',
+    city: 'Marseille',
+    contact_full_name: 'Jane Doe',
+    contact_phone: '+33.6.00.00.00.00',
+    contact_fax: '+33.9.00.00.00.00',
+    contact_email: 'email@example.org',
+    iban: 'FR76 0000 0000 0000 0000 0000 000',
+    bic_swift: 'PSSTTHEGAME',
+    custom_info_1: "Mention légale" + "\n" + "Tout retard de règlement donnera lieu de plein droit et sans qu’aucune mise en demeure ne soit nécessaire au paiement de " +
+        'pénalités de retard sur la base du taux BCE majoré de dix (10) points et au paiement d’une indemnité forfaitaire pour frais de ' +
+        'recouvrement d’un montant de 999999€'
+    ) }
+
   let(:invoice) { FactoryGirl.create(:invoice, total_duty: 1000, vat: 196,
     total_all_taxes: 1196, advance: 50, balance: 1146 , customer: customer,
-    date: '2014-04-16', vat_rate: 19.6)}
+    date: '2014-04-16', vat_rate: 19.6, id_card: id_card)}
 
   let(:invoice_line) { FactoryGirl.create(:invoice_line,
     invoice_id: invoice.id,
@@ -48,11 +70,11 @@ describe AgilideeInvoice, pdfs: true do
       pdf.build
     end
     context 'in Mentions légales - Coin supérieur droit' do
-      it_should_write 'SIRET 522 162 379 00013 APE 6202A'
-      it_should_write 'SARL au capital de 10.000 euros'
-      it_should_write 'RCS MARSEILLE 522 162 379'
-      it_should_write 'N° TVA FR 05 522 162 379 000 13'
-      it_should_write '46 Avenue des Chartreux'
+      it_should_write 'SIRET 000 000 000 00000 APE 0000A'
+      it_should_write 'SARL au capital de 1.000.000.000 euros'
+      it_should_write 'RCS MARSEILLE 000 000 000'
+      it_should_write 'N° TVA FR 00 000 000 000 000 00'
+      it_should_write '42 Avenue de Ruby'
       it_should_write '13004 Marseille'
     end
 
@@ -69,13 +91,13 @@ describe AgilideeInvoice, pdfs: true do
 
       context 'in Informations contact AGILiDEE' do
         it_should_write 'Contact :'
-        it_should_write ' Benoit Gantaume'
+        it_should_write ' Jane Doe'
         it_should_write 'Tél :'
-        it_should_write ' +33.6.76.31.22.91'
+        it_should_write ' +33.6.00.00.00.00'
         it_should_write 'Fax:'
-        it_should_write ' +33.9.72.14.07.28'
+        it_should_write ' +33.9.00.00.00.00'
         it_should_write 'Email:'
-        it_should_write ' benoit.gantaume@agilidee.com'
+        it_should_write ' email@example.org'
       end
 
       context 'in Informations client' do
@@ -158,7 +180,7 @@ describe AgilideeInvoice, pdfs: true do
           before(:each) do
             invoice_incomplete=FactoryGirl.create(:invoice, total_duty: 1000, vat: 196,
               total_all_taxes: 1196, advance: 0, balance: 1146 , customer: customer,
-              date: '2014-04-16', vat_rate: 19.6)
+              date: '2014-04-16', vat_rate: 19.6, id_card: id_card)
             pdf_incomplete=FactoryGirl.build(:agilidee_invoice, invoice: invoice_incomplete)
             pdf_incomplete.build
             @text_incomplete = PDF::Inspector::Text.analyze(pdf_incomplete.render)
@@ -182,15 +204,14 @@ describe AgilideeInvoice, pdfs: true do
     end
 
     it_should_write 'Coordonnées bancaires :'
-    it_should_write 'IBAN : ***REMOVED***'
-    it_should_write 'BIC / SWIFT : ***REMOVED***'
+    it_should_write 'IBAN : FR76 0000 0000 0000 0000 0000 000'
+    it_should_write 'BIC / SWIFT : PSSTTHEGAME'
 
     context 'in Mentions légales - Bas de page' do
       it_should_write 'Mention légale'
       it_should_write 'Tout retard de règlement donnera lieu de plein droit et sans qu’aucune mise en demeure ne soit nécessaire au paiement de'
       it_should_write 'pénalités de retard sur la base du taux BCE majoré de dix (10) points et au paiement d’une indemnité forfaitaire pour frais de'
-      it_should_write 'recouvrement d’un montant de 40€'
+      it_should_write 'recouvrement d’un montant de 999999€'
     end
-
   end # describe #build
 end

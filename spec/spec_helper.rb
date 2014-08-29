@@ -2,6 +2,7 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
+require "paperclip/matchers"
 # require 'rspec/autorun'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -41,6 +42,8 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.include Requests::JsonHelpers, type: :request
+
+  config.include Paperclip::Shoulda::Matchers
 end
 
 I18n.enforce_available_locales = false

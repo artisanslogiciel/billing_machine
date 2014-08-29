@@ -21,13 +21,13 @@ module Api
 
       context 'when authenticated' do
         let(:user) {FactoryGirl.create :user }
-        let(:invoice) { FactoryGirl.create(:invoice, entity: user.entity) }
+        let!(:id_card) { FactoryGirl.create(:id_card, entity: user.entity) }
+        let(:invoice) { FactoryGirl.create(:invoice, id_card: id_card) }
         let(:another_invoice) { FactoryGirl.create(:invoice) }
 
         before(:each) do
           sign_in user
         end
-
 
         describe '#index' do
           it 'should grant access' do
@@ -44,7 +44,6 @@ module Api
           end
 
           it 'should return invoices in JSON of the current user.entity' do
-            invoice = FactoryGirl.create(:invoice, entity: user.entity)
             invoice_from_other_entity = FactoryGirl.create(:invoice)
             get :index, format: :json
             assigns(:invoices).should eq([invoice])
@@ -56,7 +55,6 @@ module Api
           end
 
           it 'should return invoices in CSV of the current user.entity' do
-            invoice = FactoryGirl.create(:invoice, entity: user.entity)
             another_invoice = FactoryGirl.create(:invoice)
             get :index, format: :csv
             assigns(:invoices).should eq([invoice])
@@ -70,7 +68,7 @@ module Api
           end
           it 'should assign entity_id' do
             post :create, format: :json, invoice: FactoryGirl.attributes_for(:invoice)
-            assigns(:invoice).entity_id.should eq(user.entity_id)
+            assigns(:invoice).entity.should eq(user.entity)
           end
           it 'should return an error code when it cannot save the entity' do
             Invoice.any_instance.stub(:save).and_return false

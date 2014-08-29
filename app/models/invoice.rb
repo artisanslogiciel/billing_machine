@@ -3,10 +3,11 @@ class Invoice < ActiveRecord::Base
   extend ActionView::Helpers::NumberHelper
   belongs_to :customer
   belongs_to :payment_term
-  belongs_to :entity, inverse_of: :invoices
+  belongs_to :id_card, inverse_of: :invoices , dependent: :destroy
+  delegate :entity, to: :id_card
   has_many :lines,  inverse_of: :invoice, dependent: :destroy, class_name: 'InvoiceLine'
   accepts_nested_attributes_for :lines, allow_destroy: true
-  validates_presence_of :entity
+  validates_presence_of :id_card
   before_create :assign_unique_index
 
   before_save :update_balance

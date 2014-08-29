@@ -7,6 +7,7 @@ describe User do
   it {should belong_to :entity}
   it {should have_many :time_slices}
   it {should have_many :payment_terms}
+  it {should have_many :id_cards}
   it {should have_many :customers}
 
   it 'should not be manager by default' do
