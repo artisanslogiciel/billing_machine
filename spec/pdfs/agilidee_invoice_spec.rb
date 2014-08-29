@@ -144,8 +144,8 @@ describe AgilideeInvoice, pdfs: true do
         end
 
         it 'should write invoice line unit_price of each line' do
-          text.strings.should include '2,00'
-          text.strings.should include '400,00'
+          text.strings.should include '2,00 €'
+          text.strings.should include '400,00 €'
         end
 
         it 'should write invoice quantity of each line' do
@@ -154,8 +154,8 @@ describe AgilideeInvoice, pdfs: true do
         end
 
         it 'should write invoice line total of each line' do
-          text.strings.should include '10,99'
-          text.strings.should include '1600,00'
+          text.strings.should include '10,99 €'
+          text.strings.should include '1600,00 €'
         end
       end # context in Lignes de facturation
 
