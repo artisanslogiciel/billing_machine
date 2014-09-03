@@ -22,12 +22,12 @@ production:
   adapter: postgresql
   encoding: unicode
   # allow custom DB name but use default if not found in ENV
-  database: <%= ENV['DB_NAME'] || 'backbone_production' %>
+  database: <%= ENV['POSTGRESQL_DB'] || 'backbone_production' %>
   # allow custom username but use default if not found in ENV
-  username: <%= ENV['DB_USERNAME'] || 'backbone_production' %>
-  password: <%= ENV['DB_PASSWORD'] %> # no default, this would be too risky
+  username: <%= ENV['POSTGRESQL_USER'] || 'backbone_production' %>
+  password: <%= ENV['POSTGRESQL_PASSWORD'] %> # no default, this would be too risky
   # allow custom host but use default if not found in ENV
-  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  host: <%= ENV['POSTGRESQL_HOST'] || 'localhost' %>
   pool: 5
   timeout: 5000
 
@@ -35,12 +35,12 @@ staging:
   adapter: postgresql
   encoding: unicode
   # allow custom DB name but use default if not found in ENV
-  database: <%= ENV['DB_NAME'] || 'backbone_staging' %>
+  database: <%= ENV['POSTGRESQL_DB'] || 'backbone_staging' %>
   # allow custom username but use default if not found in ENV
-  username: <%= ENV['DB_USERNAME'] || 'backbone_staging' %>
-  password: <%= ENV['DB_PASSWORD'] %> # no default, this would be too risky
+  username: <%= ENV['POSTGRESQL_USER'] || 'backbone_staging' %>
+  password: <%= ENV['POSTGRESQL_PASSWORD'] %> # no default, this would be too risky
   # allow custom host but use default if not found in ENV
-  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  host: <%= ENV['POSTGRESQL_HOST'] || 'localhost' %>
   pool: 5
   timeout: 5000
 
