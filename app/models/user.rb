@@ -6,5 +6,6 @@ class User < ActiveRecord::Base
   belongs_to :entity
   has_many :time_slices, inverse_of: :user
   has_many :payment_terms, through: :entity
+  has_many :id_cards, through: :entity
   has_many :customers, through: :entity
 end

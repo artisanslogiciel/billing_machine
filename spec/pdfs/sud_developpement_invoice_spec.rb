@@ -10,8 +10,38 @@ describe SudDeveloppementInvoice, pdfs: true do
   end
 
   let(:customer) { FactoryGirl.create(:customer, city: 'Mickey City', address2: 'address2 value') }
-  let(:invoice) { FactoryGirl.create(:invoice, total_duty: 54.36, vat: 10.65,
-    total_all_taxes: 65.01, advance: 1.34, customer: customer, vat_rate: 19.6) }
+
+  let(:id_card) { FactoryGirl.create(:id_card,
+    contact_phone: '+33 (0)6 00 00 00 00',
+    contact_email: 'email@example.org',
+    contact_address_1: 'BP00',
+    contact_zip: '83000',
+    contact_city: 'Some City',
+    address1: '42 Avenue de Ruby',
+    zip: '83100',
+    city: 'Some Long City Name',
+    legal_form: 'SA',
+    capital: 100_000,
+    registration_city: "RCS à NICE",
+    registration_number: 'A 000 000 000',
+    siret: '000 000 000 00000',
+    bank_name: 'BANK NAME',
+    iban: 'FR76 0000 0000 0000 0000 0000 000',
+    bic_swift: 'PSSTTHEGAME',
+    bank_address: 'Office City (Some Zip)',
+    custom_info_1: 'The Company INSERT THE NAME' + "\n" + 'declares bla bla bla bla bla bla' + "\n" + 'bla bla bla bla bla bla bla bla bla',
+    custom_info_2: 'Carte Professionnelle Transactions N°0000 Préfecture TOULON Var (83)',
+    custom_info_3: 'RC PRO Blablablabla N° 000 000 000 000'
+  ) }
+
+  let(:invoice) { FactoryGirl.create(:invoice,
+      id_card: id_card,
+      customer: customer,
+      total_duty: 54.36,
+      vat: 10.65,
+      total_all_taxes: 65.01,
+      advance: 1.34,
+      vat_rate: 19.6) }
 
   let(:invoice_line) { FactoryGirl.create(:invoice_line,
     invoice_id: invoice.id,
@@ -52,45 +82,43 @@ describe SudDeveloppementInvoice, pdfs: true do
 
     context 'in Mentions légales - Colonne de gauche' do
       it_should_write 'Téléphone'
-      it_should_write '+33 (0)6 62 15 80 90'
+      it_should_write '+33 (0)6 00 00 00 00'
       it_should_write 'mail à'
-      it_should_write 'jogallien@sud-d.com'
+      it_should_write 'email@example.org'
       it_should_write 'Courrier à'
-      it_should_write 'BP17'
+      it_should_write 'BP00'
+      it_should_write '83000'
+      it_should_write 'Some City'
 
-      # WARNING there are 2 occurrences of 83270 so this test is incomplete
-      it_should_write '83270'
-
-      it_should_write 'ST-CYR SUR MER'
-      it_should_write 'SARL au capital de'
-      it_should_write '1 000 euros'
-      it_should_write 'RCS à TOULON'
-      it_should_write 'B 753 162 213'
+      it_should_write 'SA au capital de'
+      it_should_write '100 000 euros'
+      it_should_write 'RCS à NICE'
+      it_should_write 'A 000 000 000'
       it_should_write 'SIRET'
-      it_should_write '753 162 213 00015'
+      it_should_write '000 000 000 00000'
       it_should_write 'APE/NAF 6831Z'
       it_should_write 'Carte Professionnelle'
-      it_should_write 'Transactions N°5956'
+      it_should_write 'Transactions N°0000'
       it_should_write 'Préfecture TOULON'
       it_should_write 'Var (83)'
-      it_should_write 'RC PRO Groupama'
-      it_should_write 'N° 500 407 450 001'
+      it_should_write 'RC PRO Blablablabla'
+      it_should_write 'N° 000 000 000 000'
       it_should_write 'Siège Social à'
-      it_should_write 'Ch. du Collet-Redon'
-      it_should_write '83270'
+      it_should_write '42 Avenue de Ruby'
+      it_should_write '83100'
 
       # SAINT CYR SUR MER is written on two lines and needs two assertions
       it "should write 'SAINT CYR SUR MER'" do
-        text.strings.should include 'SAINT CYR SUR'
-        text.strings.should include 'MER'
+        text.strings.should include 'Some Long City'
+        text.strings.should include 'Name'
       end
 
     end # context in Mentions légales - Colonne de gauche
 
-    context 'in Déclaration' do
-      it_should_write 'La société SUD-DÉVELOPPEMENT'
-      it_should_write 'déclare ne recevoir ni ne détenir'
-      it_should_write 'aucun fonds, effets ou valeurs'
+    context 'in Déclaration' do # written on 3 lines and needs 3 assertions
+      it_should_write 'The Company INSERT THE NAME'
+      it_should_write 'declares bla bla bla bla bla bla'
+      it_should_write 'bla bla bla bla bla bla bla bla bla'
     end
 
     context 'in Informations client' do
@@ -186,10 +214,10 @@ describe SudDeveloppementInvoice, pdfs: true do
         text.strings.should include invoice.payment_term.label
       end
 
-      it_should_write 'Banque : BNP PARIBAS'
-      it_should_write 'Agence de : SAINT CYR SUR MER (83270)'
-      it_should_write 'IBAN : ***REMOVED***'
-      it_should_write 'BIC : ***REMOVED***'
+      it_should_write 'Banque : BANK NAME'
+      it_should_write 'Agence de : Office City (Some Zip)'
+      it_should_write 'IBAN : FR76 0000 0000 0000 0000 0000 000'
+      it_should_write 'BIC : PSSTTHEGAME'
     end # context in Lignes de facturation and Synthèse
 
     context 'in Pied de page' do

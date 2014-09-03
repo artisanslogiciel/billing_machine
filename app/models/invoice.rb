@@ -1,12 +1,12 @@
 # encoding: utf-8
 class Invoice < ActiveRecord::Base
-  extend ActionView::Helpers::NumberHelper
   belongs_to :customer
   belongs_to :payment_term
-  belongs_to :entity, inverse_of: :invoices
+  belongs_to :id_card, inverse_of: :invoices , dependent: :destroy
+  delegate :entity, to: :id_card
   has_many :lines,  inverse_of: :invoice, dependent: :destroy, class_name: 'InvoiceLine'
   accepts_nested_attributes_for :lines, allow_destroy: true
-  validates_presence_of :entity
+  validates_presence_of :id_card
   before_create :assign_unique_index
 
   before_save :update_balance
@@ -37,7 +37,7 @@ class Invoice < ActiveRecord::Base
     return pdf
   end
 
-  def self.to_csv(options = {:col_sep => ';', :force_quotes => true})
+  def self.to_csv(options = { :force_quotes => true, :col_sep => ";" })
     CSV.generate(options) do |csv|
       column_names = ["Date", "Numéro", "Objet", "Client", "Adresse 1", "Adresse 2",
         "Code postal", "Ville", "Pays", "Montant HT", "Taux TVA", "Montant TVA",
@@ -63,6 +63,7 @@ class Invoice < ActiveRecord::Base
     end
   end
   def self.french_number amount
+     extend ActionView::Helpers::NumberHelper
      number_with_delimiter(amount, :delimiter => '', :separator => ",")
   end
 end

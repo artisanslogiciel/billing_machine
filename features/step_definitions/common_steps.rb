@@ -4,6 +4,7 @@ end
 
 Given(/^an existing entity$/) do
   @entity = FactoryGirl.create(:entity, name: "My entity")
+  FactoryGirl.create(:id_card, entity: @entity)
 end
 
 Given(/^an existing user$/) do
@@ -22,4 +23,8 @@ end
 
 When(/^the (user|administrator) is on the home page$/) do |arg1|
   visit '/'
+end
+
+When(/^he reload the page$/) do
+  reload_the_page
 end

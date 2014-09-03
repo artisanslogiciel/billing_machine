@@ -49,9 +49,13 @@ module Api
           user = current_user
           @time_slices = user.time_slices.order(day: :desc, updated_at: :desc)
           respond_to do |format|
-            format.csv { send_data @time_slices.to_csv, type: "text/csv"}
+            format.csv { send_data generate_encoded_csv(@time_slices), type: "text/csv" }
             format.json  { respond_with @time_slices }
           end
+        end
+
+        def generate_encoded_csv time_slices # TODO extract to own class
+          time_slices.to_csv.encode("WINDOWS-1252", :crlf_newline => true, :invalid => :replace, :undef => :replace, :replace => "?")
         end
     end
   end

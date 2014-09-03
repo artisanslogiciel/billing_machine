@@ -4,13 +4,15 @@
   border-top: 1px solid #dddddd;
   margin-left: 0px;
   margin-right: 0px;
+  text-align: center;
 }
 .row:nth-child(odd) {background: #FFF}
 .row:nth-child(even) {background: #f9f9f9}
 .row.header {
   font-weight: bold;
   border-bottom: 1px solid #dddddd;
-  border-top: 0px
+  border-top: 0px;
+  text-align: center;
 }
 .head {
   margin-bottom: 30px;
@@ -56,6 +58,15 @@
     a.btn {
       margin-right: 10px;
     }
+  }
+  &.paid {
+    background-color: #C8FFC8;
+  }
+  &.late {
+    background-color: #F5E5C6;
+  }
+  &.onalert {
+    background-color: #FFC8C8;
   }
 }
 

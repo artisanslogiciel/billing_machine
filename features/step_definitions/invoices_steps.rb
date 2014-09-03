@@ -27,7 +27,6 @@ Then(/^he sees the customer's infos$/) do
   page.should have_selector '.customer-country', text: @customer.country
 end
 
-
 When(/^he fills a line with "(.*?)", "(.*?)", "(.*?)", "(.*?)"$/) do |arg1, arg2, arg3, arg4|
   fill_in 'new-line-label', with: arg1
   fill_in 'new-line-quantity', with: arg2
@@ -90,19 +89,23 @@ Then(/^it's added to the invoice list$/) do
 end
 
 Given(/^an existing invoice$/) do
-  @invoice = FactoryGirl.create(:invoice, entity: @user.entity)
+  @invoice = FactoryGirl.create(:invoice, id_card: @user.entity.current_id_card, customer: @customer)
 end
 
 Given(/^an existing invoice with a "(.*?)"% VAT rate$/) do |rate|
-  @invoice = FactoryGirl.create(:invoice, entity: @user.entity, vat_rate: rate)
+  @invoice = FactoryGirl.create(:invoice, id_card: @user.entity.current_id_card, vat_rate: rate)
 end
 
 Given(/^an existing paid invoice$/) do
-  @invoice = FactoryGirl.create(:invoice, entity: @user.entity, paid: true)
+  @invoice = FactoryGirl.create(:invoice, id_card: @user.entity.current_id_card, paid: true)
 end
 
 When(/^he goes on the edit page of the invoice$/) do
+  # ensure invoice list page is loaded
+  page.should have_selector('.edit-invoice')
   find(:xpath, "//a[@data-id='#{@invoice.id}']").click
+  # ensure invoice page is loaded
+  page.should have_field('invoice-label', with: @invoice.label)
 end
 
 When(/^changes the label$/) do
@@ -140,7 +143,6 @@ When(/^he finds and clicks on the download CSV export file$/) do
   click_link 'csv-export-button'
 end
 
-
 Then(/^he can set the invoice as paid$/) do
   page.should have_selector '.paid-invoice', text: 'Payée'
 end
@@ -149,8 +151,8 @@ When(/^he set the invoice as paid$/) do
   find('.paid-invoice').click
 end
 
-Then(/^the invoice paid status is marked paid$/) do
-  page.should have_selector '#paid', text: 'true'
+Then(/^the invoice is marked paid$/) do
+  page.should have_selector '.paid'
 end
 
 Then(/^can't set the invoice as paid again$/) do
@@ -165,33 +167,72 @@ When(/^he marks the invoice as unpaid$/) do
   uncheck "invoice-paid"
 end
 
-Then(/^the invoice paid status is marked unpaid$/) do
-  page.should have_selector '#paid', text: 'false'
-  Invoice.first.paid.should be_false
+Then(/^the invoice is marked unpaid$/) do
+  page.should_not have_selector '.paid'
 end
 
 Then(/^the invoice status is set to unpaid$/) do
- pending
- Invoice.first.paid.should be_false
+  Invoice.first.paid.should be_false
 end
 
 Then(/^the invoice status is set to paid$/) do
   Invoice.first.paid.should be_true
 end
 
-
-Then(/^a message signal the succes of the update$/) do
-  pending
+Then(/^a message signals the success of the update$/) do
   find('#info-message').should be_visible
   page.should have_selector '#info-message', text: "Invoice successfully updated"
 end
 
-Then(/^a message signal the succes of the creation$/) do
+Then(/^a message signals the success of the creation$/) do
   find('#info-message').should be_visible
   page.should have_selector '#info-message', text: "Invoice successfully saved"
 end
 
-Then(/^a message signal that the invoice is set to paid$/) do
+Then(/^a message signals that the invoice is set to paid$/) do
   find('#info-message').should be_visible
   page.should have_selector '#info-message', text: "invoice successfully set to paid"
 end
+
+Then(/^the advance is "(.*?)"€$/) do |value|
+  page.should have_field('invoice-advance', with: value)
+end
+
+Then(/^the balance included is "(.*?)"$/) do |value|
+  page.should have_selector '#invoice-balance', text: value
+end
+
+When(/^he changes the advance to "(.*?)"€$/) do |value|
+  fill_in 'invoice-advance', with: value
+end
+
+When(/^he goes to the newly created invoice page$/) do
+  visit "/invoices#/invoices/1"
+end
+
+Then(/^the invoice line shows the right date$/) do
+page.should have_selector '.date' , text: @invoice.date
+end
+
+Then(/^the invoice line shows the right traking-id$/) do
+ page.should have_selector '.tracking-id' , text: @invoice.tracking_id
+end
+
+Then(/^the invoice line shows the right total-duty value$/) do
+  page.should have_selector '.total-duty' , text: @invoice.total_duty
+end
+
+Then(/^the invoice line shows the right vat value$/) do
+  page.should have_selector '.vat' , text: @invoice.vat
+end
+
+Then(/^the invoice line shows the right all taxes value$/) do
+  page.should have_selector '.all-taxes' , text: "12.09" #@invoice.total_all_taxes pb d'arrondi
+end
+
+Then(/^the invoice line shows the right customer's name$/) do
+  page.should have_selector '.customer-name', text: @customer.name
+end
+
+
+

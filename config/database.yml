@@ -21,20 +21,26 @@ test: &test
 production:
   adapter: postgresql
   encoding: unicode
-  database: backbone_production
-  username: backbone_production
-  password: QuiquaiPh7Uy
-  host: localhost
+  # allow custom DB name but use default if not found in ENV
+  database: <%= ENV['DB_NAME'] || 'backbone_production' %>
+  # allow custom username but use default if not found in ENV
+  username: <%= ENV['DB_USERNAME'] || 'backbone_production' %>
+  password: <%= ENV['DB_PASSWORD'] %> # no default, this would be too risky
+  # allow custom host but use default if not found in ENV
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
   pool: 5
   timeout: 5000
 
 staging:
   adapter: postgresql
   encoding: unicode
-  database: backbone_staging
-  username: backbone_staging
-  password: Noocovohx9ph
-  host: localhost
+  # allow custom DB name but use default if not found in ENV
+  database: <%= ENV['DB_NAME'] || 'backbone_staging' %>
+  # allow custom username but use default if not found in ENV
+  username: <%= ENV['DB_USERNAME'] || 'backbone_staging' %>
+  password: <%= ENV['DB_PASSWORD'] %> # no default, this would be too risky
+  # allow custom host but use default if not found in ENV
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
   pool: 5
   timeout: 5000
 

@@ -83,4 +83,7 @@ Backbone::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.action_mailer.default_url_options = { host: 'backbone.agilidee.com' }
+  
+  # secret_key_base from environment variable
+  Backbone::Application.config.secret_key_base = ENV["SECRET_KEY_BASE"]
 end

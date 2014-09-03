@@ -11,7 +11,7 @@ module Api
       def create
         authorize! :write, Invoice
         @invoice = Invoice.new(safe_params)
-        @invoice.entity_id = current_user.entity_id
+        @invoice.id_card = current_user.entity.current_id_card
         status = @invoice.save ? 200 : 422
         render partial: 'invoice', status: status, :locals => { :invoice => @invoice }
       end
@@ -33,8 +33,9 @@ module Api
 
         def safe_params
           safe_p = params.require(:invoice)
-          safe_p.permit(:label,:paid, :customer_id, :date, :payment_term_id, :total_duty,
+          safe_p.permit(:label, :paid, :customer_id, :date, :payment_term_id, :total_duty,
                         :vat, :total_all_taxes, :advance, :balance, :vat_rate,
+                        :due_date,
                         lines_attributes: [:_destroy, :id, :label, :quantity,
                                            :unit, :unit_price, :total])
         end
@@ -42,12 +43,13 @@ module Api
         def render_invoice_list
           @invoices = current_user.entity.invoices.order(unique_index: :desc)
           respond_to do |format|
-            format.csv { send_data csv_data }
+            format.csv { send_data generate_encoded_csv(@invoices), type: "text/csv" }
             format.json { respond_with @invoices }
-         end
+          end
         end
-        def csv_data
-         @invoices.to_csv.encode("WINDOWS-1252", :invalid => :replace, :undef => :replace, :replace => "?")
+
+        def generate_encoded_csv invoices # TODO extract to own class
+          invoices.to_csv.encode("WINDOWS-1252", :crlf_newline => true , :invalid => :replace, :undef => :replace, :replace => "?")
         end
     end
   end

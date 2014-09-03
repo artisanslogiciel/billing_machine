@@ -4,6 +4,20 @@ Feature: Invoice Management
   In order to get paid!
 
   @javascript
+  Scenario: Existing invoice displayed in invoices page
+ 	Given an existing user
+ 	And an existing customer
+    And an existing invoice
+    When the user goes to the invoices page
+    And the invoice line shows the right date
+	And the invoice line shows the right traking-id
+	And the invoice line shows the right customer's name
+	And the invoice line shows the right total-duty value
+	And the invoice line shows the right vat value
+	And the invoice line shows the right all taxes value
+
+
+  @javascript
   Scenario: New invoice for existing customer
     Given an existing user
     And an existing customer
@@ -24,19 +38,38 @@ Feature: Invoice Management
     And the VAT due is "40.00€"
     And the total all taxes included is "240.00€"
     When he saves the new invoice
-    Then a message signal the succes of the creation
+    Then a message signals the success of the creation
     Then it's added to the invoice list
 
   @javascript
-  @exclude_from_ci
-  Scenario: Edit invoice # fails on CI, excluded meanwhile more investigation is done, issue #87
+  Scenario: Edit invoice
     Given an existing user
     And an existing invoice
     When the user goes to the invoices page
     And he goes on the edit page of the invoice
     And changes the label
     When he saves the invoice
+    Then a message signals the success of the update
     Then the invoices's label has changed
+
+  @javascript
+  Scenario: New invoice with advance
+    Given an existing user
+    When the user goes to the invoices page
+    And he creates a new invoice
+    And he fills a new line with "Bidule", "1", "€", "100"
+    And he adds the new line
+    Then the total all taxes included is "120.00€"
+    And the advance is "0"€
+    And the balance included is "120.00€"
+    When he changes the advance to "30"€
+    Then the balance included is "90.00€"
+
+    When he saves the new invoice
+    Then a message signals the success of the creation
+    When he goes to the newly created invoice page
+    Then the advance is "30"€
+    Then the balance included is "90.00€"
 
   @javascript
   Scenario: New invoice with default VAT rate
@@ -114,22 +147,22 @@ Feature: Invoice Management
     Given an existing user
     And an existing invoice
     When the user goes to the invoices page
-    Then the invoice paid status is marked unpaid
+    Then the invoice is marked unpaid
     And he set the invoice as paid
-    Then the invoice paid status is marked paid
-    And a message signal that the invoice is set to paid
+    Then the invoice is marked paid
+    And a message signals that the invoice is set to paid
     And the invoice status is set to paid
     And can't set the invoice as paid again
 
-  @javascript
+  @javascript 
   Scenario: Existing paid invoice set to unpaid
     Given an existing user
     And an existing paid invoice
     When the user goes to the invoices page
-    Then the invoice paid status is marked paid
+    Then the invoice is marked paid
     And can't set the invoice as paid again
     And he goes on the edit page of the invoice
     When he marks the invoice as unpaid
     And he saves the invoice
-    Then a message signal the succes of the update
+    Then a message signals the success of the update
     And the invoice status is set to unpaid

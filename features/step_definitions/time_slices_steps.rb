@@ -64,12 +64,11 @@ end
 
 Then(/^downloaded the CSV should be valid with expected information$/) do
   page.driver.response.headers['Content-Type'].should include 'text/csv'
-  parsed_csv = CSV.parse(page.driver.response.body, options = {:col_sep => ';'})
+  parsed_csv = CSV.parse(page.driver.response.body, options = { :col_sep => ";" })
   time_slice_data = parsed_csv[1]
 
   time_slice_data.should include @time_slice.day.iso8601
   time_slice_data.should include @time_slice.comment
-  time_slice_data.should include @time_slice.duration.to_s
 end
 
 Then(/^he should see (\d+) time slices$/) do |count|

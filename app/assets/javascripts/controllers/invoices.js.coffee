@@ -15,13 +15,43 @@
     invoice.paid = true
     invoice.$update(
       (response) ->
-        $scope.popSuccessMessage ('invoice successfully set to paid')
+        $scope.popSuccessMessage('invoice successfully set to paid')
       (error) ->
         invoice.errors = error.data
         console.log "An error occured"
         console.log error.data
     )
+# begin invoice color
+  $scope.colorIfPaidOrLate = (invoice)->
+    if invoice.paid
+      return "paid"
+    difference = todayMinusDate(invoice.due_date)
+    if payment_very_late(difference)
+      return "onalert"
+    else if payment_late(difference)
+      return "late"
 
+  payment_late = (difference)->
+    0 < difference < 16
+
+  payment_very_late = (difference)->
+    difference > 15
+
+  todayMinusDate = (dateString)->
+    date = new Date(dateString)
+    today = localeDateTime()
+    days = milesecondsToDays(today - date)
+    daysTruncated = Math.floor(days)
+
+  localeDateTime = ->
+    nowUtc = new Date()
+    offset = nowUtc.getTimezoneOffset()
+    return new Date(nowUtc.getTime() - offset*60000)
+
+  milesecondsToDays = (miliseconds)->
+    MILISECONDS_IN_A_DAY = 86400000
+    days = miliseconds / MILISECONDS_IN_A_DAY
+# end invoice color
   $scope.customerName = (id) ->
     customer = _.findWhere $scope.customers, {id: id}
     if customer
@@ -54,8 +84,8 @@
   $scope.info = document.getElementById('info-message')
   # begin of functions definition used by controller
   $scope.set_vat_rate_default_value = ->
-    VAT_RATE_DEFAUT_VALUE = 20
-    $scope.invoice.vat_rate = VAT_RATE_DEFAUT_VALUE
+    $scope.invoice.vat_rate = VAT_RATE_DEFAULT_VALUE = 20
+    $scope.invoice.advance = ADVANCE_DEFAULT_VALUE = 0
 
   $scope.set_invoice = ->
     if $routeParams.id?
@@ -68,6 +98,8 @@
   $scope.customers = Customer.query()
 
   $("input#invoice-date").mask("9999-99-99");
+
+  $("input#invoice-due-date").mask("9999-99-99");
 
   $scope.set_invoice()
 
@@ -107,6 +139,9 @@
     $scope.invoice.vat = $scope.invoice.total_duty * ($scope.invoice.vat_rate/100)
     $scope.invoice.total_all_taxes = $scope.invoice.total_duty + $scope.invoice.vat
     return $scope.invoice.vat
+
+  $scope.calculate_balance = ->
+    $scope.invoice.balance = $scope.invoice.total_all_taxes - $scope.invoice.advance
 
   $scope.edit_line = (invoice_line) ->
     invoice_line.quantity = parseFloat(invoice_line.quantity)

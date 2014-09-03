@@ -1,6 +1,6 @@
 When(/^the administrator goes to the payment terms administration page$/) do
   visit '/admin'
-  click_link 'Payment Terms'
+  step 'he goes to the payment terms page'
 end
 
 When(/^he goes to the new payment term page$/) do
@@ -44,10 +44,6 @@ Then(/^he should not see the payment term from another entity$/) do
   page.should have_no_content('Other payment term')
 end
 
-Then(/^he doesn't see the filter for entity$/) do
-  page.should have_no_selector '#q_entity_id'
-end
-
-Then(/^he doesn't see the entity select field$/) do
+Then(/^he doesn't see the payment term's entity select field$/) do
   page.should have_no_selector '#payment_term_entity_id'
 end
