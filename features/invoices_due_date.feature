@@ -6,6 +6,12 @@ Feature: Invoice due date Management
 
   Background:
     Given an existing user
+    
+  @javascript
+  Scenario: Existing invoice displayed in invoices page
+  	Given an existing invoice
+    When the user goes to the invoices page
+    Then the page should have a date column with "2014-02-19"
 
   @javascript
   Scenario: Adding a due date

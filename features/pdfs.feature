@@ -5,6 +5,7 @@ Feature: Pdfs Management
 
   Background:
   Given an existing user
+  Given an existing customer
   Given an existing invoice
 
   @javascript

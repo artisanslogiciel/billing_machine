@@ -4,6 +4,20 @@ Feature: Invoice Management
   In order to get paid!
 
   @javascript
+  Scenario: Existing invoice displayed in invoices page
+ 	Given an existing user
+ 	And an existing customer
+    And an existing invoice
+    When the user goes to the invoices page
+    And the invoice line shows the right date
+	And the invoice line shows the right traking-id
+	And the invoice line shows the right customer's name
+	And the invoice line shows the right total-duty value
+	And the invoice line shows the right vat value
+	And the invoice line shows the right all taxes value
+
+
+  @javascript
   Scenario: New invoice for existing customer
     Given an existing user
     And an existing customer

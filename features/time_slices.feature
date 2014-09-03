@@ -8,7 +8,7 @@ Feature: Time slices
     Given an existing project
     Given an existing activity
 
-  @current @javascript
+  @javascript
   Scenario: Add a time slice
     When the user goes in the time slices section
     And he creates a new time slice

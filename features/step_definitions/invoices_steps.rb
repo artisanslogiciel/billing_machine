@@ -89,7 +89,7 @@ Then(/^it's added to the invoice list$/) do
 end
 
 Given(/^an existing invoice$/) do
-  @invoice = FactoryGirl.create(:invoice, id_card: @user.entity.current_id_card)
+  @invoice = FactoryGirl.create(:invoice, id_card: @user.entity.current_id_card, customer: @customer)
 end
 
 Given(/^an existing invoice with a "(.*?)"% VAT rate$/) do |rate|
@@ -210,3 +210,30 @@ end
 When(/^he goes to the newly created invoice page$/) do
   visit "/invoices#/invoices/1"
 end
+
+Then(/^the invoice line shows the right date$/) do
+page.should have_selector '.date' , text: @invoice.date
+end
+
+Then(/^the invoice line shows the right traking-id$/) do
+ page.should have_selector '.tracking-id' , text: @invoice.tracking_id
+end
+
+Then(/^the invoice line shows the right total-duty value$/) do
+  page.should have_selector '.total-duty' , text: @invoice.total_duty
+end
+
+Then(/^the invoice line shows the right vat value$/) do
+  page.should have_selector '.vat' , text: @invoice.vat
+end
+
+Then(/^the invoice line shows the right all taxes value$/) do
+  page.should have_selector '.all-taxes' , text: "12.09" #@invoice.total_all_taxes pb d'arrondi
+end
+
+Then(/^the invoice line shows the right customer's name$/) do
+  page.should have_selector '.customer-name', text: @customer.name
+end
+
+
+
