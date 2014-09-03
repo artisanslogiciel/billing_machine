@@ -147,19 +147,19 @@ Feature: Invoice Management
     Given an existing user
     And an existing invoice
     When the user goes to the invoices page
-    Then the invoice paid status is marked unpaid
+    Then the invoice is marked unpaid
     And he set the invoice as paid
-    Then the invoice paid status is marked paid
+    Then the invoice is marked paid
     And a message signals that the invoice is set to paid
     And the invoice status is set to paid
     And can't set the invoice as paid again
 
-  @javascript
+  @javascript 
   Scenario: Existing paid invoice set to unpaid
     Given an existing user
     And an existing paid invoice
     When the user goes to the invoices page
-    Then the invoice paid status is marked paid
+    Then the invoice is marked paid
     And can't set the invoice as paid again
     And he goes on the edit page of the invoice
     When he marks the invoice as unpaid

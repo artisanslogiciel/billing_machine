@@ -24,12 +24,12 @@
 # begin invoice color
   $scope.colorIfPaidOrLate = (invoice)->
     if invoice.paid
-      return "green"
+      return "paid"
     difference = todayMinusDate(invoice.due_date)
     if payment_very_late(difference)
-      return "red"
+      return "onalert"
     else if payment_late(difference)
-      return "orange"
+      return "late"
 
   payment_late = (difference)->
     0 < difference < 16

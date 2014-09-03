@@ -30,9 +30,9 @@ Given(/^its due date is (\d+) days ago$/) do |days|
 end
 
 Then(/^the invoice paid status should not have a color$/) do
-  find("#paid")[:class].should_not include("green", "orange", "red")
+  find(".invoice")[:class].should_not include("paid", "late", "onalert")
 end
 
-Then(/^the invoice paid status should be "(.*?)"$/) do |color|
-  find("#paid")[:class].should include(color)
+Then(/^the invoice status should be "(.*?)"$/) do |color|
+  find(".invoice")[:class].should include(color)
 end

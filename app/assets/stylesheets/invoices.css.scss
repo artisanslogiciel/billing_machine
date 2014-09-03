@@ -59,14 +59,14 @@
       margin-right: 10px;
     }
   }
-  .green {
-    background-color: #5CB85C;
+  &.paid {
+    background-color: #C8FFC8;
   }
-  .orange {
-    background-color: #FFA500;
+  &.late {
+    background-color: #F5E5C6;
   }
-  .red {
-    background-color: #FF0000;
+  &.onalert {
+    background-color: #FFC8C8;
   }
 }
 

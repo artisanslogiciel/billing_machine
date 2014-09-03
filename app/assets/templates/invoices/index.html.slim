@@ -6,21 +6,19 @@
 .row.header
   .col-lg-1.col-xs-2.date Date
   .col-lg-1.col-xs-2.tracking-id Numéro
-  .col-lg-3.col-xs-6.customer Client
-  .col-lg-1.col-xs-2.paid Payée
-  .col-lg-3.col-xs-12.action Action
+  .col-lg-4.col-xs-8.customer Client
   .col-lg-1.col-xs-2.total-duty Montant HT
   .col-lg-1.col-xs-2.vat Montant TVA
   .col-lg-1.col-xs-2.all-taxes Montant TTC
-.row.invoice ng-repeat="invoice in invoices"
+  .col-lg-3.col-xs-6.action Action
+.row.invoice ng-repeat="invoice in invoices" class="{{colorIfPaidOrLate(invoice)}}"
   .col-lg-1.col-xs-2.date ng-bind="invoice.date"
   .col-lg-1.col-xs-2.tracking-id ng-bind="invoice.tracking_id"
-  .col-lg-3.col-xs-6.customer-name ng-bind="customerName(invoice.customer_id)"
-  .col-lg-1.col-xs-2.paid id='paid' ng-bind="invoice.paid" class="{{colorIfPaidOrLate(invoice)}}"
-  .col-lg-3.col-xs-12.actions
-    a.btn.btn-sm.btn-success href="/invoices/{{invoice.id}}.pdf" target="_blank" Télécharger
-    a.btn.btn-sm.btn-success.edit-invoice data-id='{{invoice.id}}' ng-click='navEditInvoice(invoice)' Editer
-    a.btn.btn-sm.btn-success.paid-invoice ng-click='statusPaid(invoice)' ng-show='invoice.paid != true' Payée
+  .col-lg-4.col-xs-8.customer-name ng-bind="customerName(invoice.customer_id)"
   .col-lg-1.col-xs-2.total-duty ng-bind="invoice.total_duty | euros"
   .col-lg-1.col-xs-2.vat ng-bind="invoice.vat | euros"
   .col-lg-1.col-xs-2.all-taxes ng-bind="invoice.total_all_taxes | euros"
+  .col-lg-3.col-xs-6.actions
+    a.btn.btn-sm.btn-success href="/invoices/{{invoice.id}}.pdf" target="_blank" Télécharger
+    a.btn.btn-sm.btn-success.edit-invoice data-id='{{invoice.id}}' ng-click='navEditInvoice(invoice)' Editer
+    a.btn.btn-sm.btn-success.paid-invoice ng-click='statusPaid(invoice)' ng-show='invoice.paid != true' Payée

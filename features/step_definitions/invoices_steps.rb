@@ -151,8 +151,8 @@ When(/^he set the invoice as paid$/) do
   find('.paid-invoice').click
 end
 
-Then(/^the invoice paid status is marked paid$/) do
-  page.should have_selector '#paid', text: 'true'
+Then(/^the invoice is marked paid$/) do
+  page.should have_selector '.paid'
 end
 
 Then(/^can't set the invoice as paid again$/) do
@@ -167,9 +167,8 @@ When(/^he marks the invoice as unpaid$/) do
   uncheck "invoice-paid"
 end
 
-Then(/^the invoice paid status is marked unpaid$/) do
-  page.should have_selector '#paid', text: 'false'
-  Invoice.first.paid.should be_false
+Then(/^the invoice is marked unpaid$/) do
+  page.should_not have_selector '.paid'
 end
 
 Then(/^the invoice status is set to unpaid$/) do
