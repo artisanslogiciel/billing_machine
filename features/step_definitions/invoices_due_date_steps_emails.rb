@@ -20,5 +20,5 @@ end
 Then(/^the user is notified$/) do
   ActionMailer::Base.deliveries.count.should eq(@email_count+1)
   @email = ActionMailer::Base.deliveries.last
-  @email.to.should include [@user.email]
+  @email.to.should eq [@user.email]
 end
