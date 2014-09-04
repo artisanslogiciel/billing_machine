@@ -15,6 +15,7 @@
 //= require jquery.maskedinput
 //= require bootstrap
 //= require underscore
+//= require moment
 //= require angular
 //= require angular-route
 //= require angular-resource

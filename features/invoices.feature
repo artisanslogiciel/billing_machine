@@ -64,12 +64,19 @@ Feature: Invoice Management
     And the balance included is "120.00€"
     When he changes the advance to "30"€
     Then the balance included is "90.00€"
-
     When he saves the new invoice
     Then a message signals the success of the creation
     When he goes to the newly created invoice page
     Then the advance is "30"€
     Then the balance included is "90.00€"
+  
+  @javascript
+  Scenario: New invoice with default date
+    Given an existing user
+    When the user goes to the invoices page
+    And he creates a new invoice
+    Then the invoice default date is set to today's date.
+    Then the invoice default due date is set to today's date.
 
   @javascript
   Scenario: New invoice with default VAT rate

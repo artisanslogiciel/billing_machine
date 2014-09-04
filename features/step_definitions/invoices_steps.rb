@@ -234,5 +234,14 @@ Then(/^the invoice line shows the right customer's name$/) do
   page.should have_selector '.customer-name', text: @customer.name
 end
 
+Then(/^the invoice default date is set to today's date\.$/) do
+  page.should have_field('invoice-date', with: Date.today.strftime("%F"))  
+end
+
+Then(/^the invoice default due date is set to today's date\.$/) do
+  page.should have_field('invoice-due-date', with: Date.today.strftime("%F"))
+end
+
+
 
 

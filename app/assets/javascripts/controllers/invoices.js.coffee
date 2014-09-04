@@ -92,13 +92,15 @@
       $scope.invoice = Invoice.get({id: parseInt($routeParams.id)})
     else
       $scope.invoice = { label: '', lines_attributes: [] }
+      $scope.invoice.date = moment().format("YYYY-MM-DD")
+      $scope.invoice.due_date = moment().format("YYYY-MM-DD")
   # end of functions definition used by controller
-
+ 
   $scope.payment_terms = PaymentTerm.query()
   $scope.customers = Customer.query()
 
   $("input#invoice-date").mask("9999-99-99");
-
+  
   $("input#invoice-due-date").mask("9999-99-99");
 
   $scope.set_invoice()
