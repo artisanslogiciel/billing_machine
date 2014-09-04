@@ -7,9 +7,14 @@ FactoryGirl.define do
     address2 ''
     zip 77777
     city 'Donald City'
-
+    
     billing_machine true
     time_machine true
     customization_prefix 'agilidee'
+    
+    after(:create) do |entity|
+      #id_card.entity.update_attribute(:current_id_card_id,id_card.id)
+      FactoryGirl.create(:id_card, entity: entity )    
+    end
   end
 end

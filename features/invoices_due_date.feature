@@ -1,4 +1,3 @@
-@current
 Feature: Invoice due date Management
   As a user
   I want to set due dates to my invoices
