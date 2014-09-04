@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140811125046) do
+ActiveRecord::Schema.define(version: 20140904114302) do
 
   create_table "activities", force: true do |t|
     t.string   "label"
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 20140811125046) do
   add_index "id_cards", ["entity_id"], name: "index_id_cards_on_entity_id"
 
   create_table "invoice_lines", force: true do |t|
-    t.string   "label"
+    t.text     "label"
     t.decimal  "quantity"
     t.string   "unit"
     t.decimal  "unit_price"

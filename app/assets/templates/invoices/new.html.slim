@@ -65,11 +65,11 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
       .col-sm-2.col-xs-6.actions Actions
 
     .row.invoice-line ng-repeat="line in invoice.lines_attributes" bb-item-edit=""
-      .col-sm-3.col-xs-12
+      .col-sm-4.col-xs-12
         .line-label.bb-show ng-bind="line.label"
         .line-label.bb-edit
           input.form-control id='existing-line-label' type="text" ng-model="line.label"
-      .col-sm-2.col-xs-6
+      .col-sm-1.col-xs-6
         .line-quantity.bb-show  ng-bind="line.quantity"
         .line-quantity.bb-edit
           input.form-control id='existing-line-quantity' type="text" ng-model="line.quantity"
@@ -89,9 +89,9 @@ form ng-submit="addTimeSlice()" class="form form-horizontal invoice" role="form"
         a.btn.btn-danger.btn-sm.bb-remove.delete-line ng-click="delete_line(line)" href='' Supprimer
 
     .row.new-line
-      .col-sm-3.col-xs-12.line-label
-          input.form-control id='new-line-label' type="text" ng-model="new_line.label"
-      .col-sm-2.col-xs-6.line-quantity
+      .col-sm-4.col-xs-12.line-label
+          textarea.form-control id='new-line-label' type="text" ng-model="new_line.label" rows="2"
+      .col-sm-1.col-xs-6.line-quantity
           input.form-control id='new-line-quantity' type="text" ng-model="new_line.quantity"
       .col-sm-1.col-xs-6.line-unit
           input.form-control id='new-line-unit' type="text" ng-model="new_line.unit"
