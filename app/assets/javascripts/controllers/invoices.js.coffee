@@ -168,7 +168,7 @@
         (response) ->
           $scope.popSuccessMessage('Invoice successfully updated')
         (error) ->
-          $scope.error_pop()   
+          $scope.error_pop()
       )
     else
       Invoice.save(
@@ -177,7 +177,7 @@
           $scope.invoice = response
           $scope.popSuccessMessage('Invoice successfully saved')     
         (error) ->
-          $scope.error_pop()     
+          $scope.error_pop()
       )
     $scope.sum()
 
@@ -196,7 +196,7 @@
     $scope.info.style.visibility = 'visible'
     clearTimeout $scope.timeout
     $scope.timer()
-    
+
   $scope.error_pop = ->
     $scope.info.classList.remove('alert-succes')
     $scope.info.classList.add('alert-danger')
