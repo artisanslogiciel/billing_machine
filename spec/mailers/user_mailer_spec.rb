@@ -9,7 +9,7 @@ describe UserMailer do
       bob = FactoryGirl.create(:user, entity: invoice.entity, notify_invoices_late_payments: false)
       email = UserMailer.invoice_alert(invoice)
       email.to.should eq([alice.email])
-      email.from.should eq(["support@agilidee.com"])
+      email.from.should eq(["postmaster@dorsale.cc"])
       email.body.should include invoice_url(invoice)
     end
   end
