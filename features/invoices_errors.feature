@@ -1,4 +1,4 @@
-Feature: Time slices
+Feature: Invoices 
   As a user
   I want to get an error messages
   In order to know when the invoice is not saved
