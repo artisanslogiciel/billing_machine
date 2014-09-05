@@ -168,20 +168,16 @@
         (response) ->
           $scope.popSuccessMessage('Invoice successfully updated')
         (error) ->
-          invoice.errors = error.data
-          console.log "An error occured"
-          console.log error.data
+          $scope.error_pop()   
       )
     else
       Invoice.save(
-        $scope.invoice
+        $scope.invoice   
         (response) ->
           $scope.invoice = response
-          $scope.popSuccessMessage('Invoice successfully saved')
+          $scope.popSuccessMessage('Invoice successfully saved')     
         (error) ->
-          $scope.invoice.errors = error.data
-          console.log "An error occured"
-          console.log error.data
+          $scope.error_pop()     
       )
     $scope.sum()
 
@@ -198,6 +194,14 @@
     $scope.info.classList.add('alert-success')
     $scope.info.innerHTML = message
     $scope.info.style.visibility = 'visible'
+    clearTimeout $scope.timeout
+    $scope.timer()
+    
+  $scope.error_pop = ->
+    $scope.info.classList.remove('alert-succes')
+    $scope.info.classList.add('alert-danger')
+    $scope.info.innerHTML = "Invoice not saved due to an internal error"
+    $scope.info.style.visibility= 'visible'
     clearTimeout $scope.timeout
     $scope.timer()
 
