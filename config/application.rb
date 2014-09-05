@@ -19,5 +19,14 @@ module Backbone
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    config.action_mailer.smtp_settings = {
+      :address  => ENV['SMTP_SERVER'],
+      :port  => ENV['SMTP_PORT'],
+      :user_name  => ENV['SMTP_USER_NAME'],
+      :password  => ENV['SMTP_USER_PASSWORD'],
+      :authentication  => ENV['SMTP_AUTHENTICATION'],
+      :enable_starttls_auto => ENV['SMTP_STARTTLS'],
+    }
   end
 end
