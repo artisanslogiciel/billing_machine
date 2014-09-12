@@ -26,14 +26,14 @@ class AgilideeInvoice < Prawn::Document
     bounding_box [235, 735], :width => 235, :height => 75 do
       draw_bounds_debug
       font_size 8
-      write_legal_line 'SIRET ' + @id_card.siret + ' APE ' + @id_card.ape_naf
-      write_legal_line @id_card.legal_form + ' au capital de ' + number_with_delimiter(@id_card.capital, :delimiter => '.') + ' euros'
-      write_legal_line @id_card.registration_city + ' ' + @id_card.registration_number
+      write_legal_line 'SIRET ' + @id_card.siret.to_s + ' APE ' + @id_card.ape_naf.to_s
+      write_legal_line @id_card.legal_form.to_s + ' au capital de ' + number_with_delimiter(@id_card.capital, :delimiter => '.').to_s + ' euros'
+      write_legal_line @id_card.registration_city.to_s + ' ' + @id_card.registration_number.to_s
       move_down 5
-      write_legal_line 'N° TVA ' + @id_card.intracommunity_vat
+      write_legal_line 'N° TVA ' + @id_card.intracommunity_vat.to_s
       move_down 15
-      write_legal_line @id_card.address1
-      write_legal_line @id_card.zip + " " + @id_card.city
+      write_legal_line @id_card.address1.to_s
+      write_legal_line @id_card.zip.to_s + " " + @id_card.city.to_s
     end
 
     # Entete de facturation
@@ -44,17 +44,17 @@ class AgilideeInvoice < Prawn::Document
         :inline_format => true,
         :align => :right
       font_size 11.5
-      text @id_card.city + ' le ' + french_date(@invoice.date), :align => :right
+      text @id_card.city.to_s + ' le ' + french_date(@invoice.date), :align => :right
     end
 
     # Informations de contact
     bounding_box [50, 585], :width => 235, :height => 50 do
       draw_bounds_debug
       font_size 10
-      text '<b>Contact :</b> ' + @id_card.contact_full_name, :inline_format => true
-      text '<b>Tél :</b> ' + @id_card.contact_phone, :inline_format => true
-      text '<b>Fax:</b> ' + @id_card.contact_fax, :inline_format => true
-      text '<b>Email:</b> ' + @id_card.contact_email, :inline_format => true
+      text '<b>Contact :</b> ' + @id_card.contact_full_name.to_s, :inline_format => true
+      text '<b>Tél :</b> ' + @id_card.contact_phone.to_s, :inline_format => true
+      text '<b>Fax:</b> ' + @id_card.contact_fax.to_s, :inline_format => true
+      text '<b>Email:</b> ' + @id_card.contact_email.to_s, :inline_format => true
     end
 
     # Informations client
@@ -106,8 +106,8 @@ class AgilideeInvoice < Prawn::Document
 
       move_down 10
       text 'Coordonnées bancaires :'
-      text 'IBAN : ' + @id_card.iban
-      text 'BIC / SWIFT : ' + @id_card.bic_swift
+      text 'IBAN : ' + @id_card.iban.to_s
+      text 'BIC / SWIFT : ' + @id_card.bic_swift.to_s
     end # Tableau
 
     # Mentions légales - Bas de page

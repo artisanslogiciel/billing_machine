@@ -64,6 +64,13 @@ describe AgilideeInvoice, pdfs: true do
 
   describe "#build" do
     let(:text) { PDF::Inspector::Text.analyze(pdf.render) }
+
+    context 'when the id card is empty' do
+      let(:id_card) { IdCard.create(id_card_name: 'default', entity: FactoryGirl.create(:entity))}
+      it 'should not crash' do
+      end
+    end
+
     before do
       invoice.lines << invoice_line
       invoice.lines << invoice_line_2
