@@ -13,4 +13,10 @@ describe IdCard do
                   allowing('image/png','image/jpeg', 'image/gif').
                   rejecting('text/plain', 'text/xml','image/svg') }
 
+  it 'should add itself as current id card upon creation' do
+    e = FactoryGirl.create(:entity)
+    card = FactoryGirl.create(:id_card, entity: e)
+    e.reload.current_id_card_id.should eq(card.id)
+  end
+
 end

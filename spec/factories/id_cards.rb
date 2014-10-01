@@ -24,9 +24,5 @@ FactoryGirl.define do
     bank_address 'My Bank Addresse'
     custom_info_1 'Long string to trigger a line break and test the layout in the invoice PDF generators'
 
-    after(:create) do |id_card|
-      id_card.entity.update_attribute(:current_id_card_id,id_card.id)
-    end
-
   end
 end

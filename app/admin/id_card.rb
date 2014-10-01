@@ -83,9 +83,9 @@ ActiveAdmin.register IdCard do
 
   index do
     default_actions
-    attributes_with_default_display.each do |attr|
-      column attr
-    end
+    column :id_card_name
+    column :entity_name
+    column :legal_form
   end
 
 end

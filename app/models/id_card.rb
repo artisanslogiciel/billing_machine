@@ -9,5 +9,7 @@ class IdCard < ActiveRecord::Base
   # exclude SVG until the pdf generator can use it, issue #171
   validates_attachment_content_type :logo, :content_type => /\Aimage\/.*\Z/,
                                            :not => "image/svg"
-
+  after_create do 
+    self.entity.update_attribute(:current_id_card_id,self.id)
+  end
 end
