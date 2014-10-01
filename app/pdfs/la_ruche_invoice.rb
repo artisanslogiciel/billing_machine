@@ -7,7 +7,7 @@ class LaRucheInvoice < Prawn::Document
   GREY = "808080"
   LIGHT_GREY = "C0C0C0"
   WHITE = "FFFFFF"
-  DEBUG = true
+  DEBUG = false
   FRENCH_MONTH_NAMES = [nil, 'janvier', 'février', 'mars', 'avril', 'mai',
     'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 
