@@ -5,7 +5,15 @@ ActiveAdmin.register Customer do
 
   scope_to :current_user
 
-  config.clear_sidebar_sections!
+  index do
+    column :name
+    column :short_name
+    column :city
+    default_actions
+  end
+
+  filter :name
+  filter :city
 
   controller do
     def create
