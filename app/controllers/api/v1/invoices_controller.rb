@@ -12,15 +12,23 @@ module Api
         authorize! :write, Invoice
         @invoice = Invoice.new(safe_params)
         @invoice.id_card = current_user.entity.current_id_card
-        status = @invoice.save ? 200 : 422
-        render partial: 'invoice', status: status, :locals => { :invoice => @invoice }
+        status = @invoice.save ? 200 : 422 
+        if status == 200
+          render partial: 'invoice', status: status, :locals => { :invoice => @invoice }
+        else
+          render json: '{"Invoice":["not saved"]}', status: status 
+        end
       end
 
       def update
         @invoice = Invoice.find(params[:id])
         authorize! :write, @invoice
         status = @invoice.update(safe_params) ? 200 : 422
-        render partial: 'invoice', status: status, :locals => { :invoice => @invoice }
+        if status == 200
+          render partial: 'invoice', status: status, :locals => { :invoice => @invoice }
+        else
+          render json: '{"Invoice":["not saved"]}', status: status
+        end
       end
 
       def show
