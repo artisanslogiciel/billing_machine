@@ -82,7 +82,7 @@ Backbone::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  config.action_mailer.default_url_options = { host: 'staging.backbone.agilidee.com' }
+  config.action_mailer.default_url_options = { host: 'staging.dorsale.cc' }
   
   # secret_key_base from environment variable
   Backbone::Application.config.secret_key_base = ENV["SECRET_KEY_BASE"]
