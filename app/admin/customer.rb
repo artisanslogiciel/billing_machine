@@ -29,7 +29,7 @@ ActiveAdmin.register Customer do
       f.input :short_name, :as => :string, :input_html => { :id => 'customer-short-name' }
       f.input :address1, :as => :string, :input_html => { :id => 'customer-address1' }
       f.input :address2, :as => :string, :input_html => { :id => 'customer-address2' }
-      f.input :zip, :as => :number, :input_html => { :id => 'customer-zip' }
+      f.input :zip, :as => :string, :input_html => { :id => 'customer-zip' }
       f.input :city, :as => :string, :input_html => { :id => 'customer-city' }
       f.input :country, :as => :string, :input_html => { :id => 'customer-country' }
     end
