@@ -15,6 +15,7 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'migration_data'
 gem "paperclip", "~> 4.2"
 gem 'whenever'
+gem 'exception_notification'
 
 #group :assets do
   gem 'angularjs-rails'
